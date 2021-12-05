@@ -1,12 +1,9 @@
-import React from 'react'
-
-export const AddOfferPage = () => {
+export const EditOfferPage = () => {
   return (
-    <div className="bg-light p-4">
+    <div className="p-4 bg-light">
       <div className="container w-50">
-        <h2 className="text-center">Add New Offer</h2>
+        <h2 class="mb-2 text-center">Edit Job Offer</h2>
         <div className="card mt-3">
-          {/* <div className="card-header h5">Add New Offer</div> */}
           <div className="card-body">
             <form>
               {/* Title */}
@@ -149,6 +146,19 @@ export const AddOfferPage = () => {
                     <option value="2">Currency 2</option>
                     <option value="3">Currency 3</option>
                   </select>
+                </div>
+              </div>
+
+              {/* Image */}
+              <div className="row">
+                <label for="image" class="form-label">
+                  Title
+                </label>
+                <div className="input-group mb-3">
+                  <input type="file" className="form-control" id="image" />
+                  <label className="input-group-text" for="image">
+                    Upload
+                  </label>
                 </div>
               </div>
 

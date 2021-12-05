@@ -1,10 +1,10 @@
 import { Route, Routes } from 'react-router-dom'
-import { AddOfferPage } from '../pages/offers/add'
-import { OffersPage } from '../pages/offers'
-import { DashboardPage } from '../pages/offers/dashboard'
-import { EditOfferPage } from '../pages/offers/edit'
-import { OfferPage } from '../pages/offers/offer'
-import { EditUserPage } from '../pages/user/edit'
+import { AddOfferPage } from '../components/pages/Offers/Add'
+import { DashboardPage } from '../components/pages/Offers/Dashboard'
+import { EditOfferPage } from '../components/pages/Offers/Edit'
+import { OfferPage } from '../components/pages/Offers/Offer'
+import { EditUserPage } from '../components/pages/Users/Edit'
+import { OffersPage } from '../components/pages/Offers'
 
 export const DashboardRoutes = () => {
   return (

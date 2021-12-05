@@ -1,5 +1,4 @@
-import React from 'react'
-import { DashboardItem } from '../../components/DashboardItem'
+import { DashboardItem } from '../../common/DashboardItem'
 
 export const DashboardPage = () => {
   return (

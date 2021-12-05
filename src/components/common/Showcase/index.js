@@ -1,6 +1,5 @@
-import React from 'react'
 import { Link } from 'react-router-dom'
-import showcase from '../assets/img/showcase.svg'
+import showcase from '../../../assets/img/showcase.svg'
 
 export const Showcase = () => {
   return (

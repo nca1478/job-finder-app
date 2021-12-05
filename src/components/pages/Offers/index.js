@@ -1,5 +1,4 @@
-import React from 'react'
-import { OfferItem } from '../../components/OfferItem'
+import { OfferItem } from '../../common/OfferItem'
 
 export const OffersPage = () => {
   return (

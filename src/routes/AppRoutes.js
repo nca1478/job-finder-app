@@ -1,11 +1,10 @@
-import React from 'react'
 import { BrowserRouter, Routes, Route } from 'react-router-dom'
-import { Footer } from '../components/Footer'
-import { Navbar } from '../components/Navbar'
-import { HomePage } from '../pages/home'
-import { LoginPage } from '../pages/auth/login'
-import { RegisterPage } from '../pages/auth/register'
+import { Navbar } from '../components/common/Navbar'
+import { HomePage } from '../components/pages/Home'
+import { LoginPage } from '../components/pages/Users/Login'
+import { RegisterPage } from '../components/pages/Users/Register'
 import { DashboardRoutes } from './DashboardRoutes'
+import { Footer } from '../components/common/Footer'
 
 export const AppRoutes = () => {
   return (

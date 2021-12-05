@@ -1,6 +1,5 @@
-import React from 'react'
-import { OfferItem } from '../components/OfferItem'
-import { Showcase } from '../components/Showcase'
+import { OfferItem } from '../common/OfferItem'
+import { Showcase } from '../common/Showcase'
 
 export const HomePage = () => {
   return (
