@@ -35,6 +35,7 @@ export const LoginPage = () => {
   const onSubmit = (data) => {
     post('/users/login', data)
       .then((response) => {
+        console.log(response)
         if (response.data === null) {
           toast.error(response.errors.msg)
         } else {

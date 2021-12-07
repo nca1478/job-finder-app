@@ -1,5 +1,5 @@
 // Dependencies
-import { useContext } from 'react'
+import { useContext, useRef } from 'react'
 import { useForm } from 'react-hook-form'
 import { Link, useNavigate } from 'react-router-dom'
 import {
@@ -28,31 +28,34 @@ export const RegisterPage = () => {
     register,
     handleSubmit,
     formState: { errors },
+    watch,
   } = useForm()
   const { dispatch } = useContext(AuthContext)
   const navigate = useNavigate()
+  const password = useRef(null)
+  password.current = watch('password', '')
 
   const onSubmit = (data) => {
-    // post('/users/login', data)
-    //   .then((response) => {
-    //     if (response.data === null) {
-    //       toast.error(response.errors.msg)
-    //     } else {
-    //       const dataUser = {
-    //         token: response.data.token,
-    //         ...response.data.user,
-    //       }
-    //       dispatch({
-    //         type: types.login,
-    //         payload: { data: dataUser },
-    //       })
-    //       navigate('/dashboard', { replace: true })
-    //     }
-    //   })
-    //   .catch((error) => {
-    //     toast.error('Please verify the data entered and try again.')
-    //     console.log(error)
-    //   })
+    post('/users', data)
+      .then((response) => {
+        if (response.data === null) {
+          toast.error(response.errors[0].msg)
+        } else {
+          const dataUser = {
+            token: response.data.token,
+            ...response.data.user,
+          }
+          dispatch({
+            type: types.login,
+            payload: { data: dataUser },
+          })
+          navigate('/dashboard', { replace: true })
+        }
+      })
+      .catch((error) => {
+        toast.error('Please verify the data entered and try again.')
+        console.log(error)
+      })
   }
 
   return (
@@ -107,13 +110,20 @@ export const RegisterPage = () => {
                     <i className="bi bi-key"></i>
                   </span>
                   <FormControl
+                    ref={password}
                     type="password"
                     placeholder="Password"
-                    {...register('password', { required: true })}
+                    {...register('password', {
+                      required: 'Password is required',
+                      minLength: {
+                        value: 8,
+                        message: 'Password must have at least 8 characters',
+                      },
+                    })}
                   />
                   {errors.password && (
                     <Form.Text className="text-danger w-100">
-                      Password is required
+                      {errors.password.message}
                     </Form.Text>
                   )}
                 </InputGroup>
@@ -124,13 +134,22 @@ export const RegisterPage = () => {
                     <i className="bi bi-key"></i>
                   </span>
                   <FormControl
-                    type="confirm"
+                    type="password"
                     placeholder="Confirm Password"
-                    {...register('confirm', { required: true })}
+                    {...register('confirm', {
+                      required: 'Password is required',
+                      minLength: {
+                        value: 8,
+                        message: 'Password must have at least 8 characters',
+                      },
+                      validate: (value) =>
+                        value === password.current ||
+                        'The passwords do not match',
+                    })}
                   />
                   {errors.confirm && (
                     <Form.Text className="text-danger w-100">
-                      Password is required
+                      {errors.confirm.message}
                     </Form.Text>
                   )}
                 </InputGroup>

@@ -7,7 +7,6 @@ import { DashboardPage } from '../components/pages/Offers/Dashboard'
 import { EditOfferPage } from '../components/pages/Offers/Edit'
 import { OfferPage } from '../components/pages/Offers/Offer'
 import { EditUserPage } from '../components/pages/Users/Edit'
-import { OffersPage } from '../components/pages/Offers'
 
 export const DashboardRoutes = () => {
   return (
