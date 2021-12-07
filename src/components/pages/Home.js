@@ -1,3 +1,4 @@
+// Components
 import { OfferItem } from '../common/OfferItem'
 import { Showcase } from '../common/Showcase'
 

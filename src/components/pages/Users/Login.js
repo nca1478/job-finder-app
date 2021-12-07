@@ -18,7 +18,7 @@ import { ToastContainer, toast } from 'react-toastify'
 import { post } from '../../../config/api'
 
 // Context
-import { AuthContext } from '../../auth/authContext'
+import { AuthContext } from '../../../auth/authContext'
 
 // Types Reducer
 import { types } from '../../../types/types'
@@ -42,13 +42,11 @@ export const LoginPage = () => {
             token: response.data.token,
             ...response.data.user,
           }
-          const action = {
+          dispatch({
             type: types.login,
             payload: { data: dataUser },
-          }
-
-          dispatch(action)
-          navigate('/', { replace: true })
+          })
+          navigate('/dashboard', { replace: true })
         }
       })
       .catch((error) => {

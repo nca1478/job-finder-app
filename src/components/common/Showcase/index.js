@@ -1,4 +1,7 @@
+// Dependencies
 import { Link } from 'react-router-dom'
+
+// Assets
 import showcase from '../../../assets/img/showcase.svg'
 
 export const Showcase = () => {

@@ -1,9 +1,18 @@
+// Dependencies
 import React, { useEffect, useReducer } from 'react'
+
+// Routes
 import { AppRoutes } from './routes/AppRoutes'
+
+// Context
+import { AuthContext } from './auth/authContext'
+
+// Reducers
+import { authReducer } from './auth/authReducer'
+
+// Styles
 import './App.css'
 import 'react-toastify/dist/ReactToastify.css'
-import { AuthContext } from './components/auth/authContext'
-import { authReducer } from './components/auth/authReducer'
 
 const init = () => {
   return JSON.parse(localStorage.getItem('user')) || { logged: false }

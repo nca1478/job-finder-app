@@ -1,6 +1,6 @@
 // Dependencies
 import { useContext } from 'react'
-import { Link, NavLink } from 'react-router-dom'
+import { Link, NavLink, useNavigate } from 'react-router-dom'
 import {
   Container,
   Nav,
@@ -12,17 +12,18 @@ import {
 } from 'react-bootstrap'
 
 // Context
-import { AuthContext } from '../../auth/authContext'
+import { AuthContext } from '../../../auth/authContext'
 
 // Types Reducer
 import { types } from '../../../types/types'
 
 export const MainNavbar = () => {
   const { user, dispatch } = useContext(AuthContext)
+  const navigate = useNavigate()
 
   const handleLogout = () => {
-    const action = { type: types.logout }
-    dispatch(action)
+    dispatch({ type: types.logout })
+    navigate('/', { replace: true })
   }
 
   return (
