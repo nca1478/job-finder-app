@@ -16,9 +16,9 @@ export const DashboardItem = ({ src }) => {
               <Link to="/offer/edit" className="btn btn-primary mx-2">
                 Edit
               </Link>
-              <a href="#" className="btn btn-danger" onClick={handleDelete}>
+              <button className="btn btn-danger" onClick={handleDelete}>
                 Delete
-              </a>
+              </button>
             </div>
           </div>
         </div>

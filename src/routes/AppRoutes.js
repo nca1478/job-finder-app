@@ -1,5 +1,5 @@
 import { BrowserRouter, Routes, Route } from 'react-router-dom'
-import { Navbar } from '../components/common/Navbar'
+import { MainNavbar } from '../components/common/MainNavbar'
 import { HomePage } from '../components/pages/Home'
 import { LoginPage } from '../components/pages/Users/Login'
 import { RegisterPage } from '../components/pages/Users/Register'
@@ -9,7 +9,7 @@ import { Footer } from '../components/common/Footer'
 export const AppRoutes = () => {
   return (
     <BrowserRouter>
-      <Navbar />
+      <MainNavbar />
       <Routes>
         <Route path="/" element={<HomePage />} />
         <Route path="/login" element={<LoginPage />} />

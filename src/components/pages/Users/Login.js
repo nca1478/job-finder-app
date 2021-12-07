@@ -1,5 +1,7 @@
-import { useState } from 'react'
-import { Link } from 'react-router-dom'
+// Dependencies
+import { useContext } from 'react'
+import { useForm } from 'react-hook-form'
+import { Link, useNavigate } from 'react-router-dom'
 import {
   Container,
   Row,
@@ -10,17 +12,49 @@ import {
   FormControl,
   Button,
 } from 'react-bootstrap'
+import { ToastContainer, toast } from 'react-toastify'
+
+// Api
+import { post } from '../../../config/api'
+
+// Context
+import { AuthContext } from '../../auth/authContext'
+
+// Types Reducer
+import { types } from '../../../types/types'
 
 export const LoginPage = () => {
-  const [validated, setValidated] = useState(false)
+  const {
+    register,
+    handleSubmit,
+    formState: { errors },
+  } = useForm()
+  const { dispatch } = useContext(AuthContext)
+  const navigate = useNavigate()
 
-  const handleSubmit = (event) => {
-    event.preventDefault()
-    const form = event.currentTarget
-    if (form.checkValidity() === false) {
-      event.stopPropagation()
-    }
-    setValidated(true)
+  const onSubmit = (data) => {
+    post('/users/login', data)
+      .then((response) => {
+        if (response.data === null) {
+          toast.error(response.errors.msg)
+        } else {
+          const dataUser = {
+            token: response.data.token,
+            ...response.data.user,
+          }
+          const action = {
+            type: types.login,
+            payload: { data: dataUser },
+          }
+
+          dispatch(action)
+          navigate('/', { replace: true })
+        }
+      })
+      .catch((error) => {
+        toast.error('Please verify the data entered and try again.')
+        console.log(error)
+      })
   }
 
   return (
@@ -34,75 +68,70 @@ export const LoginPage = () => {
               </h1>
               <h3 className="card-title mb-3">Login</h3>
 
-              <Form
-                noValidate
-                validated={validated}
-                onSubmit={handleSubmit}
-                className="mx-3"
-              >
-                <Row>
-                  <InputGroup className="mb-3">
-                    <span className="input-group-text">
-                      <i className="bi bi-person-circle"></i>
-                    </span>
-                    <FormControl
-                      id="username"
-                      placeholder="Username"
-                      required
-                      autoComplete="off"
-                    />
-                    <Form.Control.Feedback type="invalid">
-                      Enter your username
-                    </Form.Control.Feedback>
-                  </InputGroup>
-
-                  <InputGroup className="mb-3">
-                    <span className="input-group-text">
-                      <i className="bi bi-key"></i>
-                    </span>
-                    <FormControl
-                      id="password"
-                      type="password"
-                      placeholder="Password"
-                      required
-                    />
-                    <Form.Control.Feedback type="invalid">
-                      Enter your password
-                    </Form.Control.Feedback>
-                  </InputGroup>
-
-                  <div className="d-grid gap-2 mb-3">
-                    <Button type="submit" variant="dark">
-                      Login
-                    </Button>
-                  </div>
-
-                  <h5 className="card-title mb-3">Or</h5>
-
-                  <div className="d-grid gap-2 mb-3">
-                    <Button variant="danger">
-                      <i className="bi bi-google"></i> Login with Google
-                    </Button>
-                  </div>
-
-                  <div className="d-grid gap-2 mb-3">
-                    <Button variant="primary">
-                      <i className="bi bi-facebook"></i> Login with Facebook
-                    </Button>
-                  </div>
-
-                  <span className="card-title">
-                    Do you need an account?{' '}
-                    <Link to="/register" style={{ textDecoration: 'none' }}>
-                      Register
-                    </Link>
+              <Form className="mx-3" onSubmit={handleSubmit(onSubmit)}>
+                {/* Username */}
+                <InputGroup className="mb-3">
+                  <span className="input-group-text">
+                    <i className="bi bi-person-circle"></i>
                   </span>
-                </Row>
+                  <FormControl
+                    placeholder="Email"
+                    {...register('email', { required: true })}
+                    autoComplete="off"
+                  />
+                  {errors.email && (
+                    <Form.Text className="text-danger w-100">
+                      Email is required
+                    </Form.Text>
+                  )}
+                </InputGroup>
+
+                {/* Password */}
+                <InputGroup className="mb-3">
+                  <span className="input-group-text">
+                    <i className="bi bi-key"></i>
+                  </span>
+                  <FormControl
+                    type="password"
+                    placeholder="Password"
+                    {...register('password', { required: true })}
+                  />
+                  {errors.password && (
+                    <Form.Text className="text-danger w-100">
+                      Password is required
+                    </Form.Text>
+                  )}
+                </InputGroup>
+
+                {/* Login Button */}
+                <Button type="submit" variant="dark" className="w-100">
+                  Login
+                </Button>
+
+                <h5 className="card-title my-3">Or</h5>
+
+                {/* Google Login Button */}
+                <Button type="button" variant="danger" className="w-100 mb-3">
+                  <i className="bi bi-google"></i> Login with Google
+                </Button>
+
+                {/* Facebook Login Button */}
+                <Button type="button" variant="primary" className="w-100 mb-3">
+                  <i className="bi bi-facebook"></i> Login with Facebook
+                </Button>
+
+                <span className="card-title">
+                  Do you need an account?{' '}
+                  <Link to="/register" style={{ textDecoration: 'none' }}>
+                    Register
+                  </Link>
+                </span>
               </Form>
             </Card.Body>
           </Card>
         </Col>
       </Row>
+      <ToastContainer />
     </Container>
   )
 }
