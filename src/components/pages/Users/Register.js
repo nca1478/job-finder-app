@@ -1,5 +1,5 @@
 // Dependencies
-import { useContext, useRef } from 'react'
+import { useContext } from 'react'
 import { useForm } from 'react-hook-form'
 import { Link, useNavigate } from 'react-router-dom'
 import {
@@ -28,12 +28,10 @@ export const RegisterPage = () => {
     register,
     handleSubmit,
     formState: { errors },
-    watch,
+    getValues,
   } = useForm()
   const { dispatch } = useContext(AuthContext)
   const navigate = useNavigate()
-  const password = useRef(null)
-  password.current = watch('password', '')
 
   const onSubmit = (data) => {
     post('/users', data)
@@ -110,7 +108,6 @@ export const RegisterPage = () => {
                     <i className="bi bi-key"></i>
                   </span>
                   <FormControl
-                    ref={password}
                     type="password"
                     placeholder="Password"
                     {...register('password', {
@@ -143,7 +140,7 @@ export const RegisterPage = () => {
                         message: 'Password must have at least 8 characters',
                       },
                       validate: (value) =>
-                        value === password.current ||
+                        value === getValues('password') ||
                         'The passwords do not match',
                     })}
                   />

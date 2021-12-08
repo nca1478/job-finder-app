@@ -1,90 +1,217 @@
+// Dependencies
+import { useContext, useEffect, useState } from 'react'
+import { useForm } from 'react-hook-form'
+import { Container, Row, Col, Card, Form, Button } from 'react-bootstrap'
+import { ToastContainer, toast } from 'react-toastify'
+import DateTimePicker from 'react-datetime-picker'
+import Select from 'react-select'
+import moment from 'moment'
+
+// Api
+import { get, put } from '../../../config/api'
+
+// Context
+import { AuthContext } from '../../../auth/authContext'
+
+// Modal
+import { PasswordForm } from './common/PasswordForm'
+
+// Select Options
+const educationOptions = [
+  { value: '1', label: 'Without Studies' },
+  { value: '2', label: 'School Studies' },
+  { value: '3', label: 'Vocational Training' },
+  { value: '4', label: 'College Degree' },
+  { value: '5', label: 'Doctorate' },
+]
+
 export const EditUserPage = () => {
+  const {
+    register,
+    handleSubmit,
+    formState: { errors },
+    reset,
+    resetField,
+    getValues,
+  } = useForm()
+  const { user } = useContext(AuthContext)
+  const [show, setShow] = useState(false)
+  const [formValues, setFormValues] = useState({})
+  const [dateBirthday, setDateBirthday] = useState(new Date())
+  const [educationSelect, setEducationSelect] = useState({
+    value: '',
+    label: '',
+  })
+
+  useEffect(() => {
+    fetchUser(user.data.id)
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [])
+
+  const fetchUser = async (id) => {
+    await get(`/users/${id}`, user.data.token)
+      .then((response) => {
+        // Set all data
+        reset(response.data)
+
+        // Set date on datepicker
+        setDateBirthday(
+          response.data.birthday
+            ? moment(response.data.birthday).toDate()
+            : new Date()
+        )
+
+        // Set education on select
+        const item = educationOptions.find(
+          (item) => item.label === response.data.education
+        )
+        setEducationSelect(item)
+      })
+      .catch((error) => {
+        toast.error('Please fetching data.')
+        console.log(error)
+      })
+  }
+
+  const onSubmit = async () => {
+    const dataUser = {
+      ...formValues,
+      password: getValues('password'),
+      birthday: moment(dateBirthday).format('YYYY-MM-DD'),
+      education: educationSelect.label,
+    }
+
+    await put(`/users/${dataUser.id}/update`, dataUser, user.data.token)
+      .then((response) => {
+        if (response.data === null) {
+          toast.error(response.errors.msg)
+        } else {
+          toast.info(response.data.msg)
+        }
+      })
+      .catch((error) => {
+        toast.error('Please verify the data entered and try again.')
+        console.log(error)
+      })
+      .finally(() => {
+        resetField('password')
+        setShow(false)
+      })
+  }
+
+  const handleClose = () => setShow(false)
+
+  const handleShow = (data) => {
+    setShow(true)
+    setFormValues(data)
+  }
+
+  const handleBirthdayDateChange = (e) => {
+    setDateBirthday(e)
+  }
+
+  const handleEducationChange = ({ value, label }) => {
+    setEducationSelect({ value, label })
+  }
+
   return (
-    <div className="p-4 bg-light">
-      <div className="container w-50">
-        <h2 class="mb-2 text-center">User Profile</h2>
-        <div className="card mt-3">
-          <div className="card-body">
-            <form>
-              {/* User Image */}
-              {/* <div className="mb-3 text-center">
-                <img
-                  src="https://randomuser.me/api/portraits/men/11.jpg"
-                  class="rounded-circle"
-                  alt=""
+    <Container className="my-4" style={{ width: '650px' }}>
+      <Row>
+        <Col>
+          <h2 className="mb-2 text-center">User Profile</h2>
+          <Card className="text-dark py-3">
+            <Card.Body>
+              <Form className="mx-3" onSubmit={handleSubmit(handleShow)}>
+                {/* Name */}
+                <Form.Group className="mb-3" controlId="formBasicName">
+                  <Form.Label>Name</Form.Label>
+                  <Form.Control
+                    type="text"
+                    placeholder="Enter Name"
+                    {...register('name', { required: true })}
+                  />
+                  {errors.name && (
+                    <Form.Text className="text-danger w-100">
+                      Name is required
+                    </Form.Text>
+                  )}
+                </Form.Group>
+
+                {/* Email */}
+                <Form.Group className="mb-3" controlId="formBasicEmail">
+                  <Form.Label>Email</Form.Label>
+                  <Form.Control
+                    type="email"
+                    placeholder="Enter Email"
+                    {...register('email', { required: true })}
+                  />
+                  {errors.email && (
+                    <Form.Text className="text-danger w-100">
+                      Email is required
+                    </Form.Text>
+                  )}
+                </Form.Group>
+
+                {/* Profession */}
+                <Form.Group className="mb-3" controlId="formBasicProfession">
+                  <Form.Label>Profession</Form.Label>
+                  <Form.Control
+                    type="text"
+                    placeholder="Enter Profession"
+                    {...register('profession')}
+                  />
+                </Form.Group>
+
+                {/* Birthday */}
+                <Form.Group className="mb-3" controlId="formBasicBirthday">
+                  <Form.Label>Birthday</Form.Label>
+                  <DateTimePicker
+                    onChange={handleBirthdayDateChange}
+                    value={dateBirthday}
+                    className="form-control"
+                  />
+                </Form.Group>
+
+                {/* Education */}
+                <Form.Group className="mb-3" controlId="formBasicEducation">
+                  <Form.Label>Education</Form.Label>
+                  <Select
+                    className="mb-2"
+                    value={educationSelect}
+                    options={educationOptions}
+                    onChange={handleEducationChange}
+                  />
+                </Form.Group>
+
+                {/* Curriculum Vitae */}
+                <Form.Group className="mb-3" controlId="formBasicCvText">
+                  <Form.Label>Curriculum Vitae</Form.Label>
+                  <Form.Control
+                    as="textarea"
+                    rows={3}
+                    placeholder="Enter Text"
+                    {...register('cvText')}
+                  />
+                </Form.Group>
+
+                {/* Modal */}
+                <PasswordForm
+                  show={show}
+                  handleClose={handleClose}
+                  register={register}
+                  onSubmit={onSubmit}
                 />
-              </div> */}
 
-              {/* Name */}
-              <div className="mb-3">
-                <label for="name" className="form-label">
-                  Name
-                </label>
-                <input type="text" className="form-control" id="name" />
-              </div>
-
-              {/* Email */}
-              <div className="mb-3">
-                <label for="email" className="form-label">
-                  Email
-                </label>
-                <input type="text" className="form-control" id="email" />
-              </div>
-
-              {/* Profession */}
-              <div className="mb-3">
-                <label for="profession" className="form-label">
-                  Profession
-                </label>
-                <input type="text" className="form-control" id="profession" />
-              </div>
-
-              {/* Birthday */}
-              <div className="mb-3">
-                <label for="birthday" className="form-label">
-                  Birthday
-                </label>
-                <input type="text" className="form-control" id="birthday" />
-              </div>
-
-              {/* Education */}
-              <div className="mb-3">
-                <label for="education" className="form-label">
-                  Education
-                </label>
-                <input type="text" className="form-control" id="education" />
-              </div>
-
-              {/* CV */}
-              <div className="mb-3">
-                <label for="cv" className="form-label">
-                  Curriculum Vitae
-                </label>
-                <input type="text" className="form-control" id="cv" />
-              </div>
-
-              {/* Photography */}
-              <div className="row">
-                <label for="image" class="form-label">
-                  Photography
-                </label>
-                <div className="input-group mb-3">
-                  <input type="file" className="form-control" id="image" />
-                  <label className="input-group-text" for="image">
-                    Upload
-                  </label>
-                </div>
-              </div>
-
-              <div className="d-grid gap-2">
-                <button className="btn btn-primary" type="submit">
+                {/* Register Button */}
+                <Button type="submit" variant="primary" className="w-100">
                   Save
-                </button>
-              </div>
-            </form>
-          </div>
-        </div>
-      </div>
-    </div>
+                </Button>
+              </Form>
+            </Card.Body>
+          </Card>
+        </Col>
+      </Row>
+      <ToastContainer />
+    </Container>
   )
 }

@@ -97,15 +97,18 @@ export const MainNavbar = () => {
 
             {!user.logged ? (
               <>
-                <NavLink to="/login" className="btn btn-primary me-2">
-                  Login
-                </NavLink>
                 <NavLink to="/register" className="btn btn-warning me-2">
                   Signup
+                </NavLink>
+                <NavLink to="/login" className="btn btn-primary me-2">
+                  Login
                 </NavLink>
               </>
             ) : (
               <>
+                <NavLink to="/user/edit" className="btn btn-warning me-2">
+                  Profile
+                </NavLink>
                 <Button
                   to="/logout"
                   className="btn btn-primary me-2"
@@ -113,9 +116,6 @@ export const MainNavbar = () => {
                 >
                   Logout
                 </Button>
-                <NavLink to="/user/edit" className="btn btn-warning me-2">
-                  Profile
-                </NavLink>
               </>
             )}
           </Form>
