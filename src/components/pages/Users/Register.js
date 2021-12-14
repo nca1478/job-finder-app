@@ -40,8 +40,8 @@ export const RegisterPage = () => {
           toast.error(response.errors[0].msg)
         } else {
           const dataUser = {
-            token: response.data.token,
             ...response.data.user,
+            token: response.data.token,
           }
           dispatch({
             type: types.login,

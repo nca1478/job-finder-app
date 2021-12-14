@@ -39,8 +39,8 @@ export const LoginPage = () => {
           toast.error(response.errors.msg)
         } else {
           const dataUser = {
-            token: response.data.token,
             ...response.data.user,
+            token: response.data.token,
           }
           dispatch({
             type: types.login,

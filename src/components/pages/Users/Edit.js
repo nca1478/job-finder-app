@@ -17,13 +17,7 @@ import { AuthContext } from '../../../auth/authContext'
 import { PasswordForm } from './common/PasswordForm'
 
 // Select Options
-const educationOptions = [
-  { value: '1', label: 'Without Studies' },
-  { value: '2', label: 'School Studies' },
-  { value: '3', label: 'Vocational Training' },
-  { value: '4', label: 'College Degree' },
-  { value: '5', label: 'Doctorate' },
-]
+import { educationOptions } from '../../../data/selectOptions'
 
 export const EditUserPage = () => {
   const {
@@ -38,10 +32,7 @@ export const EditUserPage = () => {
   const [show, setShow] = useState(false)
   const [formValues, setFormValues] = useState({})
   const [dateBirthday, setDateBirthday] = useState(new Date())
-  const [educationSelect, setEducationSelect] = useState({
-    value: '',
-    label: '',
-  })
+  const [educationSelect, setEducationSelect] = useState(null)
 
   useEffect(() => {
     fetchUser(user.data.id)
