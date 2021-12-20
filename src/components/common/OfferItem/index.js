@@ -1,23 +1,31 @@
+// Dependencies
+import { Col, Row, Card } from 'react-bootstrap'
 import { Link } from 'react-router-dom'
 
-export const OfferItem = ({ src }) => {
+export const OfferItem = (props) => {
+  const { title, description } = props
+
   return (
-    <div className="col-lg-9 col-sm-12">
-      <div className="card">
-        <div className="card-header h5 text-center">Title Job Offer</div>
-        <div className="card-body">
-          <div className="d-flex align-items-center text-center justify-content-around">
-            <img className="img-thumbnail d-none d-md-block" src={src} alt="" />
-            <p className="card-text">
-              Lorem ipsum dolor sit amet consectetur adipisicing elit. Culpa
-              dolorem reiciendis facilis, atque velit qui?
-            </p>
-            <Link to="/offer/details" className="btn btn-dark">
-              Details
-            </Link>
-          </div>
-        </div>
-      </div>
-    </div>
+    <Col lg={9} sm={12}>
+      <Card>
+        <Card.Header className="h5 text-center">{title}</Card.Header>
+        <Card.Body>
+          <Row>
+            <Col className="d-flex align-items-center text-center justify-content-between">
+              <img
+                className="img-thumbnail d-none d-md-block"
+                src="https://picsum.photos/id/1/170/100"
+                alt=""
+              />
+              <p className="card-text">{description}</p>
+
+              <Link to="/offer/details" className="btn btn-dark">
+                Details
+              </Link>
+            </Col>
+          </Row>
+        </Card.Body>
+      </Card>
+    </Col>
   )
 }
