@@ -1,10 +1,35 @@
 // Dependencies
+import { useContext } from 'react'
 import { Link } from 'react-router-dom'
 import { Row, Col, Card, Stack, Button } from 'react-bootstrap'
+import { ToastContainer, toast } from 'react-toastify'
 
-export const DashboardItem = ({ title }) => {
+// Api Config
+import { put } from '../../../config/api'
+
+// Context
+import { AuthContext } from '../../../auth/authContext'
+
+export const DashboardItem = (props) => {
+  const { id, title, published, fetchOffers } = props
+  const { user } = useContext(AuthContext)
+
   const handlePublish = () => {
-    alert('Publishing Offer')
+    const isPublished = published === false ? 'true' : 'false'
+
+    put(`/offers/${id}/publish?status=${isPublished}`, {}, user.data.token)
+      .then((response) => {
+        if (response.data === null) {
+          toast.error(response.errors.msg)
+        } else {
+          fetchOffers()
+          toast.info(response.data.msg)
+        }
+      })
+      .catch((error) => {
+        toast.error('Error try to fetching data.')
+        console.log(error)
+      })
   }
 
   const handleDelete = () => {
@@ -25,7 +50,7 @@ export const DashboardItem = ({ title }) => {
               <p className="card-text h5">{title}</p>
               <Stack direction="horizontal" gap={1}>
                 <Button variant="dark" size="sm" onClick={handlePublish}>
-                  Publish
+                  {published === false ? 'Publish' : 'Unpublish'}
                 </Button>
                 <Link to="/offer/edit" className="btn btn-primary btn-sm">
                   Edit
@@ -38,6 +63,7 @@ export const DashboardItem = ({ title }) => {
           </Row>
         </Card.Body>
       </Card>
+      <ToastContainer />
     </Col>
   )
 }

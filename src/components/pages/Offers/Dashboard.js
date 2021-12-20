@@ -1,6 +1,7 @@
 // Dependencies
 import { useContext, useEffect, useState } from 'react'
 import { Row, Col, Container } from 'react-bootstrap'
+import { ToastContainer, toast } from 'react-toastify'
 
 // Components
 import { DashboardItem } from '../../common/DashboardItem'
@@ -20,9 +21,18 @@ export const DashboardPage = () => {
   }, [])
 
   const fetchOffers = () => {
-    get('/offers', user.data.token).then((data) => {
-      setOffers(data.data)
-    })
+    get('/offers', user.data.token)
+      .then((response) => {
+        if (response.data === null) {
+          toast.error(response.errors.msg)
+        } else {
+          setOffers(response.data)
+        }
+      })
+      .catch((error) => {
+        toast.error('Error try to fetching data.')
+        console.log(error)
+      })
   }
 
   return (
@@ -32,10 +42,17 @@ export const DashboardPage = () => {
           <h2 className="text-center">Dashboard</h2>
           <Row className="justify-content-center g-4 mt-2">
             {offers.map((offer) => {
-              return <DashboardItem key={offer.id} {...offer} />
+              return (
+                <DashboardItem
+                  key={offer.id}
+                  {...offer}
+                  fetchOffers={fetchOffers}
+                />
+              )
             })}
           </Row>
         </Container>
+        <ToastContainer />
       </Col>
     </>
   )
