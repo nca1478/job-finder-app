@@ -5,6 +5,7 @@ import { ToastContainer, toast } from 'react-toastify'
 
 // Components
 import { OfferItem } from '../../common/OfferItem'
+import { SpinnerBorder } from '../../common/Spinners/SpinnerBorder'
 
 // Api Config
 import { get } from '../../../config/api'
@@ -12,6 +13,7 @@ import { SpaceBlank } from '../../common/SpaceBlank/SpaceBlank'
 
 export const OffersPage = () => {
   const [offers, setOffers] = useState([])
+  const [loaded, setLoaded] = useState(false)
 
   useEffect(() => {
     fetchOffers()
@@ -30,6 +32,9 @@ export const OffersPage = () => {
         toast.error('Error try to fetching data.')
         console.log(error)
       })
+      .finally(() => {
+        setLoaded(true)
+      })
   }
 
   return (
@@ -38,7 +43,9 @@ export const OffersPage = () => {
         <Container className="p-4 bg-light">
           <h2 className="text-center">Job Offers</h2>
           <Row className="justify-content-center g-4 pt-2">
-            {offers.length > 0 ? (
+            {!loaded ? (
+              <SpinnerBorder />
+            ) : offers.length > 0 ? (
               offers.map((offer) => {
                 return <OfferItem key={offer.id} {...offer} />
               })

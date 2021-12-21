@@ -1,10 +1,10 @@
 // Dependencies
+import Select from 'react-select'
 import { useContext, useEffect, useState } from 'react'
-import { Container, Row, Col, Card, Form, Button } from 'react-bootstrap'
 import { ToastContainer, toast } from 'react-toastify'
 import { useParams } from 'react-router-dom'
 import { useForm, Controller } from 'react-hook-form'
-import Select from 'react-select'
+import { Container, Row, Col, Card, Form, Button } from 'react-bootstrap'
 
 // Selects Options
 import {
@@ -19,6 +19,7 @@ import {
 
 // Components
 import { InputForm } from './common/InputForm'
+import { SpinnerBorder } from '../../common/Spinners/SpinnerBorder'
 
 // Context
 import { AuthContext } from '../../../auth/authContext'
@@ -121,9 +122,11 @@ export const EditOfferPage = () => {
 
   return (
     <Container className="p-4" style={{ width: '650px' }}>
-      <Row>
-        <Col>
-          <h2 className="text-center">Edit Offer</h2>
+      <h2 className="text-center">Edit Offer</h2>
+      <Row className="justify-content-center">
+        {!loaded ? (
+          <SpinnerBorder />
+        ) : (
           <Card className="py-3">
             <Card.Body>
               <Form className="mx-3" onSubmit={handleSubmit(onSubmit)}>
@@ -392,7 +395,7 @@ export const EditOfferPage = () => {
               </Form>
             </Card.Body>
           </Card>
-        </Col>
+        )}
       </Row>
       <ToastContainer />
     </Container>

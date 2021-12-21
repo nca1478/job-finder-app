@@ -6,6 +6,7 @@ import { ToastContainer, toast } from 'react-toastify'
 // Components
 import { DashboardItem } from '../../common/DashboardItem'
 import { SpaceBlank } from '../../common/SpaceBlank/SpaceBlank'
+import { SpinnerBorder } from '../../common/Spinners/SpinnerBorder'
 
 // Api Config
 import { get } from '../../../config/api'
@@ -16,6 +17,7 @@ import { AuthContext } from '../../../auth/authContext'
 export const DashboardPage = () => {
   const { user } = useContext(AuthContext)
   const [offers, setOffers] = useState([])
+  const [loaded, setLoaded] = useState(false)
 
   useEffect(() => {
     fetchOffers()
@@ -35,6 +37,9 @@ export const DashboardPage = () => {
         toast.error('Error try to fetching data.')
         console.log(error)
       })
+      .finally(() => {
+        setLoaded(true)
+      })
   }
 
   return (
@@ -43,7 +48,9 @@ export const DashboardPage = () => {
         <Container className="p-4 bg-light">
           <h2 className="text-center">Dashboard</h2>
           <Row className="justify-content-center g-4 mt-2">
-            {offers.length > 0 ? (
+            {!loaded ? (
+              <SpinnerBorder />
+            ) : offers.length > 0 ? (
               offers.map((offer) => {
                 return (
                   <DashboardItem

@@ -18,6 +18,7 @@ import { PasswordForm } from './common/PasswordForm'
 
 // Select Options
 import { educationOptions } from '../../../data/selectOptions'
+import { SpinnerBorder } from '../../common/Spinners/SpinnerBorder'
 
 export const EditUserPage = () => {
   const {
@@ -30,6 +31,7 @@ export const EditUserPage = () => {
   } = useForm()
   const { user } = useContext(AuthContext)
   const [show, setShow] = useState(false)
+  const [loaded, setLoaded] = useState(false)
   const [formValues, setFormValues] = useState({})
   const [dateBirthday, setDateBirthday] = useState(new Date())
   const [educationSelect, setEducationSelect] = useState(null)
@@ -42,17 +44,12 @@ export const EditUserPage = () => {
   const fetchUser = async (id) => {
     await get(`/users/${id}`, user.data.token)
       .then((response) => {
-        // Set all data
         reset(response.data)
-
-        // Set date on datepicker
         setDateBirthday(
           response.data.birthday
             ? moment(response.data.birthday).toDate()
             : new Date()
         )
-
-        // Set education on select
         const item = educationOptions.find(
           (item) => item.label === response.data.education
         )
@@ -61,6 +58,9 @@ export const EditUserPage = () => {
       .catch((error) => {
         toast.error('Error fetching data.')
         console.log(error)
+      })
+      .finally(() => {
+        setLoaded(true)
       })
   }
 
@@ -107,9 +107,11 @@ export const EditUserPage = () => {
 
   return (
     <Container className="my-4" style={{ width: '650px' }}>
-      <Row>
-        <Col>
-          <h2 className="mb-2 text-center">User Profile</h2>
+      <h2 className="mb-2 text-center">User Profile</h2>
+      <Row className="justify-content-center">
+        {!loaded ? (
+          <SpinnerBorder />
+        ) : (
           <Card className="text-dark py-3">
             <Card.Body>
               <Form className="mx-3" onSubmit={handleSubmit(handleShow)}>
@@ -200,7 +202,7 @@ export const EditUserPage = () => {
               </Form>
             </Card.Body>
           </Card>
-        </Col>
+        )}
       </Row>
       <ToastContainer />
     </Container>
