@@ -3,7 +3,7 @@ import { Controller } from 'react-hook-form'
 import { Form } from 'react-bootstrap'
 import Select from 'react-select'
 
-export const SelectController = ({
+export const SelectForm = ({
   name,
   label,
   controlId,

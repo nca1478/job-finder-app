@@ -1,176 +1,400 @@
+// Dependencies
+import { useContext, useEffect, useState } from 'react'
+import { Container, Row, Col, Card, Form, Button } from 'react-bootstrap'
+import { ToastContainer, toast } from 'react-toastify'
+import { useParams } from 'react-router-dom'
+import { useForm, Controller } from 'react-hook-form'
+import Select from 'react-select'
+
+// Selects Options
+import {
+  cityOptions,
+  contractOptions,
+  countryOptions,
+  currencyOptions,
+  experienceOptions,
+  periodOptions,
+  stateOptions,
+} from '../../../data/selectOptions'
+
+// Components
+import { InputForm } from './common/InputForm'
+
+// Context
+import { AuthContext } from '../../../auth/authContext'
+
+// Api
+import { get, put } from '../../../config/api'
+
+// Helpers
+import {
+  getCountrySelect,
+  getStateSelect,
+  getCitySelect,
+  getSectorsSelect,
+  getExperienceSelect,
+  getContractSelect,
+  getPeriodSelect,
+  getCurrencySelect,
+} from '../../../helpers/getSelectOption'
+import { sortListObjects } from '../../../helpers/utils'
+
 export const EditOfferPage = () => {
+  const { offerId } = useParams()
+  const { user } = useContext(AuthContext)
+  const [sectorOptions, setSectorOptions] = useState(null)
+  const [loaded, setLoaded] = useState(false)
+
+  const {
+    register,
+    handleSubmit,
+    formState: { errors },
+    reset,
+    control,
+    getValues,
+    setValue,
+  } = useForm()
+
+  useEffect(() => {
+    fetchOffer(offerId)
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [])
+
+  const fetchSectors = async () => {
+    await get('/sectors', user.data.token).then(({ data }) => {
+      const sectors = data.map((sector, i) => ({
+        value: i + 1,
+        label: sector.name,
+        id: sector.id,
+      }))
+      sortListObjects(sectors)
+      setSectorOptions(sectors)
+    })
+  }
+
+  const fetchOffer = async (offerId) => {
+    await get(`/offers/${offerId}`, user.data.token)
+      .then((response) => {
+        reset(response.data)
+        fetchSectors()
+      })
+      .catch((error) => {
+        toast.error('Error fetching data.')
+        console.log(error)
+      })
+      .finally(() => {
+        setLoaded(true)
+      })
+  }
+
+  const parseDataOffer = (data) => {
+    return {
+      ...data,
+      country: data.country.label ? data.country.label : data.country,
+      state: data.state.label ? data.state.label : data.state,
+      city: data.city.label ? data.city.label : data.city,
+      experience: data.experience.label
+        ? data.experience.label
+        : data.experience,
+      contract: data.contract.label ? data.contract.label : data.contract,
+      period: data.period.label ? data.period.label : data.period,
+      currency: data.currency.label ? data.currency.label : data.currency,
+      sectors: data.sectors.map((sector) => ({ id: sector.id })),
+    }
+  }
+
+  const onSubmit = async (data) => {
+    const dataOffer = parseDataOffer(data)
+    await put(`/offers/${offerId}/update`, dataOffer, user.data.token)
+      .then((response) => {
+        if (response.data === null) {
+          toast.error(response.errors.msg)
+        } else {
+          toast.info(response.data.msg)
+        }
+      })
+      .catch((error) => {
+        toast.error('Error updating job offers. Try again.')
+        console.log(error)
+      })
+  }
+
   return (
-    <div className="p-4 bg-light">
-      <div className="container w-50">
-        <h2 class="mb-2 text-center">Edit Job Offer</h2>
-        <div className="card mt-3">
-          <div className="card-body">
-            <form>
-              {/* Title */}
-              <div className="mb-3">
-                <label for="title" className="form-label">
-                  Title
-                </label>
-                <input type="text" className="form-control" id="title" />
-              </div>
+    <Container className="p-4" style={{ width: '650px' }}>
+      <Row>
+        <Col>
+          <h2 className="text-center">Edit Offer</h2>
+          <Card className="py-3">
+            <Card.Body>
+              <Form className="mx-3" onSubmit={handleSubmit(onSubmit)}>
+                {/* Title */}
+                <InputForm
+                  name="title"
+                  label="Title"
+                  placeholder="Enter Title"
+                  controlId="formBasicTitle"
+                  register={register}
+                  errors={errors.title}
+                />
 
-              {/* Description */}
-              <div className="mb-3">
-                <label for="description" className="form-label">
-                  Description
-                </label>
-                <input type="text" className="form-control" id="description" />
-              </div>
+                {/* Description */}
+                <InputForm
+                  name="description"
+                  label="Description"
+                  placeholder="Enter Description"
+                  controlId="formBasicDescription"
+                  register={register}
+                  errors={errors.description}
+                />
 
-              <div className="row mb-3">
                 {/* Country */}
-                <div className="col-4">
-                  <label for="country" className="form-label">
-                    Country
-                  </label>
-                  <select
-                    id="country"
-                    className="form-select"
-                    aria-label="Default select example"
-                  >
-                    <option selected>Open this select menu</option>
-                    <option value="1">Country1</option>
-                    <option value="2">Country2</option>
-                    <option value="3">Country3</option>
-                  </select>
-                </div>
+                <Controller
+                  name="country"
+                  control={control}
+                  rules={{ required: true }}
+                  render={({ field: { onChange, value } }) => {
+                    return (
+                      <Form.Group className="mb-3" controlId="formBasicCountry">
+                        <Form.Label>Country</Form.Label>
+                        <Select
+                          value={getCountrySelect(value)}
+                          onChange={({ value, label }) =>
+                            onChange({ value, label })
+                          }
+                          options={countryOptions}
+                        />
+                        {errors.country && (
+                          <Form.Text className="text-danger w-100">
+                            Country is Required
+                          </Form.Text>
+                        )}
+                      </Form.Group>
+                    )
+                  }}
+                ></Controller>
 
                 {/* State */}
-                <div className="col-4">
-                  <label for="state" className="form-label">
-                    State
-                  </label>
-                  <select
-                    id="state"
-                    className="form-select"
-                    aria-label="Default select example"
-                  >
-                    <option selected>Open this select menu</option>
-                    <option value="1">State1</option>
-                    <option value="2">State2</option>
-                    <option value="3">State3</option>
-                  </select>
-                </div>
+                <Controller
+                  name="state"
+                  control={control}
+                  rules={{ required: true }}
+                  render={({ field: { onChange, value } }) => {
+                    return (
+                      <Form.Group className="mb-3" controlId="formBasicState">
+                        <Form.Label>State</Form.Label>
+                        <Select
+                          value={getStateSelect(value)}
+                          onChange={({ value, label }) =>
+                            onChange({ value, label })
+                          }
+                          options={stateOptions}
+                        />
+                        {errors.state && (
+                          <Form.Text className="text-danger w-100">
+                            State is Required
+                          </Form.Text>
+                        )}
+                      </Form.Group>
+                    )
+                  }}
+                ></Controller>
 
                 {/* City */}
-                <div className="col-4">
-                  <label for="city" className="form-label">
-                    City
-                  </label>
-                  <select
-                    id="city"
-                    className="form-select"
-                    aria-label="Default select example"
-                  >
-                    <option selected>Open this select menu</option>
-                    <option value="1">City 1</option>
-                    <option value="2">City 2</option>
-                    <option value="3">city 3</option>
-                  </select>
-                </div>
-              </div>
+                <Controller
+                  name="city"
+                  control={control}
+                  rules={{ required: true }}
+                  render={({ field: { onChange, value } }) => {
+                    return (
+                      <Form.Group className="mb-3" controlId="formBasicCity">
+                        <Form.Label>City</Form.Label>
+                        <Select
+                          value={getCitySelect(value)}
+                          onChange={({ value, label }) =>
+                            onChange({ value, label })
+                          }
+                          options={cityOptions}
+                        />
+                        {errors.city && (
+                          <Form.Text className="text-danger w-100">
+                            City is Required
+                          </Form.Text>
+                        )}
+                      </Form.Group>
+                    )
+                  }}
+                ></Controller>
 
-              {/* Experience */}
-              <div className="mb-3">
-                <label for="experience" className="form-label">
-                  Experience
-                </label>
-                <textarea
-                  className="form-control"
-                  id="experience"
-                  rows="3"
-                ></textarea>
-              </div>
+                {/* Sectors */}
+                {/* <Controller
+                  name="sectors"
+                  control={control}
+                  rules={{ required: true }}
+                  render={({ field: { onChange, value } }) => {
+                    return (
+                      <Form.Group className="mb-3" controlId="formBasicSectors">
+                        <Form.Label>Sectors</Form.Label>
+                        <Select
+                          value={getSectorsSelect(
+                            loaded ? getValues('sectors') : []
+                          )}
+                          options={sectorOptions}
+                          isMulti
+                        />
+                        {errors.sectors && (
+                          <Form.Text className="text-danger w-100">
+                            Sectors is Required
+                          </Form.Text>
+                        )}
+                      </Form.Group>
+                    )
+                  }}
+                ></Controller> */}
 
-              {/* Contract */}
-              <div className="mb-3">
-                <label for="contract" className="form-label">
-                  Contract
-                </label>
-                <select
-                  id="contract"
-                  className="form-select"
-                  aria-label="Default select example"
-                >
-                  <option selected>Open this select menu</option>
-                  <option value="1">Contract1</option>
-                  <option value="2">Contract2</option>
-                  <option value="3">Contract3</option>
-                </select>
-              </div>
+                {/* Experience */}
+                <Controller
+                  name="experience"
+                  control={control}
+                  rules={{ required: true }}
+                  render={({ field: { onChange, value } }) => {
+                    return (
+                      <Form.Group
+                        className="mb-3"
+                        controlId="formBasicExperience"
+                      >
+                        <Form.Label>Experience</Form.Label>
+                        <Select
+                          value={getExperienceSelect(value)}
+                          onChange={({ value, label }) =>
+                            onChange({ value, label })
+                          }
+                          options={experienceOptions}
+                        />
+                        {errors.experience && (
+                          <Form.Text className="text-danger w-100">
+                            Experience is Required
+                          </Form.Text>
+                        )}
+                      </Form.Group>
+                    )
+                  }}
+                ></Controller>
 
-              {/* payment / period / currency */}
-              <div className="row mb-3">
-                {/* Payment */}
-                <div className="col-4">
-                  <label for="payment" className="form-label">
-                    Payment
-                  </label>
-                  <input type="text" className="form-control" id="payment" />
-                </div>
+                {/* Contract */}
+                <Controller
+                  name="contract"
+                  control={control}
+                  rules={{ required: true }}
+                  render={({ field: { onChange, value } }) => {
+                    return (
+                      <Form.Group
+                        className="mb-3"
+                        controlId="formBasicContract"
+                      >
+                        <Form.Label>Contract</Form.Label>
+                        <Select
+                          value={getContractSelect(value)}
+                          onChange={({ value, label }) =>
+                            onChange({ value, label })
+                          }
+                          options={contractOptions}
+                        />
+                        {errors.contract && (
+                          <Form.Text className="text-danger w-100">
+                            Contract is Required
+                          </Form.Text>
+                        )}
+                      </Form.Group>
+                    )
+                  }}
+                ></Controller>
 
-                {/* Period */}
-                <div className="col-4">
-                  <label for="period" className="form-label">
-                    Period
-                  </label>
-                  <select
-                    id="period"
-                    className="form-select"
-                    aria-label="Default select example"
-                  >
-                    <option selected>Open this select menu</option>
-                    <option value="1">Period 1</option>
-                    <option value="2">Period 2</option>
-                    <option value="3">Period 3</option>
-                  </select>
-                </div>
+                <Row>
+                  {/* Payment */}
+                  <Col md={3}>
+                    <InputForm
+                      name="payment"
+                      label="Payment"
+                      placeholder="Enter Payment"
+                      controlId="formBasicPayment"
+                      register={register}
+                      errors={errors.payment}
+                    />
+                  </Col>
 
-                {/* Currency */}
-                <div className="col-4">
-                  <label for="currency" className="form-label">
-                    Currency
-                  </label>
-                  <select
-                    id="currency"
-                    className="form-select"
-                    aria-label="Default select example"
-                  >
-                    <option selected>Open this select menu</option>
-                    <option value="1">Currency 1</option>
-                    <option value="2">Currency 2</option>
-                    <option value="3">Currency 3</option>
-                  </select>
-                </div>
-              </div>
+                  {/* Period */}
+                  <Col md={4}>
+                    <Controller
+                      name="period"
+                      control={control}
+                      rules={{ required: true }}
+                      render={({ field: { onChange, value } }) => {
+                        return (
+                          <Form.Group
+                            className="mb-3"
+                            controlId="formBasicPeriod"
+                          >
+                            <Form.Label>Period</Form.Label>
+                            <Select
+                              value={getPeriodSelect(value)}
+                              onChange={({ value, label }) =>
+                                onChange({ value, label })
+                              }
+                              options={periodOptions}
+                            />
+                            {errors.period && (
+                              <Form.Text className="text-danger w-100">
+                                Period is Required
+                              </Form.Text>
+                            )}
+                          </Form.Group>
+                        )
+                      }}
+                    ></Controller>
+                  </Col>
 
-              {/* Image */}
-              <div className="row">
-                <label for="image" class="form-label">
-                  Title
-                </label>
-                <div className="input-group mb-3">
-                  <input type="file" className="form-control" id="image" />
-                  <label className="input-group-text" for="image">
-                    Upload
-                  </label>
-                </div>
-              </div>
+                  {/* Currency */}
+                  <Col md={5}>
+                    <Controller
+                      name="currency"
+                      control={control}
+                      rules={{ required: true }}
+                      render={({ field: { onChange, value } }) => {
+                        return (
+                          <Form.Group
+                            className="mb-3"
+                            controlId="formBasicCurrency"
+                          >
+                            <Form.Label>Currency</Form.Label>
+                            <Select
+                              value={getCurrencySelect(value)}
+                              onChange={({ value, label }) =>
+                                onChange({ value, label })
+                              }
+                              options={currencyOptions}
+                            />
+                            {errors.currency && (
+                              <Form.Text className="text-danger w-100">
+                                Currency is Required
+                              </Form.Text>
+                            )}
+                          </Form.Group>
+                        )
+                      }}
+                    ></Controller>
+                  </Col>
+                </Row>
 
-              <div className="d-grid gap-2">
-                <button className="btn btn-primary" type="submit">
+                {/* Save Button */}
+                <Button type="submit" variant="primary" className="w-100">
                   Save
-                </button>
-              </div>
-            </form>
-          </div>
-        </div>
-      </div>
-    </div>
+                </Button>
+              </Form>
+            </Card.Body>
+          </Card>
+        </Col>
+      </Row>
+      <ToastContainer />
+    </Container>
   )
 }

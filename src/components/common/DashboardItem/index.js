@@ -52,7 +52,10 @@ export const DashboardItem = (props) => {
                 <Button variant="dark" size="sm" onClick={handlePublish}>
                   {published === false ? 'Publish' : 'Unpublish'}
                 </Button>
-                <Link to="/offer/edit" className="btn btn-primary btn-sm">
+                <Link
+                  to={`/offer/edit/${id}`}
+                  className="btn btn-primary btn-sm"
+                >
                   Edit
                 </Link>
                 <Button variant="danger" size="sm" onClick={handleDelete}>

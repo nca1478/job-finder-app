@@ -59,7 +59,7 @@ export const EditUserPage = () => {
         setEducationSelect(item)
       })
       .catch((error) => {
-        toast.error('Please fetching data.')
+        toast.error('Error fetching data.')
         console.log(error)
       })
   }

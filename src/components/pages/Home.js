@@ -1,6 +1,6 @@
 // Dependencies
 import { useState, useEffect } from 'react'
-import { Row, Col, Container } from 'react-bootstrap'
+import { Row, Col, Container, Alert } from 'react-bootstrap'
 import { ToastContainer, toast } from 'react-toastify'
 
 // Components
@@ -39,9 +39,15 @@ export const HomePage = () => {
         <Container>
           <h2 className="text-center text-white mb-4">Last Job Offers</h2>
           <Row className="g-4 justify-content-center">
-            {offers.map((offer) => {
-              return <OfferItem key={offer.id} {...offer} />
-            })}
+            {offers.length > 0 ? (
+              offers.map((offer) => {
+                return <OfferItem key={offer.id} {...offer} />
+              })
+            ) : (
+              <Alert variant="danger" className="w-75">
+                Oh no.... There are no job offers to show. Come back soon...
+              </Alert>
+            )}
           </Row>
         </Container>
         <ToastContainer />

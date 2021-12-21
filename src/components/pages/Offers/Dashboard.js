@@ -1,10 +1,11 @@
 // Dependencies
 import { useContext, useEffect, useState } from 'react'
-import { Row, Col, Container } from 'react-bootstrap'
+import { Row, Col, Container, Alert } from 'react-bootstrap'
 import { ToastContainer, toast } from 'react-toastify'
 
 // Components
 import { DashboardItem } from '../../common/DashboardItem'
+import { SpaceBlank } from '../../common/SpaceBlank/SpaceBlank'
 
 // Api Config
 import { get } from '../../../config/api'
@@ -18,6 +19,7 @@ export const DashboardPage = () => {
 
   useEffect(() => {
     fetchOffers()
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [])
 
   const fetchOffers = () => {
@@ -41,15 +43,24 @@ export const DashboardPage = () => {
         <Container className="p-4 bg-light">
           <h2 className="text-center">Dashboard</h2>
           <Row className="justify-content-center g-4 mt-2">
-            {offers.map((offer) => {
-              return (
-                <DashboardItem
-                  key={offer.id}
-                  {...offer}
-                  fetchOffers={fetchOffers}
-                />
-              )
-            })}
+            {offers.length > 0 ? (
+              offers.map((offer) => {
+                return (
+                  <DashboardItem
+                    key={offer.id}
+                    {...offer}
+                    fetchOffers={fetchOffers}
+                  />
+                )
+              })
+            ) : (
+              <>
+                <Alert variant="danger" className="w-75">
+                  Oh no.... There are no job offers to show. Come back soon...
+                </Alert>
+                <SpaceBlank height="260px" />
+              </>
+            )}
           </Row>
         </Container>
         <ToastContainer />

@@ -1,5 +1,5 @@
 // Dependencies
-import { useEffect, useState, useContext, useRef } from 'react'
+import { useEffect, useState, useContext } from 'react'
 import { Container, Row, Col, Form, Card, Button } from 'react-bootstrap'
 import { ToastContainer, toast } from 'react-toastify'
 import { useForm } from 'react-hook-form'
@@ -25,7 +25,7 @@ import { get, post } from '../../../config/api'
 import { sortListObjects } from '../../../helpers/utils'
 
 // Components
-import { SelectController } from './common/SelectController'
+import { SelectForm } from './common/SelectForm'
 import { InputForm } from './common/InputForm'
 
 export const AddOfferPage = () => {
@@ -48,6 +48,7 @@ export const AddOfferPage = () => {
 
   useEffect(() => {
     fetchSectors()
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [])
 
   const fetchSectors = async () => {
@@ -136,7 +137,7 @@ export const AddOfferPage = () => {
                 />
 
                 {/* Country */}
-                <SelectController
+                <SelectForm
                   name="country"
                   label="Country"
                   controlId="formBasicCountry"
@@ -147,7 +148,7 @@ export const AddOfferPage = () => {
                 />
 
                 {/* State */}
-                <SelectController
+                <SelectForm
                   name="state"
                   label="State"
                   controlId="formBasicState"
@@ -158,7 +159,7 @@ export const AddOfferPage = () => {
                 />
 
                 {/* City */}
-                <SelectController
+                <SelectForm
                   name="city"
                   label="City"
                   controlId="formBasicCity"
@@ -169,7 +170,7 @@ export const AddOfferPage = () => {
                 />
 
                 {/* Sector */}
-                <SelectController
+                <SelectForm
                   name="sectors"
                   label="Sectors"
                   controlId="formBasicSectors"
@@ -180,7 +181,7 @@ export const AddOfferPage = () => {
                 />
 
                 {/* Experience */}
-                <SelectController
+                <SelectForm
                   name="experience"
                   label="Experience"
                   controlId="formBasicExperience"
@@ -191,7 +192,7 @@ export const AddOfferPage = () => {
                 />
 
                 {/* Contract */}
-                <SelectController
+                <SelectForm
                   name="contract"
                   label="Contract"
                   controlId="formBasicContract"
@@ -216,7 +217,7 @@ export const AddOfferPage = () => {
 
                   {/* Period */}
                   <Col md={4}>
-                    <SelectController
+                    <SelectForm
                       name="period"
                       label="Period"
                       controlId="formBasicPeriod"
@@ -229,7 +230,7 @@ export const AddOfferPage = () => {
 
                   {/* Currency */}
                   <Col md={5}>
-                    <SelectController
+                    <SelectForm
                       name="currency"
                       label="Currency"
                       controlId="formBasicCurrency"
