@@ -18,13 +18,11 @@ export const getCitySelect = (value) =>
   cityOptions.find((item) => item.label === value)
 
 export const getSectorsSelect = (values) => {
-  if (values.length > 0) {
-    return values.map((sector, i) => ({
-      value: i + 1,
-      label: sector.name,
-      id: sector.id,
-    }))
-  }
+  return values.map((sector, i) => ({
+    value: i + 1,
+    label: sector.name,
+    id: sector.id,
+  }))
 }
 
 export const getExperienceSelect = (value) =>

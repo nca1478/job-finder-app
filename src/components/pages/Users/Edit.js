@@ -1,7 +1,7 @@
 // Dependencies
 import { useContext, useEffect, useState } from 'react'
 import { useForm } from 'react-hook-form'
-import { Container, Row, Col, Card, Form, Button } from 'react-bootstrap'
+import { Container, Row, Card, Form, Button } from 'react-bootstrap'
 import { ToastContainer, toast } from 'react-toastify'
 import DateTimePicker from 'react-datetime-picker'
 import Select from 'react-select'

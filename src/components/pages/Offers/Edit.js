@@ -1,9 +1,8 @@
 // Dependencies
-import Select from 'react-select'
 import { useContext, useEffect, useState } from 'react'
 import { ToastContainer, toast } from 'react-toastify'
 import { useParams } from 'react-router-dom'
-import { useForm, Controller } from 'react-hook-form'
+import { useForm } from 'react-hook-form'
 import { Container, Row, Col, Card, Form, Button } from 'react-bootstrap'
 
 // Selects Options
@@ -20,25 +19,17 @@ import {
 // Components
 import { InputForm } from './common/InputForm'
 import { SpinnerBorder } from '../../common/Spinners/SpinnerBorder'
+import { SelectFormEdit } from './common/SelectFormEdit'
 
 // Context
 import { AuthContext } from '../../../auth/authContext'
 
-// Api
-import { get, put } from '../../../config/api'
+// Fetch API
+import { getSectors } from './fetch/sectors'
+import { getOffer, updateOffer } from './fetch/offers'
 
 // Helpers
-import {
-  getCountrySelect,
-  getStateSelect,
-  getCitySelect,
-  getSectorsSelect,
-  getExperienceSelect,
-  getContractSelect,
-  getPeriodSelect,
-  getCurrencySelect,
-} from '../../../helpers/getSelectOption'
-import { sortListObjects } from '../../../helpers/utils'
+import { parseDataOffer } from './helpers/parseDataOffer'
 
 export const EditOfferPage = () => {
   const { offerId } = useParams()
@@ -52,72 +43,17 @@ export const EditOfferPage = () => {
     formState: { errors },
     reset,
     control,
-    getValues,
-    setValue,
   } = useForm()
 
   useEffect(() => {
-    fetchOffer(offerId)
+    getOffer(offerId, user, reset, toast, setLoaded)
+    getSectors(user, setSectorOptions)
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [])
 
-  const fetchSectors = async () => {
-    await get('/sectors', user.data.token).then(({ data }) => {
-      const sectors = data.map((sector, i) => ({
-        value: i + 1,
-        label: sector.name,
-        id: sector.id,
-      }))
-      sortListObjects(sectors)
-      setSectorOptions(sectors)
-    })
-  }
-
-  const fetchOffer = async (offerId) => {
-    await get(`/offers/${offerId}`, user.data.token)
-      .then((response) => {
-        reset(response.data)
-        fetchSectors()
-      })
-      .catch((error) => {
-        toast.error('Error fetching data.')
-        console.log(error)
-      })
-      .finally(() => {
-        setLoaded(true)
-      })
-  }
-
-  const parseDataOffer = (data) => {
-    return {
-      ...data,
-      country: data.country.label ? data.country.label : data.country,
-      state: data.state.label ? data.state.label : data.state,
-      city: data.city.label ? data.city.label : data.city,
-      experience: data.experience.label
-        ? data.experience.label
-        : data.experience,
-      contract: data.contract.label ? data.contract.label : data.contract,
-      period: data.period.label ? data.period.label : data.period,
-      currency: data.currency.label ? data.currency.label : data.currency,
-      sectors: data.sectors.map((sector) => ({ id: sector.id })),
-    }
-  }
-
   const onSubmit = async (data) => {
     const dataOffer = parseDataOffer(data)
-    await put(`/offers/${offerId}/update`, dataOffer, user.data.token)
-      .then((response) => {
-        if (response.data === null) {
-          toast.error(response.errors.msg)
-        } else {
-          toast.info(response.data.msg)
-        }
-      })
-      .catch((error) => {
-        toast.error('Error updating job offers. Try again.')
-        console.log(error)
-      })
+    updateOffer(offerId, dataOffer, user, toast)
   }
 
   return (
@@ -151,166 +87,70 @@ export const EditOfferPage = () => {
                 />
 
                 {/* Country */}
-                <Controller
+                <SelectFormEdit
                   name="country"
+                  label="Country"
+                  controlId="formBasicCountry"
                   control={control}
-                  rules={{ required: true }}
-                  render={({ field: { onChange, value } }) => {
-                    return (
-                      <Form.Group className="mb-3" controlId="formBasicCountry">
-                        <Form.Label>Country</Form.Label>
-                        <Select
-                          value={getCountrySelect(value)}
-                          onChange={({ value, label }) =>
-                            onChange({ value, label })
-                          }
-                          options={countryOptions}
-                        />
-                        {errors.country && (
-                          <Form.Text className="text-danger w-100">
-                            Country is Required
-                          </Form.Text>
-                        )}
-                      </Form.Group>
-                    )
-                  }}
-                ></Controller>
+                  options={countryOptions}
+                  errors={errors.country}
+                  isMulti={false}
+                />
 
                 {/* State */}
-                <Controller
+                <SelectFormEdit
                   name="state"
+                  label="State"
+                  controlId="formBasicState"
                   control={control}
-                  rules={{ required: true }}
-                  render={({ field: { onChange, value } }) => {
-                    return (
-                      <Form.Group className="mb-3" controlId="formBasicState">
-                        <Form.Label>State</Form.Label>
-                        <Select
-                          value={getStateSelect(value)}
-                          onChange={({ value, label }) =>
-                            onChange({ value, label })
-                          }
-                          options={stateOptions}
-                        />
-                        {errors.state && (
-                          <Form.Text className="text-danger w-100">
-                            State is Required
-                          </Form.Text>
-                        )}
-                      </Form.Group>
-                    )
-                  }}
-                ></Controller>
+                  options={stateOptions}
+                  errors={errors.state}
+                  isMulti={false}
+                />
 
                 {/* City */}
-                <Controller
+                <SelectFormEdit
                   name="city"
+                  label="City"
+                  controlId="formBasicCity"
                   control={control}
-                  rules={{ required: true }}
-                  render={({ field: { onChange, value } }) => {
-                    return (
-                      <Form.Group className="mb-3" controlId="formBasicCity">
-                        <Form.Label>City</Form.Label>
-                        <Select
-                          value={getCitySelect(value)}
-                          onChange={({ value, label }) =>
-                            onChange({ value, label })
-                          }
-                          options={cityOptions}
-                        />
-                        {errors.city && (
-                          <Form.Text className="text-danger w-100">
-                            City is Required
-                          </Form.Text>
-                        )}
-                      </Form.Group>
-                    )
-                  }}
-                ></Controller>
+                  options={cityOptions}
+                  errors={errors.city}
+                  isMulti={false}
+                />
 
                 {/* Sectors */}
-                {/* <Controller
+                <SelectFormEdit
                   name="sectors"
+                  label="Sectors"
+                  controlId="formBasicSectors"
                   control={control}
-                  rules={{ required: true }}
-                  render={({ field: { onChange, value } }) => {
-                    return (
-                      <Form.Group className="mb-3" controlId="formBasicSectors">
-                        <Form.Label>Sectors</Form.Label>
-                        <Select
-                          value={getSectorsSelect(
-                            loaded ? getValues('sectors') : []
-                          )}
-                          options={sectorOptions}
-                          isMulti
-                        />
-                        {errors.sectors && (
-                          <Form.Text className="text-danger w-100">
-                            Sectors is Required
-                          </Form.Text>
-                        )}
-                      </Form.Group>
-                    )
-                  }}
-                ></Controller> */}
+                  options={sectorOptions}
+                  errors={errors.sectors}
+                  isMulti={true}
+                />
 
                 {/* Experience */}
-                <Controller
+                <SelectFormEdit
                   name="experience"
+                  label="Experience"
+                  controlId="formBasicExperience"
                   control={control}
-                  rules={{ required: true }}
-                  render={({ field: { onChange, value } }) => {
-                    return (
-                      <Form.Group
-                        className="mb-3"
-                        controlId="formBasicExperience"
-                      >
-                        <Form.Label>Experience</Form.Label>
-                        <Select
-                          value={getExperienceSelect(value)}
-                          onChange={({ value, label }) =>
-                            onChange({ value, label })
-                          }
-                          options={experienceOptions}
-                        />
-                        {errors.experience && (
-                          <Form.Text className="text-danger w-100">
-                            Experience is Required
-                          </Form.Text>
-                        )}
-                      </Form.Group>
-                    )
-                  }}
-                ></Controller>
+                  options={experienceOptions}
+                  errors={errors.experience}
+                  isMulti={false}
+                />
 
                 {/* Contract */}
-                <Controller
+                <SelectFormEdit
                   name="contract"
+                  label="Contract"
+                  controlId="formBasicContract"
                   control={control}
-                  rules={{ required: true }}
-                  render={({ field: { onChange, value } }) => {
-                    return (
-                      <Form.Group
-                        className="mb-3"
-                        controlId="formBasicContract"
-                      >
-                        <Form.Label>Contract</Form.Label>
-                        <Select
-                          value={getContractSelect(value)}
-                          onChange={({ value, label }) =>
-                            onChange({ value, label })
-                          }
-                          options={contractOptions}
-                        />
-                        {errors.contract && (
-                          <Form.Text className="text-danger w-100">
-                            Contract is Required
-                          </Form.Text>
-                        )}
-                      </Form.Group>
-                    )
-                  }}
-                ></Controller>
+                  options={contractOptions}
+                  errors={errors.contract}
+                  isMulti={false}
+                />
 
                 <Row>
                   {/* Payment */}
@@ -327,64 +167,28 @@ export const EditOfferPage = () => {
 
                   {/* Period */}
                   <Col md={4}>
-                    <Controller
+                    <SelectFormEdit
                       name="period"
+                      label="Period"
+                      controlId="formBasicPeriod"
                       control={control}
-                      rules={{ required: true }}
-                      render={({ field: { onChange, value } }) => {
-                        return (
-                          <Form.Group
-                            className="mb-3"
-                            controlId="formBasicPeriod"
-                          >
-                            <Form.Label>Period</Form.Label>
-                            <Select
-                              value={getPeriodSelect(value)}
-                              onChange={({ value, label }) =>
-                                onChange({ value, label })
-                              }
-                              options={periodOptions}
-                            />
-                            {errors.period && (
-                              <Form.Text className="text-danger w-100">
-                                Period is Required
-                              </Form.Text>
-                            )}
-                          </Form.Group>
-                        )
-                      }}
-                    ></Controller>
+                      options={periodOptions}
+                      errors={errors.period}
+                      isMulti={false}
+                    />
                   </Col>
 
                   {/* Currency */}
                   <Col md={5}>
-                    <Controller
+                    <SelectFormEdit
                       name="currency"
+                      label="currency"
+                      controlId="formBasicCurrency"
                       control={control}
-                      rules={{ required: true }}
-                      render={({ field: { onChange, value } }) => {
-                        return (
-                          <Form.Group
-                            className="mb-3"
-                            controlId="formBasicCurrency"
-                          >
-                            <Form.Label>Currency</Form.Label>
-                            <Select
-                              value={getCurrencySelect(value)}
-                              onChange={({ value, label }) =>
-                                onChange({ value, label })
-                              }
-                              options={currencyOptions}
-                            />
-                            {errors.currency && (
-                              <Form.Text className="text-danger w-100">
-                                Currency is Required
-                              </Form.Text>
-                            )}
-                          </Form.Group>
-                        )
-                      }}
-                    ></Controller>
+                      options={currencyOptions}
+                      errors={errors.currency}
+                      isMulti={false}
+                    />
                   </Col>
                 </Row>
 
