@@ -5,7 +5,7 @@ import { Row, Col, Card, Stack, Button } from 'react-bootstrap'
 import { ToastContainer, toast } from 'react-toastify'
 
 // Api Config
-import { put } from '../../../config/api'
+import { put, del } from '../../../config/api'
 
 // Context
 import { AuthContext } from '../../../auth/authContext'
@@ -22,7 +22,6 @@ export const DashboardItem = (props) => {
         if (response.data === null) {
           toast.error(response.errors.msg)
         } else {
-          fetchOffers()
           toast.info(response.data.msg)
         }
       })
@@ -30,10 +29,30 @@ export const DashboardItem = (props) => {
         toast.error('Error try to fetching data.')
         console.log(error)
       })
+      .finally(() => {
+        fetchOffers()
+      })
   }
 
-  const handleDelete = () => {
-    window.confirm('Are you sure?')
+  const handleDelete = (offerId) => {
+    const confirm = window.confirm('Are you sure?')
+    if (confirm) {
+      del(`/offers/${offerId}`, user.data.token)
+        .then((response) => {
+          if (response.data === null) {
+            toast.error(response.errors.msg)
+          } else {
+            toast.info(response.data.msg)
+          }
+        })
+        .catch((error) => {
+          toast.error('Error try to deleting data.')
+          console.log(error)
+        })
+        .finally(() => {
+          fetchOffers()
+        })
+    }
   }
 
   return (
@@ -58,7 +77,11 @@ export const DashboardItem = (props) => {
                 >
                   Edit
                 </Link>
-                <Button variant="danger" size="sm" onClick={handleDelete}>
+                <Button
+                  variant="danger"
+                  size="sm"
+                  onClick={() => handleDelete(id)}
+                >
                   Delete
                 </Button>
               </Stack>
