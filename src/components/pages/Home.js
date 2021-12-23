@@ -27,7 +27,7 @@ export const HomePage = () => {
         }
       })
       .catch((error) => {
-        toast.error('Error try to fetching data.')
+        toast.error('Error try to fetching job offers.')
         console.log(error)
       })
   }

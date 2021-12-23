@@ -25,11 +25,12 @@ import { SelectFormEdit } from './common/SelectFormEdit'
 import { AuthContext } from '../../../auth/authContext'
 
 // Fetch API
-import { getSectors } from './fetch/sectors'
-import { getOffer, updateOffer } from './fetch/offers'
+import { get, put } from '../../../config/api'
 
 // Helpers
 import { parseDataOffer } from './helpers/parseDataOffer'
+import { setFormValues } from './helpers/setFormValues'
+import { sortListObjects } from '../../../helpers/utils'
 
 export const EditOfferPage = () => {
   const { offerId } = useParams()
@@ -46,14 +47,56 @@ export const EditOfferPage = () => {
   } = useForm()
 
   useEffect(() => {
-    getOffer(offerId, user, reset, toast, setLoaded)
-    getSectors(user, setSectorOptions)
+    fetchOffer(offerId)
+    fetchSectors()
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [])
 
+  const fetchOffer = async (offerId) => {
+    await get(`/offers/${offerId}`, user.data.token)
+      .then((response) => {
+        reset(setFormValues(response))
+      })
+      .catch((error) => {
+        toast.error('Error try to fetching job offers.')
+        console.log(error)
+      })
+      .finally(() => {
+        setLoaded(true)
+      })
+  }
+
+  const fetchSectors = async () => {
+    await get('/sectors', user.data.token)
+      .then(({ data }) => {
+        const sectors = data.map((sector, i) => ({
+          value: i + 1,
+          label: sector.name,
+          id: sector.id,
+        }))
+        sortListObjects(sectors)
+        setSectorOptions(sectors)
+      })
+      .catch((error) => {
+        toast.error('Error try to fetching sectors.')
+        console.log(error)
+      })
+  }
+
   const onSubmit = async (data) => {
     const dataOffer = parseDataOffer(data)
-    updateOffer(offerId, dataOffer, user, toast)
+    await put(`/offers/${offerId}/update`, dataOffer, user.data.token)
+      .then((response) => {
+        if (response.data === null) {
+          toast.error(response.errors.msg)
+        } else {
+          toast.info(response.data.msg)
+        }
+      })
+      .catch((error) => {
+        toast.error('Error updating offers.')
+        console.log(error)
+      })
   }
 
   return (

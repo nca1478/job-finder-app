@@ -21,30 +21,26 @@ import { AuthContext } from '../../../auth/authContext'
 // Api Config
 import { get, post } from '../../../config/api'
 
-// Helpers
-import { sortListObjects } from '../../../helpers/utils'
-
 // Components
 import { SelectForm } from './common/SelectForm'
 import { InputForm } from './common/InputForm'
 
+// Helpers
+import { sortListObjects } from '../../../helpers/utils'
+import { parseDataOffer } from './helpers/parseDataOffer'
+import { resetForm } from './helpers/resetForm'
+
 export const AddOfferPage = () => {
-  // Hook Form
+  const { user } = useContext(AuthContext)
+  const [sectorOptions, setSectorOptions] = useState(null)
   const {
     register,
     handleSubmit,
     formState: { errors },
     reset,
     control,
-    getValues,
     setValue,
   } = useForm()
-
-  // Context
-  const { user } = useContext(AuthContext)
-
-  // Selects State
-  const [sectorOptions, setSectorOptions] = useState(null)
 
   useEffect(() => {
     fetchSectors()
@@ -52,41 +48,20 @@ export const AddOfferPage = () => {
   }, [])
 
   const fetchSectors = async () => {
-    get('/sectors', user.data.token).then(({ data }) => {
-      const sectors = data.map((sector, i) => ({
-        value: i + 1,
-        label: sector.name,
-        id: sector.id,
-      }))
-      sortListObjects(sectors)
-      setSectorOptions(sectors)
-    })
-  }
-
-  const parseDataOffer = (data) => {
-    return {
-      ...data,
-      country: getValues('country').label,
-      state: getValues('state').label,
-      city: getValues('city').label,
-      experience: getValues('experience').label,
-      contract: getValues('contract').label,
-      period: getValues('period').label,
-      currency: getValues('currency').label,
-      sectors: getValues('sectors').map((sector) => ({ id: sector.id })),
-    }
-  }
-
-  const resetForm = () => {
-    reset()
-    setValue('country', null)
-    setValue('state', null)
-    setValue('city', null)
-    setValue('experience', null)
-    setValue('contract', null)
-    setValue('period', null)
-    setValue('currency', null)
-    setValue('sectors', null)
+    get('/sectors', user.data.token)
+      .then(({ data }) => {
+        const sectors = data.map((sector, i) => ({
+          value: i + 1,
+          label: sector.name,
+          id: sector.id,
+        }))
+        sortListObjects(sectors)
+        setSectorOptions(sectors)
+      })
+      .catch((error) => {
+        toast.error('Error try to fetching sectors.')
+        console.log(error)
+      })
   }
 
   const onSubmit = async (data) => {
@@ -100,11 +75,11 @@ export const AddOfferPage = () => {
         }
       })
       .catch((error) => {
-        toast.error('Error adding job offers. Try again.')
+        toast.error('Error try to adding job offers.')
         console.log(error)
       })
       .finally(() => {
-        resetForm()
+        resetForm(reset, setValue)
       })
   }
 

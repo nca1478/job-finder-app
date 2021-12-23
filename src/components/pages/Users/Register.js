@@ -2,16 +2,7 @@
 import { useContext } from 'react'
 import { useForm } from 'react-hook-form'
 import { Link, useNavigate } from 'react-router-dom'
-import {
-  Container,
-  Row,
-  Col,
-  Card,
-  Form,
-  InputGroup,
-  FormControl,
-  Button,
-} from 'react-bootstrap'
+import { Container, Row, Col, Card, Form, Button } from 'react-bootstrap'
 import { ToastContainer, toast } from 'react-toastify'
 
 // Api
@@ -22,6 +13,9 @@ import { AuthContext } from '../../../auth/authContext'
 
 // Types Reducer
 import { types } from '../../../types/types'
+
+// Components
+import { InputForm } from './common/InputForm'
 
 export const RegisterPage = () => {
   const {
@@ -69,87 +63,63 @@ export const RegisterPage = () => {
 
               <Form className="mx-3" onSubmit={handleSubmit(onSubmit)}>
                 {/* Fullname */}
-                <InputGroup className="mb-3">
-                  <span className="input-group-text">
-                    <i className="bi bi-person-circle"></i>
-                  </span>
-                  <FormControl
-                    placeholder="Fullname"
-                    {...register('name', { required: true })}
-                    autoComplete="off"
-                  />
-                  {errors.name && (
-                    <Form.Text className="text-danger w-100">
-                      Fullname is required
-                    </Form.Text>
-                  )}
-                </InputGroup>
+                <InputForm
+                  type="text"
+                  register={register}
+                  errors={errors.name}
+                  icon="bi bi-person-circle"
+                  label="Fullname"
+                  name="name"
+                  validationRules={{ required: 'Fullname is required' }}
+                />
 
                 {/* Email */}
-                <InputGroup className="mb-3">
-                  <span className="input-group-text">
-                    <i className="bi bi bi-envelope"></i>
-                  </span>
-                  <FormControl
-                    placeholder="Email"
-                    {...register('email', { required: true })}
-                    autoComplete="off"
-                  />
-                  {errors.email && (
-                    <Form.Text className="text-danger w-100">
-                      Email is required
-                    </Form.Text>
-                  )}
-                </InputGroup>
+                <InputForm
+                  type="email"
+                  register={register}
+                  errors={errors.email}
+                  icon="bi bi-envelope"
+                  label="Email"
+                  name="email"
+                  validationRules={{ required: 'Email is required' }}
+                />
 
                 {/* Password */}
-                <InputGroup className="mb-3">
-                  <span className="input-group-text">
-                    <i className="bi bi-key"></i>
-                  </span>
-                  <FormControl
-                    type="password"
-                    placeholder="Password"
-                    {...register('password', {
-                      required: 'Password is required',
-                      minLength: {
-                        value: 8,
-                        message: 'Password must have at least 8 characters',
-                      },
-                    })}
-                  />
-                  {errors.password && (
-                    <Form.Text className="text-danger w-100">
-                      {errors.password.message}
-                    </Form.Text>
-                  )}
-                </InputGroup>
+                <InputForm
+                  type="password"
+                  register={register}
+                  errors={errors.password}
+                  icon="bi bi-key"
+                  label="Password"
+                  name="password"
+                  validationRules={{
+                    required: 'Password is required',
+                    minLength: {
+                      value: 8,
+                      message: 'Password must have at least 8 characters',
+                    },
+                  }}
+                />
 
                 {/* Confirm Password */}
-                <InputGroup className="mb-3">
-                  <span className="input-group-text">
-                    <i className="bi bi-key"></i>
-                  </span>
-                  <FormControl
-                    type="password"
-                    placeholder="Confirm Password"
-                    {...register('confirm', {
-                      required: 'Password is required',
-                      minLength: {
-                        value: 8,
-                        message: 'Password must have at least 8 characters',
-                      },
-                      validate: (value) =>
-                        value === getValues('password') ||
-                        'The passwords do not match',
-                    })}
-                  />
-                  {errors.confirm && (
-                    <Form.Text className="text-danger w-100">
-                      {errors.confirm.message}
-                    </Form.Text>
-                  )}
-                </InputGroup>
+                <InputForm
+                  type="password"
+                  register={register}
+                  errors={errors.confirm}
+                  icon="bi bi-key"
+                  label="Confirm Password"
+                  name="confirm"
+                  validationRules={{
+                    required: 'Password is required',
+                    minLength: {
+                      value: 8,
+                      message: 'Password must have at least 8 characters',
+                    },
+                    validate: (value) =>
+                      value === getValues('password') ||
+                      'The passwords do not match',
+                  }}
+                />
 
                 {/* Register Button */}
                 <Button type="submit" variant="primary" className="w-100 mb-3">

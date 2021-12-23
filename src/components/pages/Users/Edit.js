@@ -19,6 +19,7 @@ import { PasswordForm } from './common/PasswordForm'
 // Select Options
 import { educationOptions } from '../../../data/selectOptions'
 import { SpinnerBorder } from '../../common/Spinners/SpinnerBorder'
+import { parseDataUser } from './helpers/parseDataUser'
 
 export const EditUserPage = () => {
   const {
@@ -56,7 +57,7 @@ export const EditUserPage = () => {
         setEducationSelect(item)
       })
       .catch((error) => {
-        toast.error('Error fetching data.')
+        toast.error('Error try to fetching user.')
         console.log(error)
       })
       .finally(() => {
@@ -65,13 +66,12 @@ export const EditUserPage = () => {
   }
 
   const onSubmit = async () => {
-    const dataUser = {
-      ...formValues,
-      password: getValues('password'),
-      birthday: moment(dateBirthday).format('YYYY-MM-DD'),
-      education: educationSelect.label,
-    }
-
+    const dataUser = parseDataUser(
+      formValues,
+      getValues,
+      dateBirthday,
+      educationSelect
+    )
     await put(`/users/${dataUser.id}/update`, dataUser, user.data.token)
       .then((response) => {
         if (response.data === null) {

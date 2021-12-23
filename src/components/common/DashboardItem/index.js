@@ -1,59 +1,10 @@
 // Dependencies
-import { useContext } from 'react'
 import { Link } from 'react-router-dom'
 import { Row, Col, Card, Stack, Button } from 'react-bootstrap'
-import { ToastContainer, toast } from 'react-toastify'
-
-// Api Config
-import { put, del } from '../../../config/api'
-
-// Context
-import { AuthContext } from '../../../auth/authContext'
+import { ToastContainer } from 'react-toastify'
 
 export const DashboardItem = (props) => {
-  const { id, title, published, fetchOffers } = props
-  const { user } = useContext(AuthContext)
-
-  const handlePublish = () => {
-    const isPublished = published === false ? 'true' : 'false'
-
-    put(`/offers/${id}/publish?status=${isPublished}`, {}, user.data.token)
-      .then((response) => {
-        if (response.data === null) {
-          toast.error(response.errors.msg)
-        } else {
-          toast.info(response.data.msg)
-        }
-      })
-      .catch((error) => {
-        toast.error('Error try to fetching data.')
-        console.log(error)
-      })
-      .finally(() => {
-        fetchOffers()
-      })
-  }
-
-  const handleDelete = (offerId) => {
-    const confirm = window.confirm('Are you sure?')
-    if (confirm) {
-      del(`/offers/${offerId}`, user.data.token)
-        .then((response) => {
-          if (response.data === null) {
-            toast.error(response.errors.msg)
-          } else {
-            toast.info(response.data.msg)
-          }
-        })
-        .catch((error) => {
-          toast.error('Error try to deleting data.')
-          console.log(error)
-        })
-        .finally(() => {
-          fetchOffers()
-        })
-    }
-  }
+  const { id, title, published, handlePublish, handleDelete } = props
 
   return (
     <Col lg={9} sm={12}>
@@ -68,7 +19,11 @@ export const DashboardItem = (props) => {
               />
               <p className="card-text h5">{title}</p>
               <Stack direction="horizontal" gap={1}>
-                <Button variant="dark" size="sm" onClick={handlePublish}>
+                <Button
+                  variant="dark"
+                  size="sm"
+                  onClick={() => handlePublish(id, published)}
+                >
                   {published === false ? 'Publish' : 'Unpublish'}
                 </Button>
                 <Link

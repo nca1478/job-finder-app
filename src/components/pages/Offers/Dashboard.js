@@ -9,7 +9,7 @@ import { SpaceBlank } from '../../common/SpaceBlank/SpaceBlank'
 import { SpinnerBorder } from '../../common/Spinners/SpinnerBorder'
 
 // Api Config
-import { get } from '../../../config/api'
+import { get, put, del } from '../../../config/api'
 
 // Context
 import { AuthContext } from '../../../auth/authContext'
@@ -34,12 +34,53 @@ export const DashboardPage = () => {
         }
       })
       .catch((error) => {
-        toast.error('Error try to fetching data.')
+        toast.error('Error try to fetching job offers.')
         console.log(error)
       })
       .finally(() => {
         setLoaded(true)
       })
+  }
+
+  const handlePublish = (id, published) => {
+    const isPublished = published === false ? 'true' : 'false'
+
+    put(`/offers/${id}/publish?status=${isPublished}`, {}, user.data.token)
+      .then((response) => {
+        if (response.data === null) {
+          toast.error(response.errors.msg)
+        } else {
+          toast.info(response.data.msg)
+        }
+      })
+      .catch((error) => {
+        toast.error('Error try to publishing job offer.')
+        console.log(error)
+      })
+      .finally(() => {
+        fetchOffers()
+      })
+  }
+
+  const handleDelete = (offerId) => {
+    const confirm = window.confirm('Are you sure?')
+    if (confirm) {
+      del(`/offers/${offerId}`, user.data.token)
+        .then((response) => {
+          if (response.data === null) {
+            toast.error(response.errors.msg)
+          } else {
+            toast.info(response.data.msg)
+          }
+        })
+        .catch((error) => {
+          toast.error('Error try to deleting job offer.')
+          console.log(error)
+        })
+        .finally(() => {
+          fetchOffers()
+        })
+    }
   }
 
   return (
@@ -54,9 +95,10 @@ export const DashboardPage = () => {
               offers.map((offer) => {
                 return (
                   <DashboardItem
-                    key={offer.id}
                     {...offer}
-                    fetchOffers={fetchOffers}
+                    key={offer.id}
+                    handlePublish={handlePublish}
+                    handleDelete={handleDelete}
                   />
                 )
               })

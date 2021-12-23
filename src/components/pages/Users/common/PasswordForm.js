@@ -1,3 +1,4 @@
+// Dependencies
 import { Modal, Form, Button } from 'react-bootstrap'
 
 export const PasswordForm = ({ show, handleClose, register, onSubmit }) => {

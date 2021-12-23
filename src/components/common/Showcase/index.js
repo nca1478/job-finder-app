@@ -1,18 +1,16 @@
 // Dependencies
 import { Link } from 'react-router-dom'
+import { Row, Col, Container } from 'react-bootstrap'
 
 // Assets
 import showcase from '../../../assets/img/showcase.svg'
 
 export const Showcase = () => {
   return (
-    <div
-      id="showcase"
-      className="bg-dark text-light p-5 p-lg-0 pt-lg-5 text-center text-sm-start"
-    >
-      <div className="container">
-        <div className="d-sm-flex align-items-center justify-content-between">
-          <div>
+    <Col className="bg-dark text-light p-5 p-lg-0 pt-lg-5 text-center text-sm-start">
+      <Container>
+        <Row className="d-sm-flex align-items-center justify-content-between">
+          <Col>
             <h1>
               Shows you <span className="text-warning">all Jobs</span>
             </h1>
@@ -26,14 +24,14 @@ export const Showcase = () => {
             <Link to="/offers" className="btn btn-primary btn-lg">
               View Job Offers
             </Link>
-          </div>
+          </Col>
           <img
-            className="img-fluid w-50 d-none d-sm-block"
+            className="img-fluid w-50 d-none d-md-block"
             src={showcase}
             alt="showcase"
           />
-        </div>
-      </div>
-    </div>
+        </Row>
+      </Container>
+    </Col>
   )
 }

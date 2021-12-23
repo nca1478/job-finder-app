@@ -2,26 +2,12 @@
 import { useContext } from 'react'
 import { useForm } from 'react-hook-form'
 import { Link, useNavigate } from 'react-router-dom'
-import {
-  Container,
-  Row,
-  Col,
-  Card,
-  Form,
-  InputGroup,
-  FormControl,
-  Button,
-} from 'react-bootstrap'
+import { Container, Row, Col, Card, Form, Button } from 'react-bootstrap'
 import { ToastContainer, toast } from 'react-toastify'
-
-// Api
 import { post } from '../../../config/api'
-
-// Context
 import { AuthContext } from '../../../auth/authContext'
-
-// Types Reducer
 import { types } from '../../../types/types'
+import { InputForm } from './common/InputForm'
 
 export const LoginPage = () => {
   const {
@@ -68,52 +54,38 @@ export const LoginPage = () => {
 
               <Form className="mx-3" onSubmit={handleSubmit(onSubmit)}>
                 {/* Username */}
-                <InputGroup className="mb-3">
-                  <span className="input-group-text">
-                    <i className="bi bi-person-circle"></i>
-                  </span>
-                  <FormControl
-                    placeholder="Email"
-                    {...register('email', { required: true })}
-                    autoComplete="off"
-                  />
-                  {errors.email && (
-                    <Form.Text className="text-danger w-100">
-                      Email is required
-                    </Form.Text>
-                  )}
-                </InputGroup>
+                <InputForm
+                  type="text"
+                  register={register}
+                  errors={errors.email}
+                  icon="bi bi-person-circle"
+                  label="Email"
+                  name="email"
+                  validationRules={{ required: 'Email is required' }}
+                />
 
                 {/* Password */}
-                <InputGroup className="mb-3">
-                  <span className="input-group-text">
-                    <i className="bi bi-key"></i>
-                  </span>
-                  <FormControl
-                    type="password"
-                    placeholder="Password"
-                    {...register('password', { required: true })}
-                  />
-                  {errors.password && (
-                    <Form.Text className="text-danger w-100">
-                      Password is required
-                    </Form.Text>
-                  )}
-                </InputGroup>
+                <InputForm
+                  type="password"
+                  register={register}
+                  errors={errors.password}
+                  icon="bi bi-key"
+                  label="Password"
+                  name="password"
+                  validationRules={{ required: 'Password is required' }}
+                />
 
-                {/* Login Button */}
+                {/* Login Buttons */}
                 <Button type="submit" variant="dark" className="w-100">
                   Login
                 </Button>
 
                 <h5 className="card-title my-3">Or</h5>
 
-                {/* Google Login Button */}
                 <Button type="button" variant="danger" className="w-100 mb-3">
                   <i className="bi bi-google"></i> Login with Google
                 </Button>
 
-                {/* Facebook Login Button */}
                 <Button type="button" variant="primary" className="w-100 mb-3">
                   <i className="bi bi-facebook"></i> Login with Facebook
                 </Button>
