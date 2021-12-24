@@ -3,7 +3,7 @@ import { Col, Row, Card } from 'react-bootstrap'
 import { Link } from 'react-router-dom'
 
 export const OfferItem = (props) => {
-  const { title, description } = props
+  const { id, title, description } = props
 
   return (
     <Col lg={9} sm={12}>
@@ -19,7 +19,7 @@ export const OfferItem = (props) => {
               />
               <p className="card-text">{description}</p>
 
-              <Link to="/offer/details" className="btn btn-dark">
+              <Link to={`/offer/details/${id}`} className="btn btn-dark">
                 Details
               </Link>
             </Col>

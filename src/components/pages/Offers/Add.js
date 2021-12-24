@@ -18,7 +18,7 @@ import {
 // Context
 import { AuthContext } from '../../../auth/authContext'
 
-// Api Config
+// Fetch Config
 import { get, post } from '../../../config/api'
 
 // Components

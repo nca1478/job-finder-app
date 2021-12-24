@@ -7,7 +7,7 @@ import DateTimePicker from 'react-datetime-picker'
 import Select from 'react-select'
 import moment from 'moment'
 
-// Api
+// Fetch Config
 import { get, put } from '../../../config/api'
 
 // Context
@@ -18,7 +18,11 @@ import { PasswordForm } from './common/PasswordForm'
 
 // Select Options
 import { educationOptions } from '../../../data/selectOptions'
+
+// Components
 import { SpinnerBorder } from '../../common/Spinners/SpinnerBorder'
+
+// Helpers
 import { parseDataUser } from './helpers/parseDataUser'
 
 export const EditUserPage = () => {

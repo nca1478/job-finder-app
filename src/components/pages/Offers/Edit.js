@@ -16,21 +16,21 @@ import {
   stateOptions,
 } from '../../../data/selectOptions'
 
-// Components
-import { InputForm } from './common/InputForm'
-import { SpinnerBorder } from '../../common/Spinners/SpinnerBorder'
-import { SelectFormEdit } from './common/SelectFormEdit'
-
 // Context
 import { AuthContext } from '../../../auth/authContext'
 
-// Fetch API
+// Fetch Config
 import { get, put } from '../../../config/api'
 
 // Helpers
 import { parseDataOffer } from './helpers/parseDataOffer'
 import { setFormValues } from './helpers/setFormValues'
 import { sortListObjects } from '../../../helpers/utils'
+
+// Components
+import { InputForm } from './common/InputForm'
+import { SpinnerBorder } from '../../common/Spinners/SpinnerBorder'
+import { SelectFormEdit } from './common/SelectFormEdit'
 
 export const EditOfferPage = () => {
   const { offerId } = useParams()
@@ -58,7 +58,7 @@ export const EditOfferPage = () => {
         reset(setFormValues(response))
       })
       .catch((error) => {
-        toast.error('Error try to fetching job offers.')
+        toast.error('Error try to fetching job offer.')
         console.log(error)
       })
       .finally(() => {

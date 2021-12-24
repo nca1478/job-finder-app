@@ -4,9 +4,17 @@ import { useForm } from 'react-hook-form'
 import { Link, useNavigate } from 'react-router-dom'
 import { Container, Row, Col, Card, Form, Button } from 'react-bootstrap'
 import { ToastContainer, toast } from 'react-toastify'
+
+// Fetch Config
 import { post } from '../../../config/api'
+
+// Context
 import { AuthContext } from '../../../auth/authContext'
+
+// Types Reducer
 import { types } from '../../../types/types'
+
+// Components
 import { InputForm } from './common/InputForm'
 
 export const LoginPage = () => {

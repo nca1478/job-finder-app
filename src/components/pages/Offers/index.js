@@ -3,12 +3,12 @@ import { useEffect, useState } from 'react'
 import { Row, Col, Container, Alert } from 'react-bootstrap'
 import { ToastContainer, toast } from 'react-toastify'
 
+// Fetch Config
+import { get } from '../../../config/api'
+
 // Components
 import { OfferItem } from '../../common/OfferItem'
 import { SpinnerBorder } from '../../common/Spinners/SpinnerBorder'
-
-// Api Config
-import { get } from '../../../config/api'
 import { SpaceBlank } from '../../common/SpaceBlank/SpaceBlank'
 
 export const OffersPage = () => {
@@ -39,9 +39,9 @@ export const OffersPage = () => {
 
   return (
     <>
-      <Col className="bg-light">
-        <Container className="p-4 bg-light">
-          <h2 className="text-center">Job Offers</h2>
+      <Col className="bg-primary">
+        <Container className="p-4 bg-primary">
+          <h2 className="text-center text-white">Job Offers</h2>
           <Row className="justify-content-center g-4 pt-2">
             {!loaded ? (
               <SpinnerBorder />

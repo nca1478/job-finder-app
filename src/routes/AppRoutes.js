@@ -1,10 +1,6 @@
 // Dependencies
 import { BrowserRouter, Routes, Route } from 'react-router-dom'
 
-// Components
-import { MainNavbar } from '../components/common/MainNavbar'
-import { Footer } from '../components/common/Footer'
-
 // Pages
 import { HomePage } from '../components/pages/Home'
 import { LoginPage } from '../components/pages/Users/Login'
@@ -14,6 +10,11 @@ import { OffersPage } from '../components/pages/Offers'
 // Routes
 import { DashboardRoutes } from './DashboardRoutes'
 import { PrivateRoute } from './PrivateRoute'
+
+// Components
+import { MainNavbar } from '../components/common/MainNavbar'
+import { OfferPage } from '../components/pages/Offers/Offer'
+import { Footer } from '../components/common/Footer'
 
 export const AppRoutes = () => {
   return (
@@ -25,6 +26,7 @@ export const AppRoutes = () => {
         <Route path="/login" element={<LoginPage />} />
         <Route path="/register" element={<RegisterPage />} />
         <Route path="/offers" element={<OffersPage />} />
+        <Route path="/offer/details/:offerId" element={<OfferPage />} />
 
         {/* PrivateRoutes */}
         <Route

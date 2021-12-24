@@ -3,15 +3,17 @@ import { useState, useEffect } from 'react'
 import { Row, Col, Container, Alert } from 'react-bootstrap'
 import { ToastContainer, toast } from 'react-toastify'
 
-// Components
-import { OfferItem } from '../common/OfferItem'
-import { Showcase } from '../common/Showcase'
-
 // Api Config
 import { get } from '../../config/api'
 
+// Components
+import { OfferItem } from '../common/OfferItem'
+import { Showcase } from '../common/Showcase'
+import { SpinnerBorder } from '../common/Spinners/SpinnerBorder'
+
 export const HomePage = () => {
   const [offers, setOffers] = useState([])
+  const [loaded, setLoaded] = useState(false)
 
   useEffect(() => {
     fetchOffers()
@@ -30,6 +32,9 @@ export const HomePage = () => {
         toast.error('Error try to fetching job offers.')
         console.log(error)
       })
+      .finally(() => {
+        setLoaded(true)
+      })
   }
 
   return (
@@ -37,18 +42,26 @@ export const HomePage = () => {
       <Showcase />
       <Col className="p-5 bg-primary">
         <Container>
-          <h2 className="text-center text-white mb-4">Last Job Offers</h2>
-          <Row className="g-4 justify-content-center">
-            {offers.length > 0 ? (
-              offers.map((offer) => {
-                return <OfferItem key={offer.id} {...offer} />
-              })
-            ) : (
-              <Alert variant="danger" className="w-75">
-                Oh no.... There are no job offers to show. Come back soon...
-              </Alert>
-            )}
-          </Row>
+          {!loaded ? (
+            <Row className="justify-content-center mt-5">
+              <SpinnerBorder />
+            </Row>
+          ) : (
+            <>
+              <h2 className="text-center text-white mb-4">Last Job Offers</h2>
+              <Row className="g-4 justify-content-center">
+                {offers.length > 0 ? (
+                  offers.map((offer) => {
+                    return <OfferItem key={offer.id} {...offer} />
+                  })
+                ) : (
+                  <Alert variant="danger" className="w-75">
+                    Oh no.... There are no job offers to show. Come back soon...
+                  </Alert>
+                )}
+              </Row>
+            </>
+          )}
         </Container>
         <ToastContainer />
       </Col>
