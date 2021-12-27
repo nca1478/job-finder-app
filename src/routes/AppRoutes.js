@@ -26,7 +26,7 @@ export const AppRoutes = () => {
         <Route path="/login" element={<LoginPage />} />
         <Route path="/register" element={<RegisterPage />} />
         <Route path="/offers" element={<OffersPage />} />
-        <Route path="/offer/details/:offerId" element={<OfferPage />} />
+        <Route path="/offer/:offerId/details" element={<OfferPage />} />
 
         {/* PrivateRoutes */}
         <Route

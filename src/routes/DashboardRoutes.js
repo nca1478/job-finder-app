@@ -13,7 +13,7 @@ export const DashboardRoutes = () => {
       <Routes>
         <Route path="/dashboard" element={<DashboardPage />} />
         <Route path="/offer/add" element={<AddOfferPage />} />
-        <Route path="/offer/edit/:offerId" element={<EditOfferPage />} />
+        <Route path="/offer/:offerId/edit" element={<EditOfferPage />} />
         <Route path="/user/edit" element={<EditUserPage />} />
       </Routes>
     </>

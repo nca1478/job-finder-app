@@ -208,19 +208,6 @@ export const EditOfferPage = () => {
                     />
                   </Col>
 
-                  {/* Period */}
-                  <Col md={4}>
-                    <SelectFormEdit
-                      name="period"
-                      label="Period"
-                      controlId="formBasicPeriod"
-                      control={control}
-                      options={periodOptions}
-                      errors={errors.period}
-                      isMulti={false}
-                    />
-                  </Col>
-
                   {/* Currency */}
                   <Col md={5}>
                     <SelectFormEdit
@@ -230,6 +217,19 @@ export const EditOfferPage = () => {
                       control={control}
                       options={currencyOptions}
                       errors={errors.currency}
+                      isMulti={false}
+                    />
+                  </Col>
+
+                  {/* Period */}
+                  <Col md={4}>
+                    <SelectFormEdit
+                      name="period"
+                      label="Period"
+                      controlId="formBasicPeriod"
+                      control={control}
+                      options={periodOptions}
+                      errors={errors.period}
                       isMulti={false}
                     />
                   </Col>

@@ -190,19 +190,6 @@ export const AddOfferPage = () => {
                     />
                   </Col>
 
-                  {/* Period */}
-                  <Col md={4}>
-                    <SelectForm
-                      name="period"
-                      label="Period"
-                      controlId="formBasicPeriod"
-                      control={control}
-                      options={periodOptions}
-                      errors={errors.period}
-                      isMulti={false}
-                    />
-                  </Col>
-
                   {/* Currency */}
                   <Col md={5}>
                     <SelectForm
@@ -212,6 +199,19 @@ export const AddOfferPage = () => {
                       control={control}
                       options={currencyOptions}
                       errors={errors.currency}
+                      isMulti={false}
+                    />
+                  </Col>
+
+                  {/* Period */}
+                  <Col md={4}>
+                    <SelectForm
+                      name="period"
+                      label="Period"
+                      controlId="formBasicPeriod"
+                      control={control}
+                      options={periodOptions}
+                      errors={errors.period}
                       isMulti={false}
                     />
                   </Col>

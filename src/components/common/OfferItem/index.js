@@ -19,7 +19,7 @@ export const OfferItem = (props) => {
               />
               <p className="card-text">{description}</p>
 
-              <Link to={`/offer/details/${id}`} className="btn btn-dark">
+              <Link to={`/offer/${id}/details`} className="btn btn-dark">
                 Details
               </Link>
             </Col>

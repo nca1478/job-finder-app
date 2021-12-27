@@ -27,7 +27,7 @@ export const DashboardItem = (props) => {
                   {published === false ? 'Publish' : 'Unpublish'}
                 </Button>
                 <Link
-                  to={`/offer/edit/${id}`}
+                  to={`/offer/${id}/edit`}
                   className="btn btn-primary btn-sm"
                 >
                   Edit

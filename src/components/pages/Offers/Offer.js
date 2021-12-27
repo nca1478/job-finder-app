@@ -1,6 +1,6 @@
 // Dependencies
-import { useEffect, useState } from 'react'
-import { useParams } from 'react-router-dom'
+import { useContext, useEffect, useState } from 'react'
+import { useParams, useNavigate } from 'react-router-dom'
 import {
   Container,
   Row,
@@ -12,16 +12,24 @@ import {
 } from 'react-bootstrap'
 import { ToastContainer, toast } from 'react-toastify'
 
+// Context
+import { AuthContext } from '../../../auth/authContext'
+
 // Fetch Config
 import { get } from '../../../config/api'
 
 // Components
 import { SpinnerBorder } from '../../common/Spinners/SpinnerBorder'
+import { Contactform } from './common/ContactForm'
 
 export const OfferPage = () => {
+  const navigate = useNavigate()
   const { offerId } = useParams()
   const [offer, setOffer] = useState({})
+  const [show, setShow] = useState(false)
+  const { user } = useContext(AuthContext)
   const [loaded, setLoaded] = useState(false)
+  const [userProfile, setUserProfile] = useState({})
 
   useEffect(() => {
     fetchOffer(offerId)
@@ -42,6 +50,30 @@ export const OfferPage = () => {
       })
   }
 
+  const fetchUser = async (userId) => {
+    await get(`/users/${userId}`, user.data.token)
+      .then((response) => {
+        setUserProfile(response.data)
+      })
+      .catch((error) => {
+        toast.error('Error try to fetching user profile.')
+        console.log(error)
+      })
+      .finally(() => {
+        setShow(true)
+      })
+  }
+
+  const handleClose = () => setShow(false)
+
+  const handleContact = () => {
+    if (user.logged) {
+      fetchUser(offer.user.id)
+    } else {
+      navigate('/login', { replace: true })
+    }
+  }
+
   return (
     <Container>
       {!loaded ? (
@@ -50,26 +82,20 @@ export const OfferPage = () => {
         </Row>
       ) : (
         <Row className="py-5">
-          <Col>
-            <Image src="https://picsum.photos/id/1/520/320" thumbnail fluid />
+          <Col md="6" sm="12">
+            <Image
+              className="mb-3"
+              src="https://picsum.photos/id/1/520/320"
+              thumbnail
+              fluid
+            />
           </Col>
-          <Col>
+          <Col md="6" sm="12">
             <h2 className="mb-2">{offer.title}</h2>
             <h5>{offer.description}</h5>
 
             <Row>
               <ListGroup as="ul" variant="flush" className="lead">
-                <ListGroup.Item>
-                  <Row>
-                    <Col md="9">
-                      <span className="fw-bold">Freelancer:</span>{' '}
-                      {loaded && offer.user.name}
-                    </Col>
-                    <Col md="3" className="text-end">
-                      <Button variant="primary">Contact Info</Button>
-                    </Col>
-                  </Row>
-                </ListGroup.Item>
                 <ListGroup.Item>
                   <span className="fw-bold">Sectors:</span>{' '}
                   {offer.sectors.map((sector) => {
@@ -96,14 +122,32 @@ export const OfferPage = () => {
                 <ListGroup.Item>
                   <span className="fw-bold">Contract:</span> {offer.contract}
                 </ListGroup.Item>
+
                 <ListGroup.Item>
                   <span className="fw-bold">Salary:</span> {offer.payment}
                 </ListGroup.Item>
                 <ListGroup.Item>
-                  <span className="fw-bold">Period:</span> {offer.period}
+                  <span className="fw-bold">Currency:</span> {offer.currency}
                 </ListGroup.Item>
                 <ListGroup.Item>
-                  <span className="fw-bold">Currency:</span> {offer.currency}
+                  <span className="fw-bold">Period:</span> {offer.period}
+                </ListGroup.Item>
+
+                {/* Modal */}
+                <Contactform
+                  show={show}
+                  handleClose={handleClose}
+                  userProfile={userProfile}
+                />
+
+                <ListGroup.Item>
+                  <Button
+                    variant="dark"
+                    className="w-100"
+                    onClick={handleContact}
+                  >
+                    Contact Info
+                  </Button>
                 </ListGroup.Item>
               </ListGroup>
             </Row>
