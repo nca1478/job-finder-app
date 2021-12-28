@@ -94,12 +94,17 @@ export const DashboardPage = () => {
             ) : offers.length > 0 ? (
               offers.map((offer) => {
                 return (
-                  <DashboardItem
-                    {...offer}
-                    key={offer.id}
-                    handlePublish={handlePublish}
-                    handleDelete={handleDelete}
-                  />
+                  <>
+                    <DashboardItem
+                      {...offer}
+                      key={offer.id}
+                      handlePublish={handlePublish}
+                      handleDelete={handleDelete}
+                    />
+                    {offers.length > 0 && offers.length < 3 && (
+                      <SpaceBlank height="200px" />
+                    )}
+                  </>
                 )
               })
             ) : (

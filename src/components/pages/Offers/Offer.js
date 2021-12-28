@@ -32,6 +32,7 @@ export const OfferPage = () => {
   const [userProfile, setUserProfile] = useState({})
 
   useEffect(() => {
+    window.scrollTo(0, 0)
     fetchOffer(offerId)
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [])

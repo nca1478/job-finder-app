@@ -1,13 +1,7 @@
 // Dependencies
 import React, { useEffect, useReducer } from 'react'
-
-// Routes
 import { AppRoutes } from './routes/AppRoutes'
-
-// Context
 import { AuthContext } from './auth/authContext'
-
-// Reducers
 import { authReducer } from './auth/authReducer'
 
 // Styles

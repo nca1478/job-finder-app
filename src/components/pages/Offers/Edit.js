@@ -47,6 +47,7 @@ export const EditOfferPage = () => {
   } = useForm()
 
   useEffect(() => {
+    window.scrollTo(0, 0)
     fetchOffer(offerId)
     fetchSectors()
     // eslint-disable-next-line react-hooks/exhaustive-deps

@@ -1,14 +1,8 @@
 // Dependencies
 import { useContext } from 'react'
+import { useForm } from 'react-hook-form'
 import { Link, NavLink, useNavigate } from 'react-router-dom'
-import {
-  Container,
-  Nav,
-  Navbar,
-  Form,
-  FormControl,
-  Button,
-} from 'react-bootstrap'
+import { Container, Nav, Navbar, Form, Button } from 'react-bootstrap'
 
 // Context
 import { AuthContext } from '../../../auth/authContext'
@@ -18,11 +12,24 @@ import { types } from '../../../types/types'
 
 export const MainNavbar = () => {
   const { user, dispatch } = useContext(AuthContext)
+  const { register, handleSubmit, setValue } = useForm()
   const navigate = useNavigate()
 
   const handleLogout = () => {
     dispatch({ type: types.logout })
     navigate('/', { replace: true })
+  }
+
+  const handleOnBlur = () => {
+    setValue('searchText', null)
+  }
+
+  const onSubmit = (data) => {
+    navigate(`/search?q=${data.searchText}`)
+  }
+
+  const styleActive = ({ isActive }) => {
+    return 'nav-item nav-link ' + (isActive ? 'active' : '')
   }
 
   return (
@@ -41,53 +48,39 @@ export const MainNavbar = () => {
               style={{ maxHeight: '100px' }}
               navbarScroll
             >
-              <NavLink
-                to="/"
-                className={({ isActive }) =>
-                  'nav-item nav-link ' + (isActive ? 'active' : '')
-                }
-              >
+              <NavLink to="/" className={styleActive}>
                 Home
               </NavLink>
 
               {user.logged ? (
                 <>
-                  <NavLink
-                    to="/dashboard"
-                    className={({ isActive }) =>
-                      'nav-item nav-link ' + (isActive ? 'active' : '')
-                    }
-                  >
+                  <NavLink to="/dashboard" className={styleActive}>
                     Dashboard
                   </NavLink>
 
-                  <NavLink
-                    to="/offer/add"
-                    className={({ isActive }) =>
-                      'nav-item nav-link ' + (isActive ? 'active' : '')
-                    }
-                  >
+                  <NavLink to="/offer/add" className={styleActive}>
                     Add Offers
                   </NavLink>
                 </>
               ) : null}
 
-              <NavLink
-                to="/offers"
-                className={({ isActive }) =>
-                  'nav-item nav-link ' + (isActive ? 'active' : '')
-                }
-              >
+              <NavLink to="/offers" className={styleActive}>
                 Offers
               </NavLink>
             </Nav>
 
-            <Form className="d-flex justify-content-around">
-              <FormControl
+            <Form
+              className="d-flex justify-content-around"
+              onSubmit={handleSubmit(onSubmit)}
+            >
+              <Form.Control
                 type="search"
-                placeholder="Search"
+                placeholder="Search Offers by Title"
                 className="me-2"
                 aria-label="Search"
+                {...register('searchText', {
+                  onBlur: handleOnBlur,
+                })}
               />
 
               {!user.logged ? (

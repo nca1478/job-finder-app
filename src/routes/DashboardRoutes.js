@@ -1,7 +1,5 @@
 // Dependencies
 import { Route, Routes } from 'react-router-dom'
-
-// Pages
 import { AddOfferPage } from '../components/pages/Offers/Add'
 import { DashboardPage } from '../components/pages/Offers/Dashboard'
 import { EditOfferPage } from '../components/pages/Offers/Edit'

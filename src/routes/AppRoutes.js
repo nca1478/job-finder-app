@@ -15,6 +15,7 @@ import { PrivateRoute } from './PrivateRoute'
 import { MainNavbar } from '../components/common/MainNavbar'
 import { OfferPage } from '../components/pages/Offers/Offer'
 import { Footer } from '../components/common/Footer'
+import { SearchPage } from '../components/pages/Offers/Search'
 
 export const AppRoutes = () => {
   return (
@@ -27,6 +28,7 @@ export const AppRoutes = () => {
         <Route path="/register" element={<RegisterPage />} />
         <Route path="/offers" element={<OffersPage />} />
         <Route path="/offer/:offerId/details" element={<OfferPage />} />
+        <Route path="/search" element={<SearchPage />} />
 
         {/* PrivateRoutes */}
         <Route
