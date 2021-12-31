@@ -3,8 +3,11 @@ import { Link } from 'react-router-dom'
 import { Row, Col, Card, Stack, Button } from 'react-bootstrap'
 import { ToastContainer } from 'react-toastify'
 
+// Assets
+import noImage from '../../../assets/img/no-image.png'
+
 export const DashboardItem = (props) => {
-  const { id, title, published, handlePublish, handleDelete } = props
+  const { id, title, img, published, handlePublish, handleDelete } = props
 
   return (
     <Col lg={9} sm={12}>
@@ -14,7 +17,8 @@ export const DashboardItem = (props) => {
             <Col className="d-flex align-items-center text-center justify-content-between">
               <img
                 className="img-thumbnail d-none d-md-block"
-                src="https://picsum.photos/id/1/170/100"
+                src={img ? img : noImage}
+                style={{ width: '170px', height: '100px' }}
                 alt=""
               />
               <p className="card-text h5">{title}</p>

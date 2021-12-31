@@ -31,6 +31,7 @@ import { sortListObjects } from '../../../helpers/utils'
 import { InputForm } from './common/InputForm'
 import { SpinnerBorder } from '../../common/Spinners/SpinnerBorder'
 import { SelectFormEdit } from './common/SelectFormEdit'
+import { ImageForm } from './common/ImageForm'
 
 export const EditOfferPage = () => {
   const { offerId } = useParams()
@@ -38,6 +39,7 @@ export const EditOfferPage = () => {
   const [sectorOptions, setSectorOptions] = useState(null)
   const [selectedFile, setSelectedFile] = useState(null)
   const [loadedFile, setLoadedFile] = useState(null)
+  const [show, setShow] = useState(false)
   const [loaded, setLoaded] = useState(false)
 
   const {
@@ -46,6 +48,7 @@ export const EditOfferPage = () => {
     formState: { errors },
     reset,
     control,
+    getValues,
   } = useForm()
 
   useEffect(() => {
@@ -90,6 +93,10 @@ export const EditOfferPage = () => {
   const fileChangedHandler = (e) => {
     setSelectedFile(e.target.files[0])
   }
+
+  const handleShow = () => setShow(true)
+
+  const handleClose = () => setShow(false)
 
   const uploadImage = async (id) => {
     const formData = new FormData()
@@ -299,7 +306,9 @@ export const EditOfferPage = () => {
                     <Row>
                       <Col md={12} lg={loadedFile ? 8 : 12}>
                         <Form.Group controlId="formFile" className="mb-3">
-                          <Form.Label className="fw-bold">Image</Form.Label>
+                          <Form.Label className="fw-bold">
+                            Upload Image
+                          </Form.Label>
                           <Form.Control
                             type="file"
                             {...register('img')}
@@ -310,17 +319,31 @@ export const EditOfferPage = () => {
 
                       {loadedFile && (
                         <Col md={12} lg={4}>
-                          <Form.Group controlId="formViewImg" className="mb-3">
+                          <Form.Group controlId="formShowImg" className="mb-3">
                             <Form.Label className="fw-bold">
-                              View Image
+                              Show Image
                             </Form.Label>
-                            <Button variant="primary" className="w-100">
-                              View
+                            <Button
+                              variant="primary"
+                              className="w-100"
+                              onClick={handleShow}
+                            >
+                              Show
                             </Button>
                           </Form.Group>
                         </Col>
                       )}
                     </Row>
+
+                    {/* Modal */}
+                    <ImageForm
+                      show={show}
+                      handleClose={handleClose}
+                      offer={{
+                        title: getValues('title'),
+                        img: getValues('img'),
+                      }}
+                    />
 
                     {/* Save Button */}
                     <Button type="submit" variant="primary" className="w-100">

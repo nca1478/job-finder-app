@@ -22,6 +22,9 @@ import { get } from '../../../config/api'
 import { SpinnerBorder } from '../../common/Spinners/SpinnerBorder'
 import { Contactform } from './common/ContactForm'
 
+// Assets
+import noImage from '../../../assets/img/no-image.png'
+
 export const OfferPage = () => {
   const navigate = useNavigate()
   const { offerId } = useParams()
@@ -86,7 +89,8 @@ export const OfferPage = () => {
           <Col md="6" sm="12">
             <Image
               className="mb-3"
-              src="https://picsum.photos/id/1/520/320"
+              src={offer.img ? offer.img : noImage}
+              style={{ width: '520px', height: '320px' }}
               thumbnail
               fluid
             />

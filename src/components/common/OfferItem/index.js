@@ -1,9 +1,12 @@
 // Dependencies
-import { Col, Row, Card } from 'react-bootstrap'
+import { Col, Row, Card, Stack } from 'react-bootstrap'
 import { Link } from 'react-router-dom'
 
+// Assets
+import noImage from '../../../assets/img/no-image.png'
+
 export const OfferItem = (props) => {
-  const { id, title, description } = props
+  const { id, title, description, img } = props
 
   return (
     <Col lg={9} sm={12}>
@@ -14,7 +17,8 @@ export const OfferItem = (props) => {
             <Col className="d-flex align-items-center text-center justify-content-between">
               <img
                 className="img-thumbnail d-none d-md-block"
-                src="https://picsum.photos/id/1/170/100"
+                src={img ? img : noImage}
+                style={{ width: '170px', height: '100px' }}
                 alt=""
               />
               <p className="card-text">{description}</p>
