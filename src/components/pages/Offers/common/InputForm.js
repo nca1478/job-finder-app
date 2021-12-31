@@ -11,7 +11,7 @@ export const InputForm = ({
 }) => {
   return (
     <Form.Group className="mb-3" controlId={controlId}>
-      <Form.Label>{label}</Form.Label>
+      <Form.Label className="fw-bold">{label}</Form.Label>
       <Form.Control
         type="text"
         placeholder={placeholder}

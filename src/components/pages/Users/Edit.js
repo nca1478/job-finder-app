@@ -1,7 +1,7 @@
 // Dependencies
 import { useContext, useEffect, useState } from 'react'
 import { useForm } from 'react-hook-form'
-import { Container, Row, Card, Form, Button } from 'react-bootstrap'
+import { Container, Row, Card, Form, Button, Col } from 'react-bootstrap'
 import { ToastContainer, toast } from 'react-toastify'
 import DateTimePicker from 'react-datetime-picker'
 import Select from 'react-select'
@@ -110,105 +110,109 @@ export const EditUserPage = () => {
   }
 
   return (
-    <Container className="my-4" style={{ width: '650px' }}>
-      <h2 className="mb-2 text-center">User Profile</h2>
-      <Row className="justify-content-center">
-        {!loaded ? (
-          <SpinnerBorder />
-        ) : (
-          <Card className="text-dark py-3">
-            <Card.Body>
-              <Form className="mx-3" onSubmit={handleSubmit(handleShow)}>
-                {/* Name */}
-                <Form.Group className="mb-3" controlId="formBasicName">
-                  <Form.Label>Name</Form.Label>
-                  <Form.Control
-                    type="text"
-                    placeholder="Enter Name"
-                    {...register('name', { required: true })}
+    <Col className="bg-primary">
+      <Container className="p-4 bg-primary" style={{ width: '650px' }}>
+        <h2 className="text-center text-white">User Profile</h2>
+        <Row className="justify-content-center pt-2">
+          {!loaded ? (
+            <SpinnerBorder />
+          ) : (
+            <Card className="text-dark py-3">
+              <Card.Body>
+                <Form className="mx-3" onSubmit={handleSubmit(handleShow)}>
+                  {/* Name */}
+                  <Form.Group className="mb-3" controlId="formBasicName">
+                    <Form.Label className="fw-bold">Name</Form.Label>
+                    <Form.Control
+                      type="text"
+                      placeholder="Enter Name"
+                      {...register('name', { required: true })}
+                    />
+                    {errors.name && (
+                      <Form.Text className="text-danger w-100">
+                        Name is required
+                      </Form.Text>
+                    )}
+                  </Form.Group>
+
+                  {/* Email */}
+                  <Form.Group className="mb-3" controlId="formBasicEmail">
+                    <Form.Label className="fw-bold">Email</Form.Label>
+                    <Form.Control
+                      type="email"
+                      placeholder="Enter Email"
+                      {...register('email', { required: true })}
+                    />
+                    {errors.email && (
+                      <Form.Text className="text-danger w-100">
+                        Email is required
+                      </Form.Text>
+                    )}
+                  </Form.Group>
+
+                  {/* Profession */}
+                  <Form.Group className="mb-3" controlId="formBasicProfession">
+                    <Form.Label className="fw-bold">Profession</Form.Label>
+                    <Form.Control
+                      type="text"
+                      placeholder="Enter Profession"
+                      {...register('profession')}
+                    />
+                  </Form.Group>
+
+                  {/* Birthday */}
+                  <Form.Group className="mb-3" controlId="formBasicBirthday">
+                    <Form.Label className="fw-bold">Birthday</Form.Label>
+                    <DateTimePicker
+                      onChange={handleBirthdayDateChange}
+                      value={dateBirthday}
+                      className="form-control"
+                    />
+                  </Form.Group>
+
+                  {/* Education */}
+                  <Form.Group className="mb-3" controlId="formBasicEducation">
+                    <Form.Label className="fw-bold">Education</Form.Label>
+                    <Select
+                      className="mb-2"
+                      value={educationSelect}
+                      options={educationOptions}
+                      onChange={handleEducationChange}
+                    />
+                  </Form.Group>
+
+                  {/* Curriculum Vitae */}
+                  <Form.Group className="mb-3" controlId="formBasicCvText">
+                    <Form.Label className="fw-bold">
+                      Curriculum Vitae
+                    </Form.Label>
+                    <Form.Control
+                      as="textarea"
+                      rows={3}
+                      placeholder="Enter Text"
+                      {...register('cvText')}
+                    />
+                  </Form.Group>
+
+                  {/* Modal */}
+                  <PasswordForm
+                    show={show}
+                    handleClose={handleClose}
+                    register={register}
+                    onSubmit={onSubmit}
                   />
-                  {errors.name && (
-                    <Form.Text className="text-danger w-100">
-                      Name is required
-                    </Form.Text>
-                  )}
-                </Form.Group>
 
-                {/* Email */}
-                <Form.Group className="mb-3" controlId="formBasicEmail">
-                  <Form.Label>Email</Form.Label>
-                  <Form.Control
-                    type="email"
-                    placeholder="Enter Email"
-                    {...register('email', { required: true })}
-                  />
-                  {errors.email && (
-                    <Form.Text className="text-danger w-100">
-                      Email is required
-                    </Form.Text>
-                  )}
-                </Form.Group>
-
-                {/* Profession */}
-                <Form.Group className="mb-3" controlId="formBasicProfession">
-                  <Form.Label>Profession</Form.Label>
-                  <Form.Control
-                    type="text"
-                    placeholder="Enter Profession"
-                    {...register('profession')}
-                  />
-                </Form.Group>
-
-                {/* Birthday */}
-                <Form.Group className="mb-3" controlId="formBasicBirthday">
-                  <Form.Label>Birthday</Form.Label>
-                  <DateTimePicker
-                    onChange={handleBirthdayDateChange}
-                    value={dateBirthday}
-                    className="form-control"
-                  />
-                </Form.Group>
-
-                {/* Education */}
-                <Form.Group className="mb-3" controlId="formBasicEducation">
-                  <Form.Label>Education</Form.Label>
-                  <Select
-                    className="mb-2"
-                    value={educationSelect}
-                    options={educationOptions}
-                    onChange={handleEducationChange}
-                  />
-                </Form.Group>
-
-                {/* Curriculum Vitae */}
-                <Form.Group className="mb-3" controlId="formBasicCvText">
-                  <Form.Label>Curriculum Vitae</Form.Label>
-                  <Form.Control
-                    as="textarea"
-                    rows={3}
-                    placeholder="Enter Text"
-                    {...register('cvText')}
-                  />
-                </Form.Group>
-
-                {/* Modal */}
-                <PasswordForm
-                  show={show}
-                  handleClose={handleClose}
-                  register={register}
-                  onSubmit={onSubmit}
-                />
-
-                {/* Register Button */}
-                <Button type="submit" variant="primary" className="w-100">
-                  Save
-                </Button>
-              </Form>
-            </Card.Body>
-          </Card>
-        )}
-      </Row>
-      <ToastContainer />
-    </Container>
+                  {/* Save Button */}
+                  <Button type="submit" variant="primary" className="w-100">
+                    Save
+                  </Button>
+                </Form>
+              </Card.Body>
+            </Card>
+          )}
+        </Row>
+        <ToastContainer />
+      </Container>
+    </Col>
   )
 }

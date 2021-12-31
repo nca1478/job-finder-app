@@ -38,36 +38,34 @@ export const OffersPage = () => {
   }
 
   return (
-    <>
-      <Col className="bg-primary">
-        <Container className="p-4 bg-primary">
-          <h2 className="text-center text-white">Job Offers</h2>
-          <Row className="justify-content-center g-4 pt-2">
-            {!loaded ? (
-              <SpinnerBorder />
-            ) : offers.length > 0 ? (
-              offers.map((offer) => {
-                return (
-                  <>
-                    <OfferItem key={offer.id} {...offer} />
-                    {offers.length > 0 && offers.length < 3 && (
-                      <SpaceBlank height="200px" />
-                    )}
-                  </>
-                )
-              })
-            ) : (
-              <>
-                <Alert variant="danger" className="w-75">
-                  Oh no.... There are no job offers to show. Come back soon...
-                </Alert>
-                <SpaceBlank height="270px" />
-              </>
-            )}
-          </Row>
-        </Container>
-        <ToastContainer />
-      </Col>
-    </>
+    <Col className="bg-primary">
+      <Container className="p-4 bg-primary">
+        <h2 className="text-center text-white">Job Offers</h2>
+        <Row className="justify-content-center g-4 pt-2">
+          {!loaded ? (
+            <SpinnerBorder />
+          ) : offers.length > 0 ? (
+            offers.map((offer) => {
+              return (
+                <>
+                  <OfferItem key={offer.id} {...offer} />
+                  {offers.length > 0 && offers.length < 3 && (
+                    <SpaceBlank height="200px" />
+                  )}
+                </>
+              )
+            })
+          ) : (
+            <>
+              <Alert variant="danger" className="w-75">
+                Oh no.... There are no job offers to show. Come back soon...
+              </Alert>
+              <SpaceBlank height="270px" />
+            </>
+          )}
+        </Row>
+      </Container>
+      <ToastContainer />
+    </Col>
   )
 }

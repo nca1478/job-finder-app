@@ -19,7 +19,7 @@ export const SelectForm = ({
       rules={{ required: true }}
       render={({ field }) => (
         <Form.Group className="mb-3" controlId={controlId}>
-          <Form.Label>{label}</Form.Label>
+          <Form.Label className="fw-bold">{label}</Form.Label>
           <Select {...field} options={options} isClearable isMulti={isMulti} />
           {errors && (
             <Form.Text className="text-danger w-100">Required</Form.Text>

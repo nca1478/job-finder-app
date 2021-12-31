@@ -20,7 +20,7 @@ export const SelectFormEdit = ({
       render={({ field: { onChange, value } }) => {
         return (
           <Form.Group className="mb-3" controlId={controlId}>
-            <Form.Label>{label}</Form.Label>
+            <Form.Label className="fw-bold">{label}</Form.Label>
             <Select
               value={value}
               onChange={

@@ -84,41 +84,39 @@ export const DashboardPage = () => {
   }
 
   return (
-    <>
-      <Col className="bg-light">
-        <Container className="p-4 bg-light">
-          <h2 className="text-center">Dashboard</h2>
-          <Row className="justify-content-center g-4 mt-2">
-            {!loaded ? (
-              <SpinnerBorder />
-            ) : offers.length > 0 ? (
-              offers.map((offer) => {
-                return (
-                  <>
-                    <DashboardItem
-                      {...offer}
-                      key={offer.id}
-                      handlePublish={handlePublish}
-                      handleDelete={handleDelete}
-                    />
-                    {offers.length > 0 && offers.length < 3 && (
-                      <SpaceBlank height="200px" />
-                    )}
-                  </>
-                )
-              })
-            ) : (
-              <>
-                <Alert variant="danger" className="w-75">
-                  Oh no.... There are no job offers to show. Come back soon...
-                </Alert>
-                <SpaceBlank height="260px" />
-              </>
-            )}
-          </Row>
-        </Container>
-        <ToastContainer />
-      </Col>
-    </>
+    <Col className="bg-primary">
+      <Container className="p-4 bg-primary">
+        <h2 className="text-center text-white">Dashboard</h2>
+        <Row className="justify-content-center g-4 pt-2">
+          {!loaded ? (
+            <SpinnerBorder />
+          ) : offers.length > 0 ? (
+            offers.map((offer) => {
+              return (
+                <>
+                  <DashboardItem
+                    {...offer}
+                    key={offer.id}
+                    handlePublish={handlePublish}
+                    handleDelete={handleDelete}
+                  />
+                  {offers.length > 0 && offers.length < 3 && (
+                    <SpaceBlank height="200px" />
+                  )}
+                </>
+              )
+            })
+          ) : (
+            <>
+              <Alert variant="danger" className="w-75">
+                Oh no.... There are no job offers to show. Come back soon...
+              </Alert>
+              <SpaceBlank height="260px" />
+            </>
+          )}
+        </Row>
+      </Container>
+      <ToastContainer />
+    </Col>
   )
 }
