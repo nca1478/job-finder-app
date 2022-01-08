@@ -87,7 +87,7 @@ export const DashboardPage = () => {
     <Col className="bg-primary">
       <Container className="p-4 bg-primary">
         <h2 className="text-center text-white">Dashboard</h2>
-        <Row className="justify-content-center g-4 pt-2">
+        <Row className="d-flex justify-content-center g-4 pt-2">
           {!loaded ? (
             <SpinnerBorder />
           ) : offers.length > 0 ? (
@@ -101,7 +101,7 @@ export const DashboardPage = () => {
                     handleDelete={handleDelete}
                   />
                   {offers.length > 0 && offers.length < 3 && (
-                    <SpaceBlank height="200px" />
+                    <SpaceBlank height="210px" />
                   )}
                 </>
               )
@@ -111,7 +111,7 @@ export const DashboardPage = () => {
               <Alert variant="danger" className="w-75">
                 Oh no.... There are no job offers to show. Come back soon...
               </Alert>
-              <SpaceBlank height="260px" />
+              <SpaceBlank height="270px" />
             </>
           )}
         </Row>

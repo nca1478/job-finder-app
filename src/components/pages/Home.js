@@ -49,7 +49,7 @@ export const HomePage = () => {
           ) : (
             <>
               <h2 className="text-center text-white mb-4">Last Job Offers</h2>
-              <Row className="g-4 justify-content-center">
+              <Row className="d-flex justify-content-center g-4">
                 {offers.length > 0 ? (
                   offers.map((offer) => {
                     return <OfferItem key={offer.id} {...offer} />

@@ -4,7 +4,7 @@ import { Row, Col, Card, Stack, Button } from 'react-bootstrap'
 import { ToastContainer } from 'react-toastify'
 
 // Assets
-import noImage from '../../../assets/img/no-image.png'
+import noImage from '../../../assets/img/no-image.jpg'
 
 export const DashboardItem = (props) => {
   const { id, title, img, published, handlePublish, handleDelete } = props

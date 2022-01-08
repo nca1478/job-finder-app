@@ -23,7 +23,7 @@ import { SpinnerBorder } from '../../common/Spinners/SpinnerBorder'
 import { Contactform } from './common/ContactForm'
 
 // Assets
-import noImage from '../../../assets/img/no-image.png'
+import noImage from '../../../assets/img/no-image.jpg'
 
 export const OfferPage = () => {
   const navigate = useNavigate()
