@@ -51,16 +51,12 @@ export const SearchPage = () => {
             {!loaded ? (
               <SpinnerBorder />
             ) : offers.length > 0 ? (
-              offers.map((offer) => {
-                return (
-                  <>
-                    <OfferItem key={offer.id} {...offer} />
-                    {offers.length > 0 && offers.length < 3 && (
-                      <SpaceBlank height="200px" />
-                    )}
-                  </>
-                )
-              })
+              <>
+                {offers.map((offer) => {
+                  return <OfferItem key={offer.id} {...offer} />
+                })}
+                <SpaceBlank height="60px" />
+              </>
             ) : (
               <>
                 <Alert variant="danger" className="w-75">

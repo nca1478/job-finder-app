@@ -91,21 +91,18 @@ export const DashboardPage = () => {
           {!loaded ? (
             <SpinnerBorder />
           ) : offers.length > 0 ? (
-            offers.map((offer) => {
-              return (
-                <>
-                  <DashboardItem
-                    {...offer}
-                    key={offer.id}
-                    handlePublish={handlePublish}
-                    handleDelete={handleDelete}
-                  />
-                  {offers.length > 0 && offers.length < 3 && (
-                    <SpaceBlank height="210px" />
-                  )}
-                </>
-              )
-            })
+            <>
+              {offers.map((offer) => (
+                <DashboardItem
+                  {...offer}
+                  key={offer.id}
+                  handlePublish={handlePublish}
+                  handleDelete={handleDelete}
+                />
+              ))}
+              {offers.length === 1 && <SpaceBlank height="210px" />}
+              {offers.length === 2 && <SpaceBlank height="60px" />}
+            </>
           ) : (
             <>
               <Alert variant="danger" className="w-75">

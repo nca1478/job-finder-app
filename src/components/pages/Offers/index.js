@@ -47,13 +47,11 @@ export const OffersPage = () => {
           ) : offers.length > 0 ? (
             <>
               {offers.map((offer) => {
-                return (
-                  <>
-                    <OfferItem key={offer.id} {...offer} />
-                  </>
-                )
+                return <OfferItem key={offer.id} {...offer} />
               })}
-              <SpaceBlank height="60px" />
+              {offers.length > 0 && offers.length < 5 && (
+                <SpaceBlank height="60px" />
+              )}
             </>
           ) : (
             <>
