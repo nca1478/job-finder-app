@@ -80,31 +80,26 @@ export const LoginPage = () => {
       accessToken: response.accessToken,
       userID: response.userID,
     }
-    console.log(facebookData)
-    // post('/users/facebook', facebookData)
-    //     .then((response) => {
-    //         if (response.data === null) {
-    //             notification['error']({
-    //                 message: 'Login Error',
-    //                 description: 'An error has occurred starting the facebook session.',
-    //             });
-    //         } else {
-    //             const dataUser = {
-    //                 token: response.data.token,
-    //                 ...response.data.user,
-    //             };
-    //             authenticate(dataUser, () => {
-    //                 history.replace(from);
-    //             });
-    //         }
-    //     })
-    //     .catch((error) => {
-    //         notification['error']({
-    //             message: 'Login Error',
-    //             description: 'An error has occurred starting the facebook session.',
-    //         });
-    //         console.log(error);
-    //     });
+    post('/users/facebook', facebookData)
+      .then((response) => {
+        if (response.data === null) {
+          toast.error(response.errors.msg)
+        } else {
+          const dataUser = {
+            token: response.data.token,
+            ...response.data.user,
+          }
+          dispatch({
+            type: types.login,
+            payload: { data: dataUser },
+          })
+          navigate('/dashboard', { replace: true })
+        }
+      })
+      .catch((error) => {
+        toast.error('Error when trying to facebook login.')
+        console.log(error)
+      })
   }
 
   return (
