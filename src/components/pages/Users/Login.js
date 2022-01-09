@@ -4,8 +4,6 @@ import { useForm } from 'react-hook-form'
 import { Link, useNavigate } from 'react-router-dom'
 import { Container, Row, Col, Card, Form, Button } from 'react-bootstrap'
 import { ToastContainer, toast } from 'react-toastify'
-import GoogleLogin from 'react-google-login'
-import FacebookLogin from 'react-facebook-login'
 
 // Fetch Config
 import { post } from '../../../config/api'
@@ -18,6 +16,8 @@ import { types } from '../../../types/types'
 
 // Components
 import { InputForm } from './common/InputForm'
+import { GoogleButton } from './common/GoogleButton'
+import { FacebookButton } from './common/FacebookButton'
 
 export const LoginPage = () => {
   const {
@@ -144,32 +144,9 @@ export const LoginPage = () => {
 
                   <h5 className="card-title my-3">Or</h5>
 
-                  <GoogleLogin
-                    clientId={process.env.REACT_APP_GOOGLE_CLIENT_ID}
-                    render={(renderProps) => (
-                      <Button
-                        type="button"
-                        variant="danger"
-                        className="w-100"
-                        onClick={renderProps.onClick}
-                        disabled={renderProps.disabled}
-                      >
-                        <i className="bi bi-google"></i> Login with Google
-                      </Button>
-                    )}
-                    buttonText="Login"
-                    onSuccess={responseGoogle}
-                    onFailure={responseGoogle}
-                    cookiePolicy={'single_host_origin'}
-                  />
-
-                  <FacebookLogin
-                    appId={process.env.REACT_APP_FACEBOOK_APP_ID}
-                    callback={responseFacebook}
-                    cssClass="button-submit facebook-button"
-                    textButton={<span>Login with Facebook</span>}
-                    icon="fa-facebook"
-                  />
+                  {/* Social Media Authentication Buttons */}
+                  <GoogleButton responseGoogle={responseGoogle} />
+                  <FacebookButton responseFacebook={responseFacebook} />
 
                   <span className="card-title">
                     Do you need an account?{' '}
