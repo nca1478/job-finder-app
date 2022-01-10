@@ -33,6 +33,7 @@ import { resetForm } from './helpers/resetForm'
 export const AddOfferPage = () => {
   const { user } = useContext(AuthContext)
   const [sectorOptions, setSectorOptions] = useState(null)
+  const [skillsOptions, setSkillsOptions] = useState(null)
   const {
     register,
     handleSubmit,
@@ -44,6 +45,7 @@ export const AddOfferPage = () => {
 
   useEffect(() => {
     fetchSectors()
+    fetchSkills()
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [])
 
@@ -60,6 +62,23 @@ export const AddOfferPage = () => {
       })
       .catch((error) => {
         toast.error('Error try to fetching sectors.')
+        console.log(error)
+      })
+  }
+
+  const fetchSkills = async () => {
+    get('/skills', user.data.token)
+      .then(({ data }) => {
+        const skills = data.map((skill, i) => ({
+          value: i + 1,
+          label: skill.name,
+          id: skill.id,
+        }))
+        sortListObjects(skills)
+        setSkillsOptions(skills)
+      })
+      .catch((error) => {
+        toast.error('Error try to fetching skills.')
         console.log(error)
       })
   }
@@ -85,102 +104,112 @@ export const AddOfferPage = () => {
 
   return (
     <Col className="bg-primary">
-      <Container className="p-4 bg-primary" style={{ width: '650px' }}>
+      <Container className="p-4 bg-primary">
         <h2 className="text-center text-white">Add New Offer</h2>
-        <Row className="pt-2">
+        <Row className="justify-content-center pt-2">
           <Col>
             <Card className="py-3">
               <Card.Body>
                 <Form className="mx-3" onSubmit={handleSubmit(onSubmit)}>
-                  {/* Title */}
-                  <InputForm
-                    name="title"
-                    label="Title"
-                    placeholder="Enter Title"
-                    controlId="formBasicTitle"
-                    register={register}
-                    errors={errors.title}
-                  />
+                  <Row>
+                    <Col md={12} lg={6}>
+                      {/* Title */}
+                      <InputForm
+                        name="title"
+                        label="Title"
+                        placeholder="Enter Title"
+                        controlId="formBasicTitle"
+                        register={register}
+                        errors={errors.title}
+                      />
+                    </Col>
 
-                  {/* Description */}
-                  <InputForm
-                    name="description"
-                    label="Description"
-                    placeholder="Enter Description"
-                    controlId="formBasicDescription"
-                    register={register}
-                    errors={errors.description}
-                  />
-
-                  {/* Country */}
-                  <SelectForm
-                    name="country"
-                    label="Country"
-                    controlId="formBasicCountry"
-                    control={control}
-                    options={countryOptions}
-                    errors={errors.country}
-                    isMulti={false}
-                  />
-
-                  {/* State */}
-                  <SelectForm
-                    name="state"
-                    label="State"
-                    controlId="formBasicState"
-                    control={control}
-                    options={stateOptions}
-                    errors={errors.state}
-                    isMulti={false}
-                  />
-
-                  {/* City */}
-                  <SelectForm
-                    name="city"
-                    label="City"
-                    controlId="formBasicCity"
-                    control={control}
-                    options={cityOptions}
-                    errors={errors.city}
-                    isMulti={false}
-                  />
-
-                  {/* Sector */}
-                  <SelectForm
-                    name="sectors"
-                    label="Sectors"
-                    controlId="formBasicSectors"
-                    control={control}
-                    options={sectorOptions}
-                    errors={errors.sectors}
-                    isMulti={true}
-                  />
-
-                  {/* Experience */}
-                  <SelectForm
-                    name="experience"
-                    label="Experience"
-                    controlId="formBasicExperience"
-                    control={control}
-                    options={experienceOptions}
-                    errors={errors.experience}
-                    isMulti={false}
-                  />
-
-                  {/* Contract */}
-                  <SelectForm
-                    name="contract"
-                    label="Contract"
-                    controlId="formBasicContract"
-                    control={control}
-                    options={contractOptions}
-                    errors={errors.contract}
-                    isMulti={false}
-                  />
+                    <Col md={12} lg={6}>
+                      {/* Sectors */}
+                      <SelectForm
+                        name="sectors"
+                        label="Sectors"
+                        controlId="formBasicSectors"
+                        control={control}
+                        options={sectorOptions}
+                        errors={errors.sectors}
+                        isMulti={true}
+                      />
+                    </Col>
+                  </Row>
 
                   <Row>
-                    {/* Payment */}
-                    <Col md={3}>
+                    <Col>
+                      {/* Description */}
+                      <Form.Group
+                        className="mb-3"
+                        controlId="formBasicDescription"
+                      >
+                        <Form.Label className="fw-bold">Description</Form.Label>
+                        <Form.Control
+                          as="textarea"
+                          rows={3}
+                          placeholder="Enter Text"
+                          {...register('description')}
+                        />
+                      </Form.Group>
+                    </Col>
+                  </Row>
+
+                  <Row>
+                    <Col md={12} lg={6}>
+                      {/* Skills */}
+                      <SelectForm
+                        name="skills"
+                        label="Skills"
+                        controlId="formBasicSkills"
+                        control={control}
+                        options={skillsOptions}
+                        errors={errors.sectors}
+                        isMulti={true}
+                      />
+                    </Col>
+                    <Col md={12} lg={6}>
+                      {/* Experience */}
+                      <SelectForm
+                        name="experience"
+                        label="Experience"
+                        controlId="formBasicExperience"
+                        control={control}
+                        options={experienceOptions}
+                        errors={errors.experience}
+                        isMulti={false}
+                      />
+                    </Col>
+                  </Row>
+
+                  <Row>
+                    <Col md={12} lg={4}>
+                      {/* Contract */}
+                      <SelectForm
+                        name="contract"
+                        label="Contract"
+                        controlId="formBasicContract"
+                        control={control}
+                        options={contractOptions}
+                        errors={errors.contract}
+                        isMulti={false}
+                      />
+                    </Col>
+                    <Col md={12} lg={2}>
+                      {/* Period */}
+                      <SelectForm
+                        name="period"
+                        label="Period"
+                        controlId="formBasicPeriod"
+                        control={control}
+                        options={periodOptions}
+                        errors={errors.period}
+                        isMulti={false}
+                      />
+                    </Col>
+                    <Col md={12} lg={3}>
+                      {/* Payment */}
                       <InputForm
                         name="payment"
                         label="Payment"
@@ -190,9 +219,8 @@ export const AddOfferPage = () => {
                         errors={errors.payment}
                       />
                     </Col>
-
-                    {/* Currency */}
-                    <Col md={5}>
+                    <Col md={12} lg={3}>
+                      {/* Currency */}
                       <SelectForm
                         name="currency"
                         label="Currency"
@@ -203,16 +231,44 @@ export const AddOfferPage = () => {
                         isMulti={false}
                       />
                     </Col>
+                  </Row>
 
-                    {/* Period */}
-                    <Col md={4}>
+                  <Row>
+                    <Col md={12} lg={6}>
+                      {/* Country */}
                       <SelectForm
-                        name="period"
-                        label="Period"
-                        controlId="formBasicPeriod"
+                        name="country"
+                        label="Country"
+                        controlId="formBasicCountry"
                         control={control}
-                        options={periodOptions}
-                        errors={errors.period}
+                        options={countryOptions}
+                        errors={errors.country}
+                        isMulti={false}
+                      />
+                    </Col>
+
+                    <Col md={12} lg={3}>
+                      {/* State */}
+                      <SelectForm
+                        name="state"
+                        label="State"
+                        controlId="formBasicState"
+                        control={control}
+                        options={stateOptions}
+                        errors={errors.state}
+                        isMulti={false}
+                      />
+                    </Col>
+
+                    <Col md={12} lg={3}>
+                      {/* City */}
+                      <SelectForm
+                        name="city"
+                        label="City"
+                        controlId="formBasicCity"
+                        control={control}
+                        options={cityOptions}
+                        errors={errors.city}
                         isMulti={false}
                       />
                     </Col>

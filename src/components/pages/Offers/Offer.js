@@ -103,22 +103,11 @@ export const OfferPage = () => {
               <ListGroup as="ul" variant="flush" className="lead">
                 <ListGroup.Item>
                   <span className="fw-bold">Sectors:</span>{' '}
-                  {offer.sectors.map((sector) => {
-                    return (
-                      <Badge key={sector.id} pill bg="dark" className="mx-1">
-                        {sector.name}
-                      </Badge>
-                    )
-                  })}
-                </ListGroup.Item>
-                <ListGroup.Item>
-                  <span className="fw-bold">Country:</span> {offer.country}
-                </ListGroup.Item>
-                <ListGroup.Item>
-                  <span className="fw-bold">State:</span> {offer.state}
-                </ListGroup.Item>
-                <ListGroup.Item>
-                  <span className="fw-bold">City:</span> {offer.city}
+                  {offer.sectors.map(
+                    (sector, index) =>
+                      sector.name +
+                      `${index < offer.sectors.length - 1 ? ', ' : ' '}`
+                  )}
                 </ListGroup.Item>
                 <ListGroup.Item>
                   <span className="fw-bold">Experience:</span>{' '}
@@ -127,7 +116,6 @@ export const OfferPage = () => {
                 <ListGroup.Item>
                   <span className="fw-bold">Contract:</span> {offer.contract}
                 </ListGroup.Item>
-
                 <ListGroup.Item>
                   <span className="fw-bold">Salary:</span> {offer.payment}
                 </ListGroup.Item>
@@ -136,6 +124,16 @@ export const OfferPage = () => {
                 </ListGroup.Item>
                 <ListGroup.Item>
                   <span className="fw-bold">Period:</span> {offer.period}
+                </ListGroup.Item>
+
+                <ListGroup.Item>
+                  <span className="fw-bold">Country:</span> {offer.country}
+                </ListGroup.Item>
+                <ListGroup.Item>
+                  <span className="fw-bold">State:</span> {offer.state}
+                </ListGroup.Item>
+                <ListGroup.Item>
+                  <span className="fw-bold">City:</span> {offer.city}
                 </ListGroup.Item>
 
                 {/* Modal */}

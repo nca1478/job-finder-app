@@ -28,12 +28,11 @@ export const cityOptions = [
 ]
 
 export const experienceOptions = [
-  { value: '1', label: 'Not need experience' },
-  { value: '2', label: 'At least 1 year experience' },
-  { value: '3', label: 'At least 2 year experience' },
-  { value: '4', label: 'At least 3 year experience' },
-  { value: '5', label: '5 or more years experience' },
-  { value: '6', label: '10 or more years experience' },
+  { value: '1', label: '1 year experience' },
+  { value: '2', label: '2 year experience' },
+  { value: '3', label: '3 year experience' },
+  { value: '4', label: '5 or more years experience' },
+  { value: '5', label: '10 or more years experience' },
 ]
 
 export const contractOptions = [
@@ -42,6 +41,7 @@ export const contractOptions = [
   { value: '3', label: 'Temporal - Complete Jorney' },
   { value: '4', label: 'Temporal - Parcial Jorney' },
   { value: '5', label: 'Practices' },
+  { value: '6', label: 'Remote' },
 ]
 
 export const periodOptions = [
