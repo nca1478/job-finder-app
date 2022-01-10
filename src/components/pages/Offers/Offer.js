@@ -102,6 +102,17 @@ export const OfferPage = () => {
             <Row>
               <ListGroup as="ul" variant="flush" className="lead">
                 <ListGroup.Item>
+                  <span className="fw-bold">Skills:</span>{' '}
+                  {offer.skills.map((skill) => {
+                    return (
+                      <Badge key={skill.id} pill bg="dark" className="mx-1">
+                        {skill.name}
+                      </Badge>
+                    )
+                  })}
+                </ListGroup.Item>
+
+                <ListGroup.Item>
                   <span className="fw-bold">Sectors:</span>{' '}
                   {offer.sectors.map(
                     (sector, index) =>

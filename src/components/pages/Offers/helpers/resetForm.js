@@ -8,4 +8,5 @@ export const resetForm = (reset, setValue) => {
   setValue('period', null)
   setValue('currency', null)
   setValue('sectors', null)
+  setValue('skills', null)
 }

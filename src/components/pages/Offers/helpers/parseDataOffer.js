@@ -9,5 +9,6 @@ export const parseDataOffer = (data) => {
     period: data.period.label,
     currency: data.currency.label,
     sectors: data.sectors.map((sector) => ({ id: sector.id })),
+    skills: data.skills.map((skill) => ({ id: skill.id })),
   }
 }

@@ -25,6 +25,14 @@ export const getSectorsSelect = (values) => {
   }))
 }
 
+export const getSkillsSelect = (values) => {
+  return values.map((skill, i) => ({
+    value: i + 1,
+    label: skill.name,
+    id: skill.id,
+  }))
+}
+
 export const getExperienceSelect = (value) =>
   experienceOptions.find((item) => item.label === value)
 
