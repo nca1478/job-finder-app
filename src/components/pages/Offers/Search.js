@@ -60,7 +60,7 @@ export const SearchPage = () => {
             ) : (
               <>
                 <Alert variant="danger" className="w-75">
-                  Oh no.... There are no job offers to show, try later...
+                  No job offers was found...
                 </Alert>
                 <SpaceBlank height="270px" />
               </>

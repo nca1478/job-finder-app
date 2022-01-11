@@ -111,7 +111,7 @@ export const EditUserPage = () => {
 
   return (
     <Col className="bg-primary">
-      <Container className="p-4 bg-primary" style={{ width: '650px' }}>
+      <Container className="p-4 bg-primary">
         <h2 className="text-center text-white">User Profile</h2>
         <Row className="justify-content-center pt-2">
           <Col>
@@ -121,82 +121,181 @@ export const EditUserPage = () => {
               <Card className="text-dark py-3">
                 <Card.Body>
                   <Form className="mx-3" onSubmit={handleSubmit(handleShow)}>
-                    {/* Name */}
-                    <Form.Group className="mb-3" controlId="formBasicName">
-                      <Form.Label className="fw-bold">Name</Form.Label>
-                      <Form.Control
-                        type="text"
-                        placeholder="Enter Name"
-                        {...register('name', { required: true })}
-                      />
-                      {errors.name && (
-                        <Form.Text className="text-danger w-100">
-                          Name is required
-                        </Form.Text>
-                      )}
-                    </Form.Group>
+                    <Row>
+                      {/* Name */}
+                      <Col md={12} lg={6}>
+                        <Form.Group className="mb-3" controlId="formBasicName">
+                          <Form.Label className="fw-bold">Name</Form.Label>
+                          <Form.Control
+                            type="text"
+                            placeholder="Enter Name"
+                            {...register('name', { required: true })}
+                          />
+                          {errors.name && (
+                            <Form.Text className="text-danger w-100">
+                              Name is required
+                            </Form.Text>
+                          )}
+                        </Form.Group>
+                      </Col>
 
-                    {/* Email */}
-                    <Form.Group className="mb-3" controlId="formBasicEmail">
-                      <Form.Label className="fw-bold">Email</Form.Label>
-                      <Form.Control
-                        type="email"
-                        placeholder="Enter Email"
-                        {...register('email', { required: true })}
-                      />
-                      {errors.email && (
-                        <Form.Text className="text-danger w-100">
-                          Email is required
-                        </Form.Text>
-                      )}
-                    </Form.Group>
+                      {/* Email */}
+                      <Col md={12} lg={6}>
+                        <Form.Group className="mb-3" controlId="formBasicEmail">
+                          <Form.Label className="fw-bold">Email</Form.Label>
+                          <Form.Control
+                            type="email"
+                            placeholder="Enter Email"
+                            {...register('email', { required: true })}
+                          />
+                          {errors.email && (
+                            <Form.Text className="text-danger w-100">
+                              Email is required
+                            </Form.Text>
+                          )}
+                        </Form.Group>
+                      </Col>
+                    </Row>
 
-                    {/* Profession */}
-                    <Form.Group
-                      className="mb-3"
-                      controlId="formBasicProfession"
-                    >
-                      <Form.Label className="fw-bold">Profession</Form.Label>
-                      <Form.Control
-                        type="text"
-                        placeholder="Enter Profession"
-                        {...register('profession')}
-                      />
-                    </Form.Group>
+                    <Row>
+                      {/* Profession */}
+                      <Col md={12} lg={6}>
+                        <Form.Group
+                          className="mb-3"
+                          controlId="formBasicProfession"
+                        >
+                          <Form.Label className="fw-bold">
+                            Profession
+                          </Form.Label>
+                          <Form.Control
+                            type="text"
+                            placeholder="Enter Profession"
+                            {...register('profession')}
+                          />
+                        </Form.Group>
+                      </Col>
 
-                    {/* Birthday */}
-                    <Form.Group className="mb-3" controlId="formBasicBirthday">
-                      <Form.Label className="fw-bold">Birthday</Form.Label>
-                      <DateTimePicker
-                        onChange={handleBirthdayDateChange}
-                        value={dateBirthday}
-                        className="form-control"
-                      />
-                    </Form.Group>
+                      {/* Education */}
+                      <Col md={12} lg={3}>
+                        <Form.Group
+                          className="mb-3"
+                          controlId="formBasicEducation"
+                        >
+                          <Form.Label className="fw-bold">Education</Form.Label>
+                          <Select
+                            className="mb-2"
+                            value={educationSelect}
+                            options={educationOptions}
+                            onChange={handleEducationChange}
+                          />
+                        </Form.Group>
+                      </Col>
 
-                    {/* Education */}
-                    <Form.Group className="mb-3" controlId="formBasicEducation">
-                      <Form.Label className="fw-bold">Education</Form.Label>
-                      <Select
-                        className="mb-2"
-                        value={educationSelect}
-                        options={educationOptions}
-                        onChange={handleEducationChange}
-                      />
-                    </Form.Group>
+                      {/* Birthday */}
+                      <Col md={12} lg={3}>
+                        <Form.Group
+                          className="mb-3"
+                          controlId="formBasicBirthday"
+                        >
+                          <Form.Label className="fw-bold">Birthday</Form.Label>
+                          <DateTimePicker
+                            onChange={handleBirthdayDateChange}
+                            value={dateBirthday}
+                            className="form-control"
+                          />
+                        </Form.Group>
+                      </Col>
+                    </Row>
 
-                    {/* Curriculum Vitae */}
-                    <Form.Group className="mb-3" controlId="formBasicCvText">
-                      <Form.Label className="fw-bold">
-                        Curriculum Vitae
-                      </Form.Label>
-                      <Form.Control
-                        as="textarea"
-                        rows={3}
-                        placeholder="Enter Text"
-                        {...register('cvText')}
-                      />
-                    </Form.Group>
+                    <Row>
+                      <Col>
+                        {/* Curriculum Vitae */}
+                        <Form.Group
+                          className="mb-3"
+                          controlId="formBasicCvText"
+                        >
+                          <Form.Label className="fw-bold">
+                            Curriculum Vitae
+                          </Form.Label>
+                          <Form.Control
+                            as="textarea"
+                            rows={3}
+                            placeholder="Enter Text"
+                            {...register('cvText')}
+                          />
+                        </Form.Group>
+                      </Col>
+                    </Row>
+
+                    <Row>
+                      {/* linkedinUser */}
+                      <Col md={12} lg={3}>
+                        <Form.Group
+                          className="mb-3"
+                          controlId="formBasicLinkedinUser"
+                        >
+                          <Form.Label className="fw-bold">
+                            <i className="bi bi-linkedin"></i> Linkedin
+                          </Form.Label>
+                          <Form.Control
+                            type="text"
+                            placeholder="Enter linkedin user"
+                            {...register('linkedinUser')}
+                          />
+                        </Form.Group>
+                      </Col>
+
+                      {/* twitterUser */}
+                      <Col md={12} lg={3}>
+                        <Form.Group
+                          className="mb-3"
+                          controlId="formBasicTwitterUser"
+                        >
+                          <Form.Label className="fw-bold">
+                            <i className="bi bi-twitter"></i> Twitter
+                          </Form.Label>
+                          <Form.Control
+                            type="text"
+                            placeholder="Enter twitter user"
+                            {...register('twitterUser')}
+                          />
+                        </Form.Group>
+                      </Col>
+
+                      {/* instagramUser */}
+                      <Col md={12} lg={3}>
+                        <Form.Group
+                          className="mb-3"
+                          controlId="formBasicInstagramUser"
+                        >
+                          <Form.Label className="fw-bold">
+                            <i className="bi bi-instagram"></i> Instagram
+                          </Form.Label>
+                          <Form.Control
+                            type="text"
+                            placeholder="Enter instagram user"
+                            {...register('instagramUser')}
+                          />
+                        </Form.Group>
+                      </Col>
+
+                      {/* facebookUser */}
+                      <Col md={12} lg={3}>
+                        <Form.Group
+                          className="mb-3"
+                          controlId="formBasicFacebookUser"
+                        >
+                          <Form.Label className="fw-bold">
+                            <i className="bi bi-facebook"></i> Facebook
+                          </Form.Label>
+                          <Form.Control
+                            type="text"
+                            placeholder="Enter facebook user"
+                            {...register('facebookUser')}
+                          />
+                        </Form.Group>
+                      </Col>
+                    </Row>
 
                     {/* Modal */}
                     <PasswordForm

@@ -160,7 +160,7 @@ export const OfferPage = () => {
                     className="w-100"
                     onClick={handleContact}
                   >
-                    Contact Info
+                    Contact Information
                   </Button>
                 </ListGroup.Item>
               </ListGroup>
