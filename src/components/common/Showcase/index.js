@@ -2,7 +2,7 @@
 import { Link } from 'react-router-dom'
 import { Row, Col, Container } from 'react-bootstrap'
 
-// Assets
+// Custom Dependencies
 import showcase from '../../../assets/img/showcase.svg'
 
 export const Showcase = () => {

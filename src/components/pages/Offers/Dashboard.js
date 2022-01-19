@@ -3,13 +3,9 @@ import { useContext, useEffect, useState } from 'react'
 import { Row, Col, Container, Alert } from 'react-bootstrap'
 import { ToastContainer, toast } from 'react-toastify'
 
-// Fetch Config
+// Custom Dependencies
 import { get, put, del } from '../../../config/api'
-
-// Context
 import { AuthContext } from '../../../auth/authContext'
-
-// Components
 import { DashboardItem } from '../../common/DashboardItem'
 import { SpaceBlank } from '../../common/SpaceBlank/SpaceBlank'
 import { SpinnerBorder } from '../../common/Spinners/SpinnerBorder'
@@ -89,7 +85,10 @@ export const DashboardPage = () => {
         <h2 className="text-center text-white">Dashboard</h2>
         <Row className="d-flex justify-content-center g-4 pt-2">
           {!loaded ? (
-            <SpinnerBorder />
+            <>
+              <SpinnerBorder />
+              <SpaceBlank height="400px" />
+            </>
           ) : offers.length > 0 ? (
             <>
               {offers.map((offer) => (

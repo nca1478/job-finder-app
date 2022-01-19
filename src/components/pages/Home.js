@@ -3,10 +3,8 @@ import { useState, useEffect } from 'react'
 import { Row, Col, Container, Alert } from 'react-bootstrap'
 import { ToastContainer, toast } from 'react-toastify'
 
-// Api Config
+// Custom Dependencies
 import { get } from '../../config/api'
-
-// Components
 import { OfferItem } from '../common/OfferItem'
 import { Showcase } from '../common/Showcase'
 import { SpinnerBorder } from '../common/Spinners/SpinnerBorder'

@@ -3,10 +3,8 @@ import { useEffect, useState } from 'react'
 import { Row, Col, Container, Alert } from 'react-bootstrap'
 import { ToastContainer, toast } from 'react-toastify'
 
-// Fetch Config
+// Custom Dependencies
 import { get } from '../../../config/api'
-
-// Components
 import { OfferItem } from '../../common/OfferItem'
 import { SpinnerBorder } from '../../common/Spinners/SpinnerBorder'
 import { SpaceBlank } from '../../common/SpaceBlank/SpaceBlank'
@@ -43,7 +41,10 @@ export const OffersPage = () => {
         <h2 className="text-center text-white">Job Offers</h2>
         <Row className="d-flex justify-content-center g-4 pt-2">
           {!loaded ? (
-            <SpinnerBorder />
+            <>
+              <SpinnerBorder />
+              <SpaceBlank height="400px" />
+            </>
           ) : offers.length > 0 ? (
             <>
               {offers.map((offer) => {

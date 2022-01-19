@@ -7,23 +7,14 @@ import DateTimePicker from 'react-datetime-picker'
 import Select from 'react-select'
 import moment from 'moment'
 
-// Fetch Config
+// Custom Dependencies
 import { get, put } from '../../../config/api'
-
-// Context
 import { AuthContext } from '../../../auth/authContext'
-
-// Modal
 import { PasswordForm } from './common/PasswordForm'
-
-// Select Options
 import { educationOptions } from '../../../data/selectOptions'
-
-// Components
-import { SpinnerBorder } from '../../common/Spinners/SpinnerBorder'
-
-// Helpers
 import { parseDataUser } from './helpers/parseDataUser'
+import { SpinnerBorder } from '../../common/Spinners/SpinnerBorder'
+import { SpaceBlank } from '../../common/SpaceBlank/SpaceBlank'
 
 export const EditUserPage = () => {
   const {
@@ -116,7 +107,10 @@ export const EditUserPage = () => {
         <Row className="justify-content-center pt-2">
           <Col>
             {!loaded ? (
-              <SpinnerBorder />
+              <>
+                <SpinnerBorder />
+                <SpaceBlank height="400px" />
+              </>
             ) : (
               <Card className="text-dark py-3">
                 <Card.Body>

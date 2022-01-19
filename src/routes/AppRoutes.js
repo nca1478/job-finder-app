@@ -16,6 +16,8 @@ import { MainNavbar } from '../components/common/MainNavbar'
 import { OfferPage } from '../components/pages/Offers/Offer'
 import { Footer } from '../components/common/Footer'
 import { SearchPage } from '../components/pages/Offers/Search'
+import { RecoverPassword } from '../components/pages/Users/RecoverPassword'
+import { ChangePassword } from '../components/pages/Users/ChangePassword'
 
 export const AppRoutes = () => {
   return (
@@ -29,6 +31,8 @@ export const AppRoutes = () => {
         <Route path="/offers" element={<OffersPage />} />
         <Route path="/offer/:offerId/details" element={<OfferPage />} />
         <Route path="/search" element={<SearchPage />} />
+        <Route path="/recover-password" element={<RecoverPassword />} />
+        <Route path="/change-password" element={<ChangePassword />} />
 
         {/* PrivateRoutes */}
         <Route

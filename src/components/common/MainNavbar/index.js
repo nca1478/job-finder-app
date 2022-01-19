@@ -4,10 +4,8 @@ import { useForm } from 'react-hook-form'
 import { Link, NavLink, useNavigate } from 'react-router-dom'
 import { Container, Nav, Navbar, Form, Button } from 'react-bootstrap'
 
-// Context
+// Custom Dependencies
 import { AuthContext } from '../../../auth/authContext'
-
-// Types Reducer
 import { types } from '../../../types/types'
 
 export const MainNavbar = () => {

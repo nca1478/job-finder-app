@@ -4,7 +4,7 @@ import { Container, Row, Col, Form, Card, Button } from 'react-bootstrap'
 import { ToastContainer, toast } from 'react-toastify'
 import { useForm } from 'react-hook-form'
 
-// Selects Options
+// Custom Dependencies
 import {
   cityOptions,
   contractOptions,
@@ -14,18 +14,10 @@ import {
   periodOptions,
   stateOptions,
 } from '../../../data/selectOptions'
-
-// Context
 import { AuthContext } from '../../../auth/authContext'
-
-// Fetch Config
 import { get, post } from '../../../config/api'
-
-// Components
 import { SelectForm } from './common/SelectForm'
 import { InputForm } from './common/InputForm'
-
-// Helpers
 import { sortListObjects } from '../../../helpers/utils'
 import { parseDataOffer } from './helpers/parseDataOffer'
 import { resetForm } from './helpers/resetForm'

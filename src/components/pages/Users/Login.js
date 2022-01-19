@@ -5,16 +5,10 @@ import { Link, useNavigate } from 'react-router-dom'
 import { Container, Row, Col, Card, Form, Button } from 'react-bootstrap'
 import { ToastContainer, toast } from 'react-toastify'
 
-// Fetch Config
+// Custom Dependencies
 import { post } from '../../../config/api'
-
-// Context
 import { AuthContext } from '../../../auth/authContext'
-
-// Types Reducer
 import { types } from '../../../types/types'
-
-// Components
 import { InputForm } from './common/InputForm'
 import { GoogleButton } from './common/GoogleButton'
 import { FacebookButton } from './common/FacebookButton'
@@ -152,6 +146,16 @@ export const LoginPage = () => {
                     Do you need an account?{' '}
                     <Link to="/register" style={{ textDecoration: 'none' }}>
                       Register
+                    </Link>
+                  </span>
+                  <br />
+                  <span className="card-title">
+                    Forgot your password?{' '}
+                    <Link
+                      to="/recover-password"
+                      style={{ textDecoration: 'none' }}
+                    >
+                      Recover
                     </Link>
                   </span>
                 </Form>

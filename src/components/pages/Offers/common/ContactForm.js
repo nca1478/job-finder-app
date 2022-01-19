@@ -1,9 +1,9 @@
 // Dependencies
 import { useEffect } from 'react'
 import { useForm } from 'react-hook-form'
-import { Modal, Form, Button, Alert } from 'react-bootstrap'
+import { Modal, Form, Button, Alert, Row, Col } from 'react-bootstrap'
 
-// Components
+// Custom Dependencies
 import { LinkedinButton } from './LinkedinButton'
 import { TwitterButton } from './TwitterButton'
 import { InstagramButton } from './InstagramButton'
@@ -13,6 +13,7 @@ export const Contactform = ({ show, handleClose, userProfile }) => {
   const {
     name,
     profession,
+    education,
     email,
     cvText,
     linkedinUser,
@@ -25,6 +26,7 @@ export const Contactform = ({ show, handleClose, userProfile }) => {
   useEffect(() => {
     setValue('name', name)
     setValue('profession', profession)
+    setValue('education', education)
     setValue('email', email)
     setValue('cvText', cvText)
     // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -40,10 +42,28 @@ export const Contactform = ({ show, handleClose, userProfile }) => {
           <Form.Label>Name</Form.Label>
           <Form.Control {...register('name')} className="mb-3" disabled />
         </Form.Group>
-        <Form.Group controlId="formBasicProfession">
-          <Form.Label>Profession</Form.Label>
-          <Form.Control {...register('profession')} className="mb-3" disabled />
-        </Form.Group>
+        <Row>
+          <Col>
+            <Form.Group controlId="formBasicProfession">
+              <Form.Label>Profession</Form.Label>
+              <Form.Control
+                {...register('profession')}
+                className="mb-3"
+                disabled
+              />
+            </Form.Group>
+          </Col>
+          <Col>
+            <Form.Group controlId="formBasicEducation">
+              <Form.Label>Education</Form.Label>
+              <Form.Control
+                {...register('education')}
+                className="mb-3"
+                disabled
+              />
+            </Form.Group>
+          </Col>
+        </Row>
         <Form.Group controlId="formBasicEmail">
           <Form.Label>Email</Form.Label>
           <Form.Control {...register('email')} className="mb-3" disabled />
@@ -56,7 +76,7 @@ export const Contactform = ({ show, handleClose, userProfile }) => {
             className="mb-3"
             disabled
             as="textarea"
-            rows={5}
+            rows={4}
           />
         </Form.Group>
 
@@ -76,11 +96,11 @@ export const Contactform = ({ show, handleClose, userProfile }) => {
           )}
         </Form.Group>
       </Modal.Body>
-      <Modal.Footer>
+      {/* <Modal.Footer>
         <Button variant="secondary" onClick={handleClose}>
           Close
         </Button>
-      </Modal.Footer>
+      </Modal.Footer> */}
     </Modal>
   )
 }

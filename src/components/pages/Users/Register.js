@@ -5,16 +5,10 @@ import { Link, useNavigate } from 'react-router-dom'
 import { Container, Row, Col, Card, Form, Button } from 'react-bootstrap'
 import { ToastContainer, toast } from 'react-toastify'
 
-// Api
+// Custom Dependencies
 import { post } from '../../../config/api'
-
-// Context
 import { AuthContext } from '../../../auth/authContext'
-
-// Types Reducer
 import { types } from '../../../types/types'
-
-// Components
 import { InputForm } from './common/InputForm'
 
 export const RegisterPage = () => {
@@ -123,11 +117,7 @@ export const RegisterPage = () => {
                   />
 
                   {/* Register Button */}
-                  <Button
-                    type="submit"
-                    variant="primary"
-                    className="w-100 mb-3"
-                  >
+                  <Button type="submit" variant="dark" className="w-100 mb-3">
                     Register
                   </Button>
 

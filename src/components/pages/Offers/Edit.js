@@ -5,7 +5,7 @@ import { useParams } from 'react-router-dom'
 import { useForm } from 'react-hook-form'
 import { Container, Row, Col, Card, Form, Button } from 'react-bootstrap'
 
-// Selects Options
+// Custom Dependencies
 import {
   cityOptions,
   contractOptions,
@@ -15,23 +15,16 @@ import {
   periodOptions,
   stateOptions,
 } from '../../../data/selectOptions'
-
-// Context
 import { AuthContext } from '../../../auth/authContext'
-
-// Fetch Config
 import { get, put, file } from '../../../config/api'
-
-// Helpers
 import { parseDataOffer } from './helpers/parseDataOffer'
 import { setFormValues } from './helpers/setFormValues'
 import { sortListObjects } from '../../../helpers/utils'
-
-// Components
 import { InputForm } from './common/InputForm'
 import { SpinnerBorder } from '../../common/Spinners/SpinnerBorder'
 import { SelectFormEdit } from './common/SelectFormEdit'
 import { ImageForm } from './common/ImageForm'
+import { SpaceBlank } from '../../common/SpaceBlank/SpaceBlank'
 
 export const EditOfferPage = () => {
   const { offerId } = useParams()
@@ -162,7 +155,10 @@ export const EditOfferPage = () => {
         <h2 className="text-center text-white">Edit Offer</h2>
         <Row className="d-flex justify-content-center pt-2">
           {!loaded ? (
-            <SpinnerBorder />
+            <>
+              <SpinnerBorder />
+              <SpaceBlank height="400px" />
+            </>
           ) : (
             <Col>
               <Card className="py-3">

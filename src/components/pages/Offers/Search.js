@@ -5,10 +5,8 @@ import { useLocation } from 'react-router-dom'
 import { ToastContainer, toast } from 'react-toastify'
 import { Row, Col, Container, Alert } from 'react-bootstrap'
 
-// Fetch Config
+// Custom Dependencies
 import { get } from '../../../config/api'
-
-// Components
 import { OfferItem } from '../../common/OfferItem'
 import { SpinnerBorder } from '../../common/Spinners/SpinnerBorder'
 import { SpaceBlank } from '../../common/SpaceBlank/SpaceBlank'

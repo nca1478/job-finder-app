@@ -12,17 +12,12 @@ import {
 } from 'react-bootstrap'
 import { ToastContainer, toast } from 'react-toastify'
 
-// Context
+// Custom Dependencies
 import { AuthContext } from '../../../auth/authContext'
-
-// Fetch Config
 import { get } from '../../../config/api'
-
-// Components
+import { SpaceBlank } from '../../common/SpaceBlank/SpaceBlank'
 import { SpinnerBorder } from '../../common/Spinners/SpinnerBorder'
 import { Contactform } from './common/ContactForm'
-
-// Assets
 import noImage from '../../../assets/img/no-image.jpg'
 
 export const OfferPage = () => {
@@ -82,7 +77,10 @@ export const OfferPage = () => {
     <Container>
       {!loaded ? (
         <Row className="justify-content-center mt-5">
-          <SpinnerBorder />
+          <>
+            <SpinnerBorder />
+            <SpaceBlank height="400px" />
+          </>
         </Row>
       ) : (
         <Row className="py-5">

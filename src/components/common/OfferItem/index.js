@@ -2,7 +2,7 @@
 import { Col, Card } from 'react-bootstrap'
 import { Link } from 'react-router-dom'
 
-// Assets
+// Custom Dependencies
 import noImage from '../../../assets/img/no-image.jpg'
 
 export const OfferItem = (props) => {
