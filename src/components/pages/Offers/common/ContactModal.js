@@ -9,7 +9,7 @@ import { TwitterButton } from './TwitterButton'
 import { InstagramButton } from './InstagramButton'
 import { FacebookButton } from './FacebookButton'
 
-export const Contactform = ({ show, handleClose, userProfile }) => {
+export const ContactModal = ({ show, handleClose, userProfile }) => {
   const {
     name,
     profession,

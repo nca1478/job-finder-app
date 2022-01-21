@@ -17,14 +17,16 @@ import { AuthContext } from '../../../auth/authContext'
 import { get } from '../../../config/api'
 import { SpaceBlank } from '../../common/SpaceBlank/SpaceBlank'
 import { SpinnerBorder } from '../../common/Spinners/SpinnerBorder'
-import { Contactform } from './common/ContactForm'
+import { ContactModal } from './common/ContactModal'
+import { DescriptionModal } from './common/DescriptionModal'
 import noImage from '../../../assets/img/no-image.jpg'
 
 export const OfferPage = () => {
   const navigate = useNavigate()
   const { offerId } = useParams()
   const [offer, setOffer] = useState({})
-  const [show, setShow] = useState(false)
+  const [showContactInfo, setShowContactInfo] = useState(false)
+  const [showDescription, setShowDescription] = useState(false)
   const { user } = useContext(AuthContext)
   const [loaded, setLoaded] = useState(false)
   const [userProfile, setUserProfile] = useState({})
@@ -59,18 +61,25 @@ export const OfferPage = () => {
         console.log(error)
       })
       .finally(() => {
-        setShow(true)
+        setShowContactInfo(true)
       })
   }
 
-  const handleClose = () => setShow(false)
-
-  const handleContact = () => {
+  const handleShowContactInfo = () => {
     if (user.logged) {
       fetchUser(offer.user.id)
     } else {
       navigate('/login', { replace: true })
     }
+  }
+  const handleCloseContactInfo = () => setShowContactInfo(false)
+
+  const handleShowDescription = () => {
+    setShowDescription(true)
+  }
+
+  const handleCloseDescription = () => {
+    setShowDescription(false)
   }
 
   return (
@@ -95,10 +104,23 @@ export const OfferPage = () => {
           </Col>
           <Col md="6" sm="12">
             <h2 className="mb-2">{offer.title}</h2>
-            <h5>{offer.description}</h5>
 
             <Row>
               <ListGroup as="ul" variant="flush" className="lead">
+                <ListGroup.Item>
+                  <span className="fw-bold">
+                    Details:{' '}
+                    <Button
+                      variant="dark"
+                      size="sm"
+                      onClick={handleShowDescription}
+                    >
+                      <span className="fw-bold">
+                        <i class="bi bi-zoom-in"></i> Show
+                      </span>
+                    </Button>
+                  </span>
+                </ListGroup.Item>
                 <ListGroup.Item>
                   <span className="fw-bold">Skills:</span>{' '}
                   {offer.skills.map((skill) => {
@@ -145,20 +167,26 @@ export const OfferPage = () => {
                   <span className="fw-bold">City:</span> {offer.city}
                 </ListGroup.Item>
 
-                {/* Modal */}
-                <Contactform
-                  show={show}
-                  handleClose={handleClose}
+                {/* Modals */}
+                <ContactModal
+                  show={showContactInfo}
+                  handleClose={handleCloseContactInfo}
                   userProfile={userProfile}
+                />
+
+                <DescriptionModal
+                  show={showDescription}
+                  handleClose={handleCloseDescription}
+                  description={offer.description}
                 />
 
                 <ListGroup.Item>
                   <Button
                     variant="dark"
                     className="w-100"
-                    onClick={handleContact}
+                    onClick={handleShowContactInfo}
                   >
-                    Contact Information
+                    <i class="bi bi-eye"></i> Contact Information
                   </Button>
                 </ListGroup.Item>
               </ListGroup>
