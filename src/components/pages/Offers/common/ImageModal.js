@@ -1,7 +1,7 @@
 // Dependencies
 import { Modal, Button } from 'react-bootstrap'
 
-export const ImageForm = ({ show, handleClose, offer }) => {
+export const ImageModal = ({ show, handleClose, offer }) => {
   const { title, img } = offer
   return (
     <Modal show={show} onHide={handleClose} centered>

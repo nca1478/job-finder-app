@@ -23,7 +23,7 @@ import { sortListObjects } from '../../../helpers/utils'
 import { InputForm } from './common/InputForm'
 import { SpinnerBorder } from '../../common/Spinners/SpinnerBorder'
 import { SelectFormEdit } from './common/SelectFormEdit'
-import { ImageForm } from './common/ImageForm'
+import { ImageModal } from './common/ImageModal'
 import { SpaceBlank } from '../../common/SpaceBlank/SpaceBlank'
 
 export const EditOfferPage = () => {
@@ -131,22 +131,27 @@ export const EditOfferPage = () => {
   }
 
   const onSubmit = async (data) => {
-    await uploadImage(data.id).then(async (url) => {
-      const dataOffer = parseDataOffer({ ...data, img: url })
+    let dataOffer = ''
+    if (selectedFile !== null) {
+      await uploadImage(data.id).then(async (url) => {
+        dataOffer = parseDataOffer({ ...data, img: url })
+      })
+    } else {
+      dataOffer = parseDataOffer(data)
+    }
 
-      await put(`/offers/${offerId}/update`, dataOffer, user.data.token)
-        .then((response) => {
-          if (response.data === null) {
-            toast.error(response.errors.msg)
-          } else {
-            toast.info(response.data.msg)
-          }
-        })
-        .catch((error) => {
-          toast.error('Error updating offers.')
-          console.log(error)
-        })
-    })
+    await put(`/offers/${offerId}/update`, dataOffer, user.data.token)
+      .then((response) => {
+        if (response.data === null) {
+          toast.error(response.errors.msg)
+        } else {
+          toast.info(response.data.msg)
+        }
+      })
+      .catch((error) => {
+        toast.error('Error updating offers.')
+        console.log(error)
+      })
   }
 
   return (
@@ -340,6 +345,7 @@ export const EditOfferPage = () => {
                           </Form.Label>
                           <Form.Control
                             type="file"
+                            accept=".jpg, .jpeg"
                             {...register('img')}
                             onChange={fileChangedHandler}
                           />
@@ -365,7 +371,7 @@ export const EditOfferPage = () => {
                     </Row>
 
                     {/* Modal */}
-                    <ImageForm
+                    <ImageModal
                       show={show}
                       handleClose={handleClose}
                       offer={{
