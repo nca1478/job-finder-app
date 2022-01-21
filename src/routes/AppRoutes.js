@@ -8,7 +8,6 @@ import { RegisterPage } from '../components/pages/Users/Register'
 import { OffersPage } from '../components/pages/Offers'
 
 // Routes
-import { DashboardRoutes } from './DashboardRoutes'
 import { PrivateRoute } from './PrivateRoute'
 
 // Components
@@ -18,6 +17,12 @@ import { Footer } from '../components/common/Footer'
 import { SearchPage } from '../components/pages/Offers/Search'
 import { RecoverPassword } from '../components/pages/Users/RecoverPassword'
 import { ChangePassword } from '../components/pages/Users/ChangePassword'
+import { NotFound } from '../components/pages/NotFound'
+import { DashboardPage } from '../components/pages/Offers/Dashboard'
+import { AddOfferPage } from '../components/pages/Offers/Add'
+import { EditOfferPage } from '../components/pages/Offers/Edit'
+import { EditUserPage } from '../components/pages/Users/Edit'
+import { DashboardRoutes } from './DashboardRoutes'
 
 export const AppRoutes = () => {
   return (
@@ -34,15 +39,43 @@ export const AppRoutes = () => {
         <Route path="/recover-password" element={<RecoverPassword />} />
         <Route path="/change-password" element={<ChangePassword />} />
 
-        {/* PrivateRoutes */}
+        {/* PrivateRoutes: with NotFound Page */}
         <Route
-          path="/*"
+          path="/dashboard"
           element={
             <PrivateRoute>
-              <DashboardRoutes />
+              <DashboardPage />
             </PrivateRoute>
           }
-        ></Route>
+        />
+        <Route
+          path="/offer/add"
+          element={
+            <PrivateRoute>
+              <AddOfferPage />
+            </PrivateRoute>
+          }
+        />
+        <Route
+          path="/offer/:offerId/edit"
+          element={
+            <PrivateRoute>
+              <EditOfferPage />
+            </PrivateRoute>
+          }
+        />
+        <Route
+          path="/user/edit"
+          element={
+            <PrivateRoute>
+              <EditUserPage />
+            </PrivateRoute>
+          }
+        />
+        <Route exact path="*" element={<NotFound />} />
+
+        {/* PrivateRoutes: without NotFound Page */}
+        {/* <Route path="/*" element={<PrivateRoute><DashboardRoutes /></PrivateRoute>} /> */}
       </Routes>
       <Footer />
     </BrowserRouter>

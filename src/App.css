@@ -29,3 +29,11 @@
   filter: brightness(110%);
   transition: all 0.5s;
 }
+
+.not-found {
+  padding: 7rem;
+}
+
+.not-found .text-404 {
+  font-size: 6rem;
+}
