@@ -87,7 +87,7 @@ export const OfferPage = () => {
       {!loaded ? (
         <Row className="justify-content-center mt-5">
           <>
-            <SpinnerBorder />
+            <SpinnerBorder size="lg" variant="dark" />
             <SpaceBlank height="400px" />
           </>
         </Row>
@@ -103,24 +103,23 @@ export const OfferPage = () => {
             />
           </Col>
           <Col md="6" sm="12">
-            <h2 className="mb-2">{offer.title}</h2>
+            <h2 className="mb-2">
+              {offer.title}{' '}
+              <span className="fw-bold">
+                <Button
+                  variant="dark"
+                  size="sm"
+                  onClick={handleShowDescription}
+                >
+                  <span className="fw-bold">
+                    <i class="bi bi-zoom-in"></i> Details
+                  </span>
+                </Button>
+              </span>
+            </h2>
 
             <Row>
               <ListGroup as="ul" variant="flush" className="lead">
-                <ListGroup.Item>
-                  <span className="fw-bold">
-                    Details:{' '}
-                    <Button
-                      variant="dark"
-                      size="sm"
-                      onClick={handleShowDescription}
-                    >
-                      <span className="fw-bold">
-                        <i class="bi bi-zoom-in"></i> Show
-                      </span>
-                    </Button>
-                  </span>
-                </ListGroup.Item>
                 <ListGroup.Item>
                   <span className="fw-bold">Skills:</span>{' '}
                   {offer.skills.map((skill) => {

@@ -22,7 +22,6 @@ import { DashboardPage } from '../components/pages/Offers/Dashboard'
 import { AddOfferPage } from '../components/pages/Offers/Add'
 import { EditOfferPage } from '../components/pages/Offers/Edit'
 import { EditUserPage } from '../components/pages/Users/Edit'
-import { DashboardRoutes } from './DashboardRoutes'
 
 export const AppRoutes = () => {
   return (
@@ -39,7 +38,7 @@ export const AppRoutes = () => {
         <Route path="/recover-password" element={<RecoverPassword />} />
         <Route path="/change-password" element={<ChangePassword />} />
 
-        {/* PrivateRoutes: with NotFound Page */}
+        {/* PrivateRoutes */}
         <Route
           path="/dashboard"
           element={
@@ -74,7 +73,7 @@ export const AppRoutes = () => {
         />
         <Route exact path="*" element={<NotFound />} />
 
-        {/* PrivateRoutes: without NotFound Page */}
+        {/* PrivateRoutes: another way */}
         {/* <Route path="/*" element={<PrivateRoute><DashboardRoutes /></PrivateRoute>} /> */}
       </Routes>
       <Footer />

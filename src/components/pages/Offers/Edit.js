@@ -161,7 +161,7 @@ export const EditOfferPage = () => {
         <Row className="d-flex justify-content-center pt-2">
           {!loaded ? (
             <>
-              <SpinnerBorder />
+              <SpinnerBorder size="lg" variant="light" />
               <SpaceBlank height="400px" />
             </>
           ) : (

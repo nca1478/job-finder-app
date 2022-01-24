@@ -3,25 +3,22 @@ import { Controller } from 'react-hook-form'
 import { Form } from 'react-bootstrap'
 import Select from 'react-select'
 
-export const SelectForm = ({
-  name,
-  label,
-  controlId,
-  control,
-  options,
-  errors,
-  isMulti,
-}) => {
+export const SelectForm = (props) => {
   return (
     <Controller
-      name={name}
-      control={control}
+      name={props.name}
+      control={props.control}
       rules={{ required: true }}
       render={({ field }) => (
-        <Form.Group className="mb-3" controlId={controlId}>
-          <Form.Label className="fw-bold">{label}</Form.Label>
-          <Select {...field} options={options} isClearable isMulti={isMulti} />
-          {errors && (
+        <Form.Group className="mb-3" controlId={props.controlId}>
+          <Form.Label className="fw-bold">{props.label}</Form.Label>
+          <Select
+            {...field}
+            options={props.options}
+            isClearable
+            isMulti={props.isMulti}
+          />
+          {props.errors && (
             <Form.Text className="text-danger w-100">Required</Form.Text>
           )}
         </Form.Group>

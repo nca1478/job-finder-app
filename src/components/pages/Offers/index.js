@@ -42,7 +42,7 @@ export const OffersPage = () => {
         <Row className="d-flex justify-content-center g-4 pt-2">
           {!loaded ? (
             <>
-              <SpinnerBorder />
+              <SpinnerBorder size="lg" variant="light" />
               <SpaceBlank height="400px" />
             </>
           ) : offers.length > 0 ? (

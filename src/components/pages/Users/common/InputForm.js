@@ -1,28 +1,22 @@
 // Dependencies
 import { Form, InputGroup, FormControl } from 'react-bootstrap'
 
-export const InputForm = ({
-  type,
-  register,
-  errors,
-  icon,
-  label,
-  name,
-  validationRules,
-}) => {
+export const InputForm = (props) => {
   return (
     <InputGroup className="mb-3">
       <span className="input-group-text">
-        <i className={icon}></i>
+        <i className={props.icon}></i>
       </span>
       <FormControl
-        type={type}
-        placeholder={label}
+        type={props.type}
+        placeholder={props.label}
         autoComplete="off"
-        {...register(name, { ...validationRules })}
+        {...props.register(props.name, { ...props.validationRules })}
       />
-      {errors && (
-        <Form.Text className="text-danger w-100">{errors.message}</Form.Text>
+      {props.errors && (
+        <Form.Text className="text-danger w-100">
+          {props.errors.message}
+        </Form.Text>
       )}
     </InputGroup>
   )

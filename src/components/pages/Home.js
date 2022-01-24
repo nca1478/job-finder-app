@@ -43,7 +43,7 @@ export const HomePage = () => {
         <Container>
           {!loaded ? (
             <Row className="justify-content-center mt-5">
-              <SpinnerBorder />
+              <SpinnerBorder size="lg" variant="light" />
             </Row>
           ) : (
             <>

@@ -2,43 +2,29 @@
 import { Controller } from 'react-hook-form'
 import { Form } from 'react-bootstrap'
 import Select from 'react-select'
+import { parseDataSelect } from '../helpers/parseDataSelect'
 
-export const SelectFormEdit = ({
-  name,
-  label,
-  controlId,
-  control,
-  options,
-  errors,
-  isMulti,
-}) => {
+export const SelectFormEdit = (props) => {
   return (
     <Controller
-      name={name}
-      control={control}
+      name={props.name}
+      control={props.control}
       rules={{ required: true }}
       render={({ field: { onChange, value } }) => {
         return (
-          <Form.Group className="mb-3" controlId={controlId}>
-            <Form.Label className="fw-bold">{label}</Form.Label>
+          <Form.Group className="mb-3" controlId={props.controlId}>
+            <Form.Label className="fw-bold">{props.label}</Form.Label>
             <Select
               value={value}
               onChange={
-                isMulti
-                  ? (val) =>
-                      onChange(
-                        val.map((c) => ({
-                          value: c.value,
-                          label: c.label,
-                          id: c.id,
-                        }))
-                      )
+                props.isMulti
+                  ? (val) => onChange(parseDataSelect(val))
                   : (c) => onChange({ value: c.value, label: c.label })
               }
-              options={options}
-              isMulti={isMulti}
+              options={props.options}
+              isMulti={props.isMulti}
             />
-            {errors && (
+            {props.errors && (
               <Form.Text className="text-danger w-100">Required</Form.Text>
             )}
           </Form.Group>

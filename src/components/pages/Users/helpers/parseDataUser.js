@@ -1,16 +1,11 @@
 // Dependencies
 import moment from 'moment'
 
-export const parseDataUser = (
-  formValues,
-  getValues,
-  dateBirthday,
-  educationSelect
-) => {
+export const parseDataUser = (props) => {
   return {
-    ...formValues,
-    password: getValues('password'),
-    birthday: moment(dateBirthday).format('YYYY-MM-DD'),
-    education: educationSelect.label,
+    ...props.formValues,
+    password: props.getValues('password'),
+    birthday: moment(props.dateBirthday).format('YYYY-MM-DD'),
+    education: props.educationSelect.label,
   }
 }

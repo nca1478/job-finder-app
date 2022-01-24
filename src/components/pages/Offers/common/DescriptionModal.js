@@ -1,7 +1,7 @@
 // Dependencies
 import { useEffect } from 'react'
 import { useForm } from 'react-hook-form'
-import { Modal, Form, Button, Alert, Row, Col } from 'react-bootstrap'
+import { Modal, Form } from 'react-bootstrap'
 
 export const DescriptionModal = ({ show, handleClose, description }) => {
   const { register, setValue } = useForm()

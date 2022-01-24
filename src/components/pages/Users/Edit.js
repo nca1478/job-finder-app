@@ -104,14 +104,14 @@ export const EditUserPage = () => {
     <Col className="bg-primary">
       <Container className="p-4 bg-primary">
         <h2 className="text-center text-white">User Profile</h2>
-        <Row className="justify-content-center pt-2">
-          <Col>
-            {!loaded ? (
-              <>
-                <SpinnerBorder />
-                <SpaceBlank height="400px" />
-              </>
-            ) : (
+        <Row className="d-flex justify-content-center pt-2">
+          {!loaded ? (
+            <>
+              <SpinnerBorder size="lg" variant="light" />
+              <SpaceBlank height="400px" />
+            </>
+          ) : (
+            <Col>
               <Card className="text-dark py-3">
                 <Card.Body>
                   <Form className="mx-3" onSubmit={handleSubmit(handleShow)}>
@@ -306,8 +306,8 @@ export const EditUserPage = () => {
                   </Form>
                 </Card.Body>
               </Card>
-            )}
-          </Col>
+            </Col>
+          )}
         </Row>
         <ToastContainer />
       </Container>
