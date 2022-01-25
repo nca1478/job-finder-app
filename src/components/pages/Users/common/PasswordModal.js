@@ -1,7 +1,7 @@
 // Dependencies
 import { Modal, Form, Button } from 'react-bootstrap'
 
-export const PasswordForm = ({ show, handleClose, register, onSubmit }) => {
+export const PasswordModal = ({ show, handleClose, register, onSubmit }) => {
   return (
     <Modal show={show} onHide={handleClose} centered>
       <Modal.Header closeButton>

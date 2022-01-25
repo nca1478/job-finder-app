@@ -1,7 +1,7 @@
 // Dependencies
 import { useEffect } from 'react'
 import { useForm } from 'react-hook-form'
-import { Modal, Form } from 'react-bootstrap'
+import { Modal, Form, Button } from 'react-bootstrap'
 
 export const DescriptionModal = ({ show, handleClose, description }) => {
   const { register, setValue } = useForm()
@@ -27,6 +27,11 @@ export const DescriptionModal = ({ show, handleClose, description }) => {
           />
         </Form.Group>
       </Modal.Body>
+      <Modal.Footer>
+        <Button variant="dark" onClick={handleClose}>
+          Close
+        </Button>
+      </Modal.Footer>
     </Modal>
   )
 }

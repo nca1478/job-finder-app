@@ -1,16 +1,24 @@
 // Dependencies
 import { useContext, useEffect, useState } from 'react'
 import { useForm } from 'react-hook-form'
-import { Container, Row, Card, Form, Button, Col } from 'react-bootstrap'
+import {
+  Container,
+  Row,
+  Card,
+  Form,
+  Button,
+  Col,
+  InputGroup,
+} from 'react-bootstrap'
 import { ToastContainer, toast } from 'react-toastify'
 import DateTimePicker from 'react-datetime-picker'
 import Select from 'react-select'
 import moment from 'moment'
 
 // Custom Dependencies
-import { get, put } from '../../../config/api'
+import { get, put, file } from '../../../config/api'
 import { AuthContext } from '../../../auth/authContext'
-import { PasswordForm } from './common/PasswordForm'
+import { PasswordModal } from './common/PasswordModal'
 import { educationOptions } from '../../../data/selectOptions'
 import { parseDataUser } from './helpers/parseDataUser'
 import { SpinnerBorder } from '../../common/Spinners/SpinnerBorder'
@@ -26,11 +34,13 @@ export const EditUserPage = () => {
     getValues,
   } = useForm()
   const { user } = useContext(AuthContext)
-  const [show, setShow] = useState(false)
+  const [showPassModal, setShowPassModal] = useState(false)
   const [loaded, setLoaded] = useState(false)
   const [formValues, setFormValues] = useState({})
   const [dateBirthday, setDateBirthday] = useState(new Date())
   const [educationSelect, setEducationSelect] = useState(null)
+  const [selectedFile, setSelectedFile] = useState(null)
+  const [loadedPDF, setLoadedPDF] = useState(null)
 
   useEffect(() => {
     fetchUser(user.data.id)
@@ -50,6 +60,7 @@ export const EditUserPage = () => {
           (item) => item.label === response.data.education
         )
         setEducationSelect(item)
+        setLoadedPDF(response.data.cvUrl)
       })
       .catch((error) => {
         toast.error('Error try to fetching user.')
@@ -60,13 +71,54 @@ export const EditUserPage = () => {
       })
   }
 
+  const uploadPDF = async (userId) => {
+    const formData = new FormData()
+    formData.append('pdf', selectedFile)
+
+    return new Promise(async function (resolve, reject) {
+      await file('PUT', `/users/${userId}/uploadPdf`, formData, user.data.token)
+        .then((response) => {
+          if (response.data === null) {
+            reject(response.errors.msg)
+          } else {
+            resolve(response.data.url)
+          }
+        })
+        .catch((error) => {
+          toast.error('Error uploading pdf.')
+          console.log(error)
+        })
+    })
+  }
+
+  const parseData = async () => {
+    if (selectedFile !== null) {
+      return await uploadPDF(user.data.id).then(async (url) => {
+        return parseDataUser(
+          {
+            ...formValues,
+            dateBirthday,
+            educationSelect,
+            cvUrl: url,
+          },
+          getValues
+        )
+      })
+    } else {
+      return parseDataUser(
+        {
+          ...formValues,
+          dateBirthday,
+          educationSelect,
+        },
+        getValues
+      )
+    }
+  }
+
   const onSubmit = async () => {
-    const dataUser = parseDataUser(
-      formValues,
-      getValues,
-      dateBirthday,
-      educationSelect
-    )
+    const dataUser = await parseData()
+
     await put(`/users/${dataUser.id}/update`, dataUser, user.data.token)
       .then((response) => {
         if (response.data === null) {
@@ -81,14 +133,14 @@ export const EditUserPage = () => {
       })
       .finally(() => {
         resetField('password')
-        setShow(false)
+        setShowPassModal(false)
       })
   }
 
-  const handleClose = () => setShow(false)
+  const handleClosePassModal = () => setShowPassModal(false)
 
-  const handleShow = (data) => {
-    setShow(true)
+  const handleShowPassModal = (data) => {
+    setShowPassModal(true)
     setFormValues(data)
   }
 
@@ -98,6 +150,10 @@ export const EditUserPage = () => {
 
   const handleEducationChange = ({ value, label }) => {
     setEducationSelect({ value, label })
+  }
+
+  const fileChangedHandler = (e) => {
+    setSelectedFile(e.target.files[0])
   }
 
   return (
@@ -114,7 +170,10 @@ export const EditUserPage = () => {
             <Col>
               <Card className="text-dark py-3">
                 <Card.Body>
-                  <Form className="mx-3" onSubmit={handleSubmit(handleShow)}>
+                  <Form
+                    className="mx-3"
+                    onSubmit={handleSubmit(handleShowPassModal)}
+                  >
                     <Row>
                       {/* Name */}
                       <Col md={12} lg={6}>
@@ -153,7 +212,7 @@ export const EditUserPage = () => {
 
                     <Row>
                       {/* Profession */}
-                      <Col md={12} lg={6}>
+                      <Col md={6} lg={6}>
                         <Form.Group
                           className="mb-3"
                           controlId="formBasicProfession"
@@ -170,7 +229,7 @@ export const EditUserPage = () => {
                       </Col>
 
                       {/* Education */}
-                      <Col md={12} lg={3}>
+                      <Col md={6} lg={3}>
                         <Form.Group
                           className="mb-3"
                           controlId="formBasicEducation"
@@ -201,29 +260,35 @@ export const EditUserPage = () => {
                       </Col>
                     </Row>
 
+                    {/* Curriculum Vitae (PDF) */}
                     <Row>
                       <Col>
-                        {/* Curriculum Vitae */}
-                        <Form.Group
-                          className="mb-3"
-                          controlId="formBasicCvText"
-                        >
-                          <Form.Label className="fw-bold">
-                            Curriculum Vitae
+                        <InputGroup className="mb-3">
+                          <Form.Label className="fw-bold w-100">
+                            Curriculum Vitae (PDF)
                           </Form.Label>
                           <Form.Control
-                            as="textarea"
-                            rows={3}
-                            placeholder="Enter Text"
-                            {...register('cvText')}
+                            type="file"
+                            accept=".pdf"
+                            {...register('cvUrl')}
+                            onChange={fileChangedHandler}
                           />
-                        </Form.Group>
+                          {loadedPDF && (
+                            <a
+                              href={loadedPDF}
+                              className="btn btn-primary"
+                              target="_blank"
+                            >
+                              Display / Download
+                            </a>
+                          )}
+                        </InputGroup>
                       </Col>
                     </Row>
 
                     <Row>
                       {/* linkedinUser */}
-                      <Col md={12} lg={3}>
+                      <Col md={6} lg={3}>
                         <Form.Group
                           className="mb-3"
                           controlId="formBasicLinkedinUser"
@@ -240,7 +305,7 @@ export const EditUserPage = () => {
                       </Col>
 
                       {/* twitterUser */}
-                      <Col md={12} lg={3}>
+                      <Col md={6} lg={3}>
                         <Form.Group
                           className="mb-3"
                           controlId="formBasicTwitterUser"
@@ -257,7 +322,7 @@ export const EditUserPage = () => {
                       </Col>
 
                       {/* instagramUser */}
-                      <Col md={12} lg={3}>
+                      <Col md={6} lg={3}>
                         <Form.Group
                           className="mb-3"
                           controlId="formBasicInstagramUser"
@@ -274,7 +339,7 @@ export const EditUserPage = () => {
                       </Col>
 
                       {/* facebookUser */}
-                      <Col md={12} lg={3}>
+                      <Col md={6} lg={3}>
                         <Form.Group
                           className="mb-3"
                           controlId="formBasicFacebookUser"
@@ -291,13 +356,19 @@ export const EditUserPage = () => {
                       </Col>
                     </Row>
 
-                    {/* Modal */}
-                    <PasswordForm
-                      show={show}
-                      handleClose={handleClose}
+                    {/* Modals */}
+                    <PasswordModal
+                      show={showPassModal}
+                      handleClose={handleClosePassModal}
                       register={register}
                       onSubmit={onSubmit}
                     />
+
+                    {/* <PdfModal
+                      cvUrl={loadedPDF}
+                      show={showPdfModal}
+                      handleClose={handleClosePdfModal}
+                    /> */}
 
                     {/* Save Button */}
                     <Button type="submit" variant="primary" className="w-100">

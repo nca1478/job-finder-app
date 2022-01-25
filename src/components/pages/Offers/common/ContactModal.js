@@ -1,7 +1,7 @@
 // Dependencies
 import { useEffect } from 'react'
 import { useForm } from 'react-hook-form'
-import { Modal, Form, Alert, Row, Col } from 'react-bootstrap'
+import { Modal, Form, Row, Col, Button } from 'react-bootstrap'
 
 // Custom Dependencies
 import { LinkedinButton } from './LinkedinButton'
@@ -15,7 +15,6 @@ export const ContactModal = ({ show, handleClose, userProfile }) => {
     profession,
     education,
     email,
-    cvText,
     linkedinUser,
     twitterUser,
     instagramUser,
@@ -28,7 +27,6 @@ export const ContactModal = ({ show, handleClose, userProfile }) => {
     setValue('profession', profession)
     setValue('education', education)
     setValue('email', email)
-    setValue('cvText', cvText)
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [userProfile])
 
@@ -69,17 +67,6 @@ export const ContactModal = ({ show, handleClose, userProfile }) => {
           <Form.Control {...register('email')} className="mb-3" disabled />
         </Form.Group>
 
-        <Form.Group controlId="formBasicCvtext">
-          <Form.Label>CV Text</Form.Label>
-          <Form.Control
-            {...register('cvText')}
-            className="mb-3"
-            disabled
-            as="textarea"
-            rows={4}
-          />
-        </Form.Group>
-
         <Form.Group controlId="formBasicSocialNetworks">
           <Form.Label className="d-block">Social Networks</Form.Label>
           {linkedinUser || twitterUser || instagramUser || facebookUser ? (
@@ -90,17 +77,19 @@ export const ContactModal = ({ show, handleClose, userProfile }) => {
               <FacebookButton user={facebookUser} />
             </div>
           ) : (
-            <Alert variant="secondary">
-              This user does not have social media accounts
-            </Alert>
+            <Form.Control
+              value="This user does not have social media accounts"
+              className="mb-3"
+              disabled
+            />
           )}
         </Form.Group>
       </Modal.Body>
-      {/* <Modal.Footer>
-        <Button variant="secondary" onClick={handleClose}>
+      <Modal.Footer>
+        <Button variant="dark" onClick={handleClose}>
           Close
         </Button>
-      </Modal.Footer> */}
+      </Modal.Footer>
     </Modal>
   )
 }

@@ -71,10 +71,8 @@ export const AppRoutes = () => {
             </PrivateRoute>
           }
         />
-        <Route exact path="*" element={<NotFound />} />
 
-        {/* PrivateRoutes: another way */}
-        {/* <Route path="/*" element={<PrivateRoute><DashboardRoutes /></PrivateRoute>} /> */}
+        <Route exact path="*" element={<NotFound />} />
       </Routes>
       <Footer />
     </BrowserRouter>

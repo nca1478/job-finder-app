@@ -112,7 +112,7 @@ export const OfferPage = () => {
                   onClick={handleShowDescription}
                 >
                   <span className="fw-bold">
-                    <i class="bi bi-zoom-in"></i> Details
+                    <i className="bi bi-eye"></i> Details
                   </span>
                 </Button>
               </span>
@@ -185,7 +185,7 @@ export const OfferPage = () => {
                     className="w-100"
                     onClick={handleShowContactInfo}
                   >
-                    <i class="bi bi-eye"></i> Contact Information
+                    <i className="bi bi-eye"></i> Contact Information
                   </Button>
                 </ListGroup.Item>
               </ListGroup>
