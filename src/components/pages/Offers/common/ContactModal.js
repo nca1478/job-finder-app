@@ -19,6 +19,7 @@ export const ContactModal = ({ show, handleClose, userProfile }) => {
     twitterUser,
     instagramUser,
     facebookUser,
+    cvUrl,
   } = userProfile
   const { register, setValue } = useForm()
 
@@ -78,7 +79,22 @@ export const ContactModal = ({ show, handleClose, userProfile }) => {
             </div>
           ) : (
             <Form.Control
-              value="This user does not have social media accounts"
+              value="No has registered social networks"
+              className="mb-3"
+              disabled
+            />
+          )}
+        </Form.Group>
+
+        <Form.Group controlId="formBasicCv">
+          <Form.Label className="d-block mt-3">Curriculum Vitae</Form.Label>
+          {cvUrl ? (
+            <a href={cvUrl} className="btn btn-primary btn-sm" target="_blank">
+              Display / Download
+            </a>
+          ) : (
+            <Form.Control
+              value="No has registered resume"
               className="mb-3"
               disabled
             />
@@ -86,7 +102,7 @@ export const ContactModal = ({ show, handleClose, userProfile }) => {
         </Form.Group>
       </Modal.Body>
       <Modal.Footer>
-        <Button variant="dark" onClick={handleClose}>
+        <Button variant="secondary" onClick={handleClose}>
           Close
         </Button>
       </Modal.Footer>

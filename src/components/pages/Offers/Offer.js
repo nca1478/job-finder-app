@@ -102,6 +102,7 @@ export const OfferPage = () => {
               fluid
             />
           </Col>
+
           <Col md="6" sm="12">
             <h2 className="mb-2">
               {offer.title}{' '}

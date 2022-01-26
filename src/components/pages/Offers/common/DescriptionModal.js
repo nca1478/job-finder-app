@@ -28,7 +28,7 @@ export const DescriptionModal = ({ show, handleClose, description }) => {
         </Form.Group>
       </Modal.Body>
       <Modal.Footer>
-        <Button variant="dark" onClick={handleClose}>
+        <Button variant="secondary" onClick={handleClose}>
           Close
         </Button>
       </Modal.Footer>
