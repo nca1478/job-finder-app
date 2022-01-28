@@ -16,11 +16,10 @@ import Select from 'react-select'
 import moment from 'moment'
 
 // Custom Dependencies
-import { get, put, file } from '../../../config/api'
+import { get, put, file, post } from '../../../config/api'
 import { AuthContext } from '../../../auth/authContext'
 import { PasswordModal } from './common/PasswordModal'
 import { educationOptions } from '../../../data/selectOptions'
-import { parseDataUser } from './helpers/parseDataUser'
 import { SpinnerBorder } from '../../common/Spinners/SpinnerBorder'
 import { SpaceBlank } from '../../common/SpaceBlank/SpaceBlank'
 
@@ -41,6 +40,7 @@ export const EditUserPage = () => {
   const [educationSelect, setEducationSelect] = useState(null)
   const [selectedFile, setSelectedFile] = useState(null)
   const [loadedPDF, setLoadedPDF] = useState(null)
+  const [uploading, setUploading] = useState(false)
 
   useEffect(() => {
     fetchUser(user.data.id)
@@ -74,6 +74,7 @@ export const EditUserPage = () => {
   const uploadPDF = async (userId) => {
     const formData = new FormData()
     formData.append('pdf', selectedFile)
+    setUploading(true)
 
     return new Promise(async function (resolve, reject) {
       await file('PUT', `/users/${userId}/uploadPdf`, formData, user.data.token)
@@ -91,33 +92,18 @@ export const EditUserPage = () => {
     })
   }
 
-  const parseData = async () => {
-    if (selectedFile !== null) {
-      return await uploadPDF(user.data.id).then(async (url) => {
-        return parseDataUser(
-          {
-            ...formValues,
-            dateBirthday,
-            educationSelect,
-            cvUrl: url,
-          },
-          getValues
-        )
-      })
-    } else {
-      return parseDataUser(
-        {
-          ...formValues,
-          dateBirthday,
-          educationSelect,
-        },
-        getValues
-      )
+  const parseDataUser = async (data, urlPDF) => {
+    return {
+      ...data,
+      birthday: moment(dateBirthday).format('YYYY-MM-DD'),
+      education: educationSelect === undefined ? null : educationSelect.label,
+      cvUrl: urlPDF,
     }
   }
 
-  const onSubmit = async () => {
-    const dataUser = await parseData()
+  const handleSave = async (data) => {
+    const urlPDF = selectedFile ? await uploadPDF(user.data.id) : null
+    const dataUser = await parseDataUser(data, urlPDF)
 
     await put(`/users/${dataUser.id}/update`, dataUser, user.data.token)
       .then((response) => {
@@ -134,15 +120,43 @@ export const EditUserPage = () => {
       .finally(() => {
         resetField('password')
         setShowPassModal(false)
+        setUploading(false)
       })
   }
 
-  const handleClosePassModal = () => setShowPassModal(false)
-
-  const handleShowPassModal = (data) => {
-    setShowPassModal(true)
-    setFormValues(data)
+  const handleSend = async (data) => {
+    const dataUser = {
+      email: formValues.email,
+      password: getValues('password'),
+    }
+    await post(`/users/verify`, dataUser, user.data.token)
+      .then((response) => {
+        if (response.data === null) {
+          toast.error(response.errors.msg)
+        } else {
+          handleSave(data)
+        }
+      })
+      .catch((error) => {
+        toast.error('Please verify the data entered and try again.')
+        console.log(error)
+      })
+      .finally(() => {
+        resetField('password')
+        setShowPassModal(false)
+      })
   }
+
+  const onSubmit = (data) => {
+    if (data.facebook || data.google) {
+      handleSave(data)
+    } else {
+      setShowPassModal(true)
+      setFormValues(data)
+    }
+  }
+
+  const handleClosePassModal = () => setShowPassModal(false)
 
   const handleBirthdayDateChange = (e) => {
     setDateBirthday(e)
@@ -170,10 +184,7 @@ export const EditUserPage = () => {
             <Col>
               <Card className="text-dark py-3">
                 <Card.Body>
-                  <Form
-                    className="mx-3"
-                    onSubmit={handleSubmit(handleShowPassModal)}
-                  >
+                  <Form className="mx-3" onSubmit={handleSubmit(onSubmit)}>
                     <Row>
                       {/* Name */}
                       <Col md={12} lg={6}>
@@ -361,18 +372,21 @@ export const EditUserPage = () => {
                       show={showPassModal}
                       handleClose={handleClosePassModal}
                       register={register}
-                      onSubmit={onSubmit}
+                      handleSend={() => handleSend(formValues)}
                     />
 
-                    {/* <PdfModal
-                      cvUrl={loadedPDF}
-                      show={showPdfModal}
-                      handleClose={handleClosePdfModal}
-                    /> */}
-
                     {/* Save Button */}
-                    <Button type="submit" variant="primary" className="w-100">
-                      Save
+                    <Button
+                      type="submit"
+                      variant="primary"
+                      className="w-100"
+                      disabled={uploading}
+                    >
+                      {uploading ? (
+                        <SpinnerBorder size="sm" variant="light" />
+                      ) : (
+                        'Save'
+                      )}
                     </Button>
                   </Form>
                 </Card.Body>

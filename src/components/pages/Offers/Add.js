@@ -356,7 +356,7 @@ export const AddOfferPage = () => {
 
                   {/* Save Button */}
                   <Button type="submit" variant="primary" className="w-100">
-                    Save Job Offer
+                    Save
                   </Button>
                 </Form>
               </Card.Body>

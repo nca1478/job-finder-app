@@ -6,6 +6,7 @@ export const parseDataUser = (data, getValues) => {
     ...data,
     password: getValues('password'),
     birthday: moment(data.dateBirthday).format('YYYY-MM-DD'),
-    education: data.educationSelect.label,
+    education:
+      data.educationSelect === undefined ? null : data.educationSelect.label,
   }
 }

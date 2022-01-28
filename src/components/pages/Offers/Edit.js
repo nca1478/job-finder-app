@@ -35,6 +35,7 @@ export const EditOfferPage = () => {
   const [loadedFile, setLoadedFile] = useState(null)
   const [show, setShow] = useState(false)
   const [loaded, setLoaded] = useState(false)
+  const [uploading, setUploading] = useState(false)
 
   const {
     register,
@@ -113,6 +114,7 @@ export const EditOfferPage = () => {
   const uploadImage = async (id) => {
     const formData = new FormData()
     formData.append('img', selectedFile)
+    setUploading(true)
 
     return new Promise(async function (resolve, reject) {
       await file('PUT', `/offers/${id}/upload`, formData, user.data.token)
@@ -131,14 +133,8 @@ export const EditOfferPage = () => {
   }
 
   const onSubmit = async (data) => {
-    let dataOffer = ''
-    if (selectedFile !== null) {
-      await uploadImage(data.id).then(async (url) => {
-        dataOffer = parseDataOffer({ ...data, img: url })
-      })
-    } else {
-      dataOffer = parseDataOffer(data)
-    }
+    const urlImg = selectedFile ? await uploadImage(data.id) : null
+    const dataOffer = parseDataOffer({ ...data, img: urlImg })
 
     await put(`/offers/${offerId}/update`, dataOffer, user.data.token)
       .then((response) => {
@@ -151,6 +147,9 @@ export const EditOfferPage = () => {
       .catch((error) => {
         toast.error('Error updating offers.')
         console.log(error)
+      })
+      .finally(() => {
+        setUploading(false)
       })
   }
 
@@ -381,8 +380,17 @@ export const EditOfferPage = () => {
                     />
 
                     {/* Save Button */}
-                    <Button type="submit" variant="primary" className="w-100">
-                      Save
+                    <Button
+                      type="submit"
+                      variant="primary"
+                      className="w-100"
+                      disabled={uploading}
+                    >
+                      {uploading ? (
+                        <SpinnerBorder size="sm" variant="light" />
+                      ) : (
+                        'Save'
+                      )}
                     </Button>
                   </Form>
                 </Card.Body>

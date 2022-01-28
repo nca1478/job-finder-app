@@ -1,7 +1,7 @@
 // Dependencies
 import { Modal, Form, Button } from 'react-bootstrap'
 
-export const PasswordModal = ({ show, handleClose, register, onSubmit }) => {
+export const PasswordModal = ({ show, handleClose, register, handleSend }) => {
   return (
     <Modal show={show} onHide={handleClose} centered>
       <Modal.Header closeButton>
@@ -20,8 +20,8 @@ export const PasswordModal = ({ show, handleClose, register, onSubmit }) => {
         <Button variant="secondary" onClick={handleClose}>
           Cancel
         </Button>
-        <Button variant="primary" onClick={onSubmit}>
-          Send
+        <Button variant="primary" onClick={handleSend}>
+          Verify
         </Button>
       </Modal.Footer>
     </Modal>
