@@ -45,4 +45,21 @@ const file = (method, pathUrl, data, token) =>
     body: data,
   }).then((res) => res.json())
 
-export { get, post, put, del, file }
+// Third-party API (https://countrystatecity.in/)
+const getTp = async (pathUrl) => {
+  const headers = new Headers()
+  headers.append('X-CSCAPI-KEY', process.env.REACT_APP_COUNTRY_STATE_CITY_API)
+
+  const requestOptions = {
+    method: 'GET',
+    headers: headers,
+    redirect: 'follow',
+  }
+
+  return await fetch(pathUrl, requestOptions)
+    .then((response) => response.json())
+    .then((result) => result)
+    .catch((error) => console.log('error', error))
+}
+
+export { get, post, put, del, file, getTp }

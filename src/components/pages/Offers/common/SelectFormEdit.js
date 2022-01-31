@@ -1,8 +1,8 @@
 // Dependencies
-import { Controller } from 'react-hook-form'
-import { Form } from 'react-bootstrap'
 import Select from 'react-select'
-import { parseDataSelect } from '../helpers/parseDataSelect'
+import { Form } from 'react-bootstrap'
+import { Controller } from 'react-hook-form'
+import { parseData } from '../helpers/parseData'
 
 export const SelectFormEdit = (props) => {
   return (
@@ -18,7 +18,7 @@ export const SelectFormEdit = (props) => {
               value={value}
               onChange={
                 props.isMulti
-                  ? (val) => onChange(parseDataSelect(val))
+                  ? (val) => onChange(val)
                   : (c) => onChange({ value: c.value, label: c.label })
               }
               options={props.options}

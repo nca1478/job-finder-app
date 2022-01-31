@@ -6,31 +6,28 @@ import { useForm } from 'react-hook-form'
 import { Container, Row, Col, Card, Form, Button } from 'react-bootstrap'
 
 // Custom Dependencies
-import {
-  cityOptions,
-  contractOptions,
-  countryOptions,
-  currencyOptions,
-  experienceOptions,
-  periodOptions,
-  stateOptions,
-} from '../../../data/selectOptions'
+import { currencyOptions } from '../../../data/selectOptions'
 import { AuthContext } from '../../../auth/authContext'
-import { get, put, file } from '../../../config/api'
-import { parseDataOffer } from './helpers/parseDataOffer'
+import { get, put, file, getTp } from '../../../config/api'
 import { setFormValues } from './helpers/setFormValues'
-import { sortListObjects } from '../../../helpers/utils'
+import { sortListByLabel, sortListObjects } from '../../../helpers/utils'
 import { InputForm } from './common/InputForm'
 import { SpinnerBorder } from '../../common/Spinners/SpinnerBorder'
 import { SelectFormEdit } from './common/SelectFormEdit'
 import { ImageModal } from './common/ImageModal'
 import { SpaceBlank } from '../../common/SpaceBlank/SpaceBlank'
+import {
+  parseData,
+  parseDataCountries,
+  parseDataOffer,
+} from './helpers/parseData'
 
 export const EditOfferPage = () => {
   const { offerId } = useParams()
   const { user } = useContext(AuthContext)
   const [sectorOptions, setSectorOptions] = useState(null)
   const [skillOptions, setSkillOptions] = useState(null)
+  const [countryOptions, setCountryOptions] = useState(null)
   const [selectedFile, setSelectedFile] = useState(null)
   const [loadedFile, setLoadedFile] = useState(null)
   const [show, setShow] = useState(false)
@@ -51,6 +48,7 @@ export const EditOfferPage = () => {
     fetchOffer(offerId)
     fetchSectors()
     fetchSkills()
+    fetchCountries()
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [])
 
@@ -72,11 +70,7 @@ export const EditOfferPage = () => {
   const fetchSectors = async () => {
     await get('/sectors', user.data.token)
       .then(({ data }) => {
-        const sectors = data.map((sector, i) => ({
-          value: i + 1,
-          label: sector.name,
-          id: sector.id,
-        }))
+        const sectors = parseData(data)
         sortListObjects(sectors)
         setSectorOptions(sectors)
       })
@@ -89,11 +83,7 @@ export const EditOfferPage = () => {
   const fetchSkills = async () => {
     await get('/skills', user.data.token)
       .then(({ data }) => {
-        const skills = data.map((skill, i) => ({
-          value: i + 1,
-          label: skill.name,
-          id: skill.id,
-        }))
+        const skills = parseData(data)
         sortListObjects(skills)
         setSkillOptions(skills)
       })
@@ -103,8 +93,16 @@ export const EditOfferPage = () => {
       })
   }
 
+  const fetchCountries = async () => {
+    getTp('https://api.countrystatecity.in/v1/countries').then((data) => {
+      const countries = parseDataCountries(data)
+      sortListByLabel(countries)
+      setCountryOptions(countries)
+    })
+  }
+
   const fileChangedHandler = (e) => {
-    setSelectedFile(e.target.files[0])
+    e && setSelectedFile(e.target.files[0])
   }
 
   const handleShow = () => setShow(true)
@@ -133,7 +131,7 @@ export const EditOfferPage = () => {
   }
 
   const onSubmit = async (data) => {
-    const urlImg = selectedFile ? await uploadImage(data.id) : null
+    const urlImg = selectedFile ? await uploadImage(data.id) : loadedFile
     const dataOffer = parseDataOffer({ ...data, img: urlImg })
 
     await put(`/offers/${offerId}/update`, dataOffer, user.data.token)
@@ -172,6 +170,7 @@ export const EditOfferPage = () => {
                       <Col md={12} lg={6}>
                         {/* Title */}
                         <InputForm
+                          type="text"
                           name="title"
                           label="Title"
                           placeholder="Enter Title"
@@ -227,56 +226,17 @@ export const EditOfferPage = () => {
                           isMulti={true}
                         />
                       </Col>
-                      <Col md={12} lg={6}>
-                        {/* Experience */}
-                        <SelectFormEdit
-                          name="experience"
-                          label="Experience"
-                          controlId="formBasicExperience"
-                          control={control}
-                          options={experienceOptions}
-                          errors={errors.experience}
-                          isMulti={false}
-                        />
-                      </Col>
-                    </Row>
-
-                    <Row>
-                      <Col md={12} lg={4}>
-                        {/* Contract */}
-                        <SelectFormEdit
-                          name="contract"
-                          label="Contract"
-                          controlId="formBasicContract"
-                          control={control}
-                          options={contractOptions}
-                          errors={errors.contract}
-                          isMulti={false}
-                        />
-                      </Col>
-
-                      <Col md={12} lg={2}>
-                        {/* Period */}
-                        <SelectFormEdit
-                          name="period"
-                          label="Period"
-                          controlId="formBasicPeriod"
-                          control={control}
-                          options={periodOptions}
-                          errors={errors.period}
-                          isMulti={false}
-                        />
-                      </Col>
 
                       <Col md={12} lg={3}>
-                        {/* Payment */}
+                        {/* Price */}
                         <InputForm
-                          name="payment"
-                          label="Payment"
-                          placeholder="Enter Payment"
-                          controlId="formBasicPayment"
+                          type="number"
+                          name="price"
+                          label="Price"
+                          placeholder="Enter Price"
+                          controlId="formBasicPrice"
                           register={register}
-                          errors={errors.payment}
+                          errors={errors.price}
                         />
                       </Col>
 
@@ -310,27 +270,27 @@ export const EditOfferPage = () => {
 
                       <Col md={12} lg={3}>
                         {/* State */}
-                        <SelectFormEdit
+                        <InputForm
+                          type="text"
                           name="state"
                           label="State"
+                          placeholder="Enter State"
                           controlId="formBasicState"
-                          control={control}
-                          options={stateOptions}
+                          register={register}
                           errors={errors.state}
-                          isMulti={false}
                         />
                       </Col>
 
                       <Col md={12} lg={3}>
                         {/* City */}
-                        <SelectFormEdit
+                        <InputForm
+                          type="text"
                           name="city"
                           label="City"
+                          placeholder="Enter City"
                           controlId="formBasicCity"
-                          control={control}
-                          options={cityOptions}
+                          register={register}
                           errors={errors.city}
-                          isMulti={false}
                         />
                       </Col>
                     </Row>

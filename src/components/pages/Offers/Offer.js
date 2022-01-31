@@ -141,20 +141,10 @@ export const OfferPage = () => {
                   )}
                 </ListGroup.Item>
                 <ListGroup.Item>
-                  <span className="fw-bold">Experience:</span>{' '}
-                  {offer.experience}
-                </ListGroup.Item>
-                <ListGroup.Item>
-                  <span className="fw-bold">Contract:</span> {offer.contract}
-                </ListGroup.Item>
-                <ListGroup.Item>
-                  <span className="fw-bold">Salary:</span> {offer.payment}
+                  <span className="fw-bold">Price:</span> {offer.price}
                 </ListGroup.Item>
                 <ListGroup.Item>
                   <span className="fw-bold">Currency:</span> {offer.currency}
-                </ListGroup.Item>
-                <ListGroup.Item>
-                  <span className="fw-bold">Period:</span> {offer.period}
                 </ListGroup.Item>
 
                 <ListGroup.Item>

@@ -6,8 +6,10 @@ export const InputForm = (props) => {
     <Form.Group className="mb-3" controlId={props.controlId}>
       <Form.Label className="fw-bold">{props.label}</Form.Label>
       <Form.Control
-        type="text"
+        type={props.type}
         placeholder={props.placeholder}
+        min={props.type === 'number' ? 1 : null}
+        max={props.type === 'number' ? 100000000 : null}
         {...props.register(props.name, { required: true })}
       />
       {props.errors && (
