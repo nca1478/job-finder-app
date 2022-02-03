@@ -71,6 +71,15 @@ export const EditUserPage = () => {
       })
   }
 
+  const parseDataUser = async (data, urlPDF) => {
+    return {
+      ...data,
+      birthday: moment(dateBirthday).format('YYYY-MM-DD'),
+      education: educationSelect === undefined ? null : educationSelect.label,
+      cvUrl: urlPDF,
+    }
+  }
+
   const uploadPDF = async (userId) => {
     const formData = new FormData()
     formData.append('pdf', selectedFile)
@@ -92,36 +101,42 @@ export const EditUserPage = () => {
     })
   }
 
-  const parseDataUser = async (data, urlPDF) => {
-    return {
-      ...data,
-      birthday: moment(dateBirthday).format('YYYY-MM-DD'),
-      education: educationSelect === undefined ? null : educationSelect.label,
-      cvUrl: urlPDF,
-    }
+  const verifyFileUpload = async (userId) => {
+    return await uploadPDF(userId)
+      .then((url) => {
+        return { url }
+      })
+      .catch((err) => {
+        return { err }
+      })
   }
 
   const handleSave = async (data) => {
-    const urlPDF = selectedFile ? await uploadPDF(user.data.id) : null
-    const dataUser = await parseDataUser(data, urlPDF)
+    const urlPDF = selectedFile ? await verifyFileUpload(user.data.id) : null
 
-    await put(`/users/${dataUser.id}/update`, dataUser, user.data.token)
-      .then((response) => {
-        if (response.data === null) {
-          toast.error(response.errors.msg)
-        } else {
-          toast.info(response.data.msg)
-        }
-      })
-      .catch((error) => {
-        toast.error('Please verify the data entered and try again.')
-        console.log(error)
-      })
-      .finally(() => {
-        resetField('password')
-        setShowPassModal(false)
-        setUploading(false)
-      })
+    if (urlPDF.err) {
+      toast.error(urlPDF.err)
+      setUploading(false)
+    } else {
+      const dataUser = await parseDataUser(data, urlPDF.url)
+      await put(`/users/${dataUser.id}/update`, dataUser, user.data.token)
+        .then((response) => {
+          if (response.data === null) {
+            toast.error(response.errors.msg)
+          } else {
+            toast.info(response.data.msg)
+          }
+        })
+        .catch((error) => {
+          toast.error('Please verify the data entered and try again.')
+          console.log(error)
+        })
+        .finally(() => {
+          resetField('password')
+          setShowPassModal(false)
+          setUploading(false)
+        })
+    }
   }
 
   const handleSend = async (data) => {
