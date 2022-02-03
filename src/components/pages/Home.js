@@ -47,7 +47,7 @@ export const HomePage = () => {
             </Row>
           ) : (
             <>
-              <h2 className="text-center text-white mb-4">{`Last ${lastOffers} Job Offers`}</h2>
+              <h2 className="text-center text-white mb-4">Last Job Offers</h2>
               <Row className="d-flex justify-content-center g-4">
                 {offers.length > 0 ? (
                   offers.map((offer) => {

@@ -118,9 +118,9 @@ export const EditOfferPage = () => {
       await file('PUT', `/offers/${id}/upload`, formData, user.data.token)
         .then((response) => {
           if (response.data === null) {
-            reject(response.errors.msg)
+            return reject(response.errors.msg)
           } else {
-            resolve(response.data.url)
+            return resolve(response.data.url)
           }
         })
         .catch((error) => {
@@ -130,25 +130,40 @@ export const EditOfferPage = () => {
     })
   }
 
-  const onSubmit = async (data) => {
-    const urlImg = selectedFile ? await uploadImage(data.id) : loadedFile
-    const dataOffer = parseDataOffer({ ...data, img: urlImg })
+  const verifyFileUpload = async (data) => {
+    return await uploadImage(data.id)
+      .then((url) => {
+        return { url }
+      })
+      .catch((err) => {
+        return { err }
+      })
+  }
 
-    await put(`/offers/${offerId}/update`, dataOffer, user.data.token)
-      .then((response) => {
-        if (response.data === null) {
-          toast.error(response.errors.msg)
-        } else {
-          toast.info(response.data.msg)
-        }
-      })
-      .catch((error) => {
-        toast.error('Error updating offers.')
-        console.log(error)
-      })
-      .finally(() => {
-        setUploading(false)
-      })
+  const onSubmit = async (data) => {
+    const urlImg = selectedFile ? await verifyFileUpload(data) : loadedFile
+
+    if (urlImg.err) {
+      toast.error(urlImg.err)
+      setUploading(false)
+    } else {
+      const dataOffer = parseDataOffer({ ...data, img: urlImg.url })
+      await put(`/offers/${offerId}/update`, dataOffer, user.data.token)
+        .then((response) => {
+          if (response.data === null) {
+            toast.error(response.errors.msg)
+          } else {
+            toast.info(response.data.msg)
+          }
+        })
+        .catch((error) => {
+          toast.error('Error updating offers.')
+          console.log(error)
+        })
+        .finally(() => {
+          setUploading(false)
+        })
+    }
   }
 
   return (
@@ -304,7 +319,7 @@ export const EditOfferPage = () => {
                           </Form.Label>
                           <Form.Control
                             type="file"
-                            accept=".jpg, .jpeg"
+                            accept=".jpg, .jpeg, .png"
                             {...register('img')}
                             onChange={fileChangedHandler}
                           />
