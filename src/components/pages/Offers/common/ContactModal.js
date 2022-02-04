@@ -89,7 +89,12 @@ export const ContactModal = ({ show, handleClose, userProfile }) => {
         <Form.Group controlId="formBasicCv">
           <Form.Label className="d-block mt-3">Curriculum Vitae</Form.Label>
           {cvUrl ? (
-            <a href={cvUrl} className="btn btn-primary btn-sm" target="_blank">
+            <a
+              href={cvUrl}
+              className="btn btn-primary btn-sm"
+              target="_blank"
+              rel="noreferrer"
+            >
               Display / Download
             </a>
           ) : (

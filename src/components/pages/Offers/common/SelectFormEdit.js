@@ -2,7 +2,6 @@
 import Select from 'react-select'
 import { Form } from 'react-bootstrap'
 import { Controller } from 'react-hook-form'
-import { parseData } from '../helpers/parseData'
 
 export const SelectFormEdit = (props) => {
   return (

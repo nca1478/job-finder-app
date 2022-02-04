@@ -1,5 +1,5 @@
 // Dependencies
-import { useEffect, useState } from 'react'
+import { useCallback, useEffect, useState } from 'react'
 import { Row, Col, Container, Alert } from 'react-bootstrap'
 import { ToastContainer, toast } from 'react-toastify'
 
@@ -8,22 +8,22 @@ import { get } from '../../../config/api'
 import { OfferItem } from '../../common/OfferItem'
 import { SpinnerBorder } from '../../common/Spinners/SpinnerBorder'
 import { SpaceBlank } from '../../common/SpaceBlank/SpaceBlank'
+import { Paginate } from '../../common/Paginate/Paginate'
 
 export const OffersPage = () => {
+  const limit = 8
   const [offers, setOffers] = useState([])
   const [loaded, setLoaded] = useState(false)
+  const [pageCount, setPageCount] = useState(0)
 
-  useEffect(() => {
-    fetchOffers()
-  }, [])
-
-  const fetchOffers = () => {
-    get('/offers/published?status=true')
+  const fetchData = useCallback(async () => {
+    get(`/offers/published?status=true&page=1&limit=${limit}`)
       .then((response) => {
         if (response.data === null) {
           toast.error(response.errors.msg)
         } else {
-          setOffers(response.data)
+          setPageCount(Math.ceil(response.data.count / limit))
+          setOffers(response.data.rows)
         }
       })
       .catch((error) => {
@@ -33,6 +33,33 @@ export const OffersPage = () => {
       .finally(() => {
         setLoaded(true)
       })
+  }, [])
+
+  useEffect(() => {
+    fetchData().catch(console.error)
+  }, [fetchData])
+
+  const fetchOffers = async (currentPage) => {
+    get(`/offers/published?status=true&page=${currentPage}&limit=${limit}`)
+      .then((response) => {
+        if (response.data === null) {
+          toast.error(response.errors.msg)
+        } else {
+          setOffers(response.data.rows)
+        }
+      })
+      .catch((error) => {
+        toast.error('Error try to fetching job offers.')
+        console.log(error)
+      })
+      .finally(() => {
+        setLoaded(true)
+      })
+  }
+
+  const handlePageClick = async (data) => {
+    let currentPage = data.selected + 1
+    await fetchOffers(currentPage)
   }
 
   return (
@@ -50,6 +77,9 @@ export const OffersPage = () => {
               {offers.map((offer) => {
                 return <OfferItem key={offer.id} {...offer} />
               })}
+
+              <Paginate pageCount={pageCount} onPageChange={handlePageClick} />
+
               {offers.length > 0 && offers.length < 5 && (
                 <SpaceBlank height="60px" />
               )}

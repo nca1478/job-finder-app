@@ -304,6 +304,7 @@ export const EditUserPage = () => {
                               href={loadedPDF}
                               className="btn btn-primary"
                               target="_blank"
+                              rel="noreferrer"
                             >
                               Display / Download
                             </a>

@@ -133,37 +133,33 @@ export const EditOfferPage = () => {
   const verifyFileUpload = async (data) => {
     return await uploadImage(data.id)
       .then((url) => {
-        return { url }
+        return url
       })
       .catch((err) => {
-        return { err }
+        toast.error(err)
+        return false
       })
   }
 
   const onSubmit = async (data) => {
     const urlImg = selectedFile ? await verifyFileUpload(data) : loadedFile
+    const dataOffer = parseDataOffer({ ...data, img: urlImg })
 
-    if (urlImg.err) {
-      toast.error(urlImg.err)
-      setUploading(false)
-    } else {
-      const dataOffer = parseDataOffer({ ...data, img: urlImg.url })
-      await put(`/offers/${offerId}/update`, dataOffer, user.data.token)
-        .then((response) => {
-          if (response.data === null) {
-            toast.error(response.errors.msg)
-          } else {
-            toast.info(response.data.msg)
-          }
-        })
-        .catch((error) => {
-          toast.error('Error updating offers.')
-          console.log(error)
-        })
-        .finally(() => {
-          setUploading(false)
-        })
-    }
+    await put(`/offers/${offerId}/update`, dataOffer, user.data.token)
+      .then((response) => {
+        if (response.data === null) {
+          toast.error(response.errors.msg)
+        } else {
+          toast.info(response.data.msg)
+        }
+      })
+      .catch((error) => {
+        toast.error('Error updating offers.')
+        console.log(error)
+      })
+      .finally(() => {
+        setUploading(false)
+      })
   }
 
   return (
