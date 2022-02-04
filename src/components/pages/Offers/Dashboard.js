@@ -1,5 +1,5 @@
 // Dependencies
-import { useContext, useEffect, useState } from 'react'
+import { useCallback, useContext, useEffect, useState } from 'react'
 import { Row, Col, Container, Alert } from 'react-bootstrap'
 import { ToastContainer, toast } from 'react-toastify'
 
@@ -9,24 +9,42 @@ import { AuthContext } from '../../../auth/authContext'
 import { DashboardItem } from '../../common/DashboardItem'
 import { SpaceBlank } from '../../common/SpaceBlank/SpaceBlank'
 import { SpinnerBorder } from '../../common/Spinners/SpinnerBorder'
+import { Paginate } from '../../common/Paginate/Paginate'
 
 export const DashboardPage = () => {
   const { user } = useContext(AuthContext)
   const [offers, setOffers] = useState([])
   const [loaded, setLoaded] = useState(false)
+  const [pageCount, setPageCount] = useState(0)
+  const [currentPage, setCurrentPage] = useState(1)
+  const limit = 4
 
-  useEffect(() => {
-    fetchOffers()
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [])
-
-  const fetchOffers = () => {
-    get('/offers', user.data.token)
+  const fetchData = useCallback(async () => {
+    get(`/offers?page=1&limit=${limit}`, user.data.token)
       .then((response) => {
         if (response.data === null) {
           toast.error(response.errors.msg)
         } else {
-          setOffers(response.data)
+          setPageCount(Math.ceil(response.data.count / limit))
+          setOffers(response.data.rows)
+        }
+      })
+      .catch((error) => {
+        toast.error('Error try to fetching job offers.')
+        console.log(error)
+      })
+      .finally(() => {
+        setLoaded(true)
+      })
+  }, [])
+
+  const fetchOffers = async (page) => {
+    get(`/offers?page=${page}&limit=${limit}`, user.data.token)
+      .then((response) => {
+        if (response.data === null) {
+          toast.error(response.errors.msg)
+        } else {
+          setOffers(response.data.rows)
         }
       })
       .catch((error) => {
@@ -37,6 +55,10 @@ export const DashboardPage = () => {
         setLoaded(true)
       })
   }
+
+  useEffect(() => {
+    fetchData().catch(console.error)
+  }, [fetchData])
 
   const handlePublish = (id, published) => {
     const isPublished = published === false ? 'true' : 'false'
@@ -54,7 +76,7 @@ export const DashboardPage = () => {
         console.log(error)
       })
       .finally(() => {
-        fetchOffers()
+        fetchOffers(currentPage)
       })
   }
 
@@ -74,9 +96,15 @@ export const DashboardPage = () => {
           console.log(error)
         })
         .finally(() => {
-          fetchOffers()
+          fetchData()
         })
     }
+  }
+
+  const handlePageClick = async (data) => {
+    let page = data.selected + 1
+    await fetchOffers(page)
+    setCurrentPage(page)
   }
 
   return (
@@ -99,6 +127,9 @@ export const DashboardPage = () => {
                   handleDelete={handleDelete}
                 />
               ))}
+
+              <Paginate pageCount={pageCount} onPageChange={handlePageClick} />
+
               {offers.length === 1 && <SpaceBlank height="210px" />}
               {offers.length === 2 && <SpaceBlank height="60px" />}
             </>

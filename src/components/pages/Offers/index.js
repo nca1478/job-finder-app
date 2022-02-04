@@ -11,10 +11,10 @@ import { SpaceBlank } from '../../common/SpaceBlank/SpaceBlank'
 import { Paginate } from '../../common/Paginate/Paginate'
 
 export const OffersPage = () => {
-  const limit = 8
   const [offers, setOffers] = useState([])
   const [loaded, setLoaded] = useState(false)
   const [pageCount, setPageCount] = useState(0)
+  const limit = 8
 
   const fetchData = useCallback(async () => {
     get(`/offers/published?status=true&page=1&limit=${limit}`)
