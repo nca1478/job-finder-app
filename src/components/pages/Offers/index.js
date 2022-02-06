@@ -36,6 +36,7 @@ export const OffersPage = () => {
   }, [])
 
   useEffect(() => {
+    window.scrollTo(0, 0)
     fetchData().catch(console.error)
   }, [fetchData])
 
