@@ -9,6 +9,7 @@ import { OfferItem } from '../../common/OfferItem'
 import { Showcase } from '../../common/Showcase'
 import { SpinnerBorder } from '../../common/Spinners/SpinnerBorder'
 import { BoxesSection } from '../../common/BoxesSection/BoxesSection'
+import { InfoSection1 } from '../../common/InfoSection1/InfoSection1'
 
 export const HomePage = () => {
   const lastOffers = 4
@@ -41,14 +42,15 @@ export const HomePage = () => {
     <>
       <Showcase />
       <BoxesSection />
-      <Col className="bg-white">
+      <InfoSection1 />
+      <Col className="bg-dark">
         {!loaded ? (
           <Row className="justify-content-center mt-5">
             <SpinnerBorder size="lg" variant="light" />
           </Row>
         ) : (
           <Container className="py-5">
-            <h2 className="text-center mb-4">Last Job Offers</h2>
+            <h2 className="text-center text-white mb-4">Last Job Offers</h2>
             <Row className="d-flex justify-content-center g-4">
               {offers.length > 0 ? (
                 offers.map((offer) => {

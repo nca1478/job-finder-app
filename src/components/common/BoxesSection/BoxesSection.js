@@ -11,7 +11,7 @@ export const BoxesSection = () => {
       <Container>
         <h2 className="text-center text-white mb-4">Why Job Finder?</h2>
         <Row className="text-center g-4">
-          <Col>
+          <Col md={4} sm={12}>
             <Box
               bgColor="bg-dark"
               textColor="text-light"
@@ -24,7 +24,7 @@ export const BoxesSection = () => {
             />
           </Col>
 
-          <Col>
+          <Col md={4} sm={12}>
             <Box
               bgColor="bg-secondary"
               textColor="text-light"
@@ -37,7 +37,7 @@ export const BoxesSection = () => {
             />
           </Col>
 
-          <Col>
+          <Col md={4} sm={12}>
             <Box
               bgColor="bg-dark"
               textColor="text-light"

@@ -9,7 +9,7 @@ export const OfferItem = (props) => {
   const { id, title, img } = props
 
   return (
-    <Col sm={12} md={6} lg={3}>
+    <Col sm={8} md={6} lg={3}>
       <Card>
         <Card.Img variant="top" src={img ? img : noImage} />
         <Card.Body>
