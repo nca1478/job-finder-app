@@ -68,9 +68,9 @@ export const EditOfferPage = () => {
   }
 
   const fetchSectors = async () => {
-    await get('/sectors', user.data.token)
+    await get('/sectors')
       .then(({ data }) => {
-        const sectors = parseData(data)
+        const sectors = parseData(data.rows)
         sortListObjects(sectors)
         setSectorOptions(sectors)
       })
@@ -81,9 +81,9 @@ export const EditOfferPage = () => {
   }
 
   const fetchSkills = async () => {
-    await get('/skills', user.data.token)
+    await get('/skills')
       .then(({ data }) => {
-        const skills = parseData(data)
+        const skills = parseData(data.rows)
         sortListObjects(skills)
         setSkillOptions(skills)
       })
@@ -165,7 +165,6 @@ export const EditOfferPage = () => {
   return (
     <Col className="bg-primary">
       <Container className="p-4 bg-primary">
-        <h2 className="text-center text-white">Edit Offer</h2>
         <Row className="d-flex justify-content-center pt-2">
           {!loaded ? (
             <>
@@ -174,7 +173,10 @@ export const EditOfferPage = () => {
             </>
           ) : (
             <Col>
-              <Card className="py-3">
+              <Card>
+                <Card.Header as="h5" className="text-center">
+                  Edit Offer
+                </Card.Header>
                 <Card.Body>
                   <Form className="mx-3" onSubmit={handleSubmit(onSubmit)}>
                     <Row>
@@ -354,7 +356,7 @@ export const EditOfferPage = () => {
                     <Button
                       type="submit"
                       variant="primary"
-                      className="w-100"
+                      className="w-100 mb-2"
                       disabled={uploading}
                     >
                       {uploading ? (

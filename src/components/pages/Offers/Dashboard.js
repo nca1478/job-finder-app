@@ -110,7 +110,6 @@ export const DashboardPage = () => {
   return (
     <Col className="bg-primary">
       <Container className="p-4 bg-primary">
-        <h2 className="text-center text-white">Dashboard</h2>
         <Row className="d-flex justify-content-center g-4 pt-2">
           {!loaded ? (
             <>

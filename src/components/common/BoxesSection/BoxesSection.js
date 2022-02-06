@@ -3,7 +3,7 @@ import { Container, Row, Col } from 'react-bootstrap'
 
 // Custom Dependencies
 import { Box } from '../Box/Box'
-import textBox from '../../pages/Home/common/text.json'
+import textBox from './text.json'
 
 export const BoxesSection = () => {
   return (
@@ -15,8 +15,8 @@ export const BoxesSection = () => {
             <Box
               bgColor="bg-dark"
               textColor="text-light"
-              title="Virtual"
-              icon="bi bi-laptop"
+              title="Easy"
+              icon="bi bi-emoji-smile"
               bodyText={textBox[0].body}
               buttonColor="btn-primary"
               buttonText="View Offers"
@@ -28,8 +28,8 @@ export const BoxesSection = () => {
             <Box
               bgColor="bg-secondary"
               textColor="text-light"
-              title="Hybrid"
-              icon="bi bi-person-square"
+              title="Fast"
+              icon="bi bi-speedometer"
               bodyText={textBox[1].body}
               buttonColor="btn-dark"
               buttonText="View Offers"
@@ -41,8 +41,8 @@ export const BoxesSection = () => {
             <Box
               bgColor="bg-dark"
               textColor="text-light"
-              title="In Person"
-              icon="bi bi-people"
+              title="Secure"
+              icon="bi bi-shield-check"
               bodyText={textBox[2].body}
               buttonColor="btn-primary"
               buttonText="View Offers"

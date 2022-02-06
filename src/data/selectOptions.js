@@ -1,9 +1,11 @@
 export const educationOptions = [
-  { value: '1', label: 'Without Studies' },
-  { value: '2', label: 'School Studies' },
-  { value: '3', label: 'Vocational Training' },
-  { value: '4', label: 'College Degree' },
-  { value: '5', label: 'Doctorate' },
+  { value: '1', label: 'School Studies' },
+  { value: '2', label: 'Vocational Training' },
+  { value: '3', label: 'College Degree' },
+  { value: '4', label: 'Doctoral Program' },
+  { value: '5', label: 'Master Program' },
+  { value: '6', label: 'Without Studies' },
+  { value: '7', label: 'Other' },
 ]
 
 export const currencyOptions = [

@@ -5,7 +5,7 @@ export const Footer = () => {
   return (
     <Col className="p-3 bg-dark text-white text-center">
       <Container>
-        <p className="lead pt-2">Copyright &copy; 2021 Job Finder App</p>
+        <p className="lead pt-2">Copyright &copy; 2022 Job Finder App</p>
       </Container>
     </Col>
   )

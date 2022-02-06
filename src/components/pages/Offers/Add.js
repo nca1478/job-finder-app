@@ -41,9 +41,9 @@ export const AddOfferPage = () => {
   }, [])
 
   const fetchSectors = async () => {
-    get('/sectors', user.data.token)
+    await get('/sectors')
       .then(({ data }) => {
-        const sectors = parseData(data)
+        const sectors = parseData(data.rows)
         sortListByLabel(sectors)
         setSectorOptions(sectors)
       })
@@ -54,9 +54,9 @@ export const AddOfferPage = () => {
   }
 
   const fetchSkills = async () => {
-    get('/skills', user.data.token)
+    await get('/skills')
       .then(({ data }) => {
-        const skills = parseData(data)
+        const skills = parseData(data.rows)
         sortListObjects(skills)
         setSkillsOptions(skills)
       })
@@ -96,10 +96,12 @@ export const AddOfferPage = () => {
   return (
     <Col className="bg-primary">
       <Container className="p-4 bg-primary">
-        <h2 className="text-center text-white">Add New Offer</h2>
-        <Row className="justify-content-center pt-2">
+        <Row className="justify-content-center py-2">
           <Col>
-            <Card className="py-3">
+            <Card>
+              <Card.Header as="h5" className="text-center">
+                Add New Offer
+              </Card.Header>
               <Card.Body>
                 <Form className="mx-3" onSubmit={handleSubmit(onSubmit)}>
                   <Row>
@@ -225,7 +227,11 @@ export const AddOfferPage = () => {
                   </Row>
 
                   {/* Save Button */}
-                  <Button type="submit" variant="primary" className="w-100">
+                  <Button
+                    type="submit"
+                    variant="primary"
+                    className="w-100 mb-2"
+                  >
                     Save
                   </Button>
                 </Form>

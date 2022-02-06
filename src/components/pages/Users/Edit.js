@@ -188,7 +188,6 @@ export const EditUserPage = () => {
   return (
     <Col className="bg-primary">
       <Container className="p-4 bg-primary">
-        <h2 className="text-center text-white">User Profile</h2>
         <Row className="d-flex justify-content-center pt-2">
           {!loaded ? (
             <>
@@ -197,7 +196,10 @@ export const EditUserPage = () => {
             </>
           ) : (
             <Col>
-              <Card className="text-dark py-3">
+              <Card className="text-dark">
+                <Card.Header as="h5" className="text-center">
+                  User Profile
+                </Card.Header>
                 <Card.Body>
                   <Form className="mx-3" onSubmit={handleSubmit(onSubmit)}>
                     <Row>
@@ -395,7 +397,7 @@ export const EditUserPage = () => {
                     <Button
                       type="submit"
                       variant="primary"
-                      className="w-100"
+                      className="w-100 mb-2"
                       disabled={uploading}
                     >
                       {uploading ? (

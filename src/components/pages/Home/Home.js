@@ -10,6 +10,7 @@ import { Showcase } from '../../common/Showcase'
 import { SpinnerBorder } from '../../common/Spinners/SpinnerBorder'
 import { BoxesSection } from '../../common/BoxesSection/BoxesSection'
 import { InfoSection1 } from '../../common/InfoSection1/InfoSection1'
+import { FaqSection } from '../../common/FaqSection/FaqSection'
 
 export const HomePage = () => {
   const lastOffers = 4
@@ -43,7 +44,8 @@ export const HomePage = () => {
       <Showcase />
       <BoxesSection />
       <InfoSection1 />
-      <Col className="bg-dark">
+      <FaqSection />
+      <Col className="bg-primary">
         {!loaded ? (
           <Row className="justify-content-center mt-5">
             <SpinnerBorder size="lg" variant="light" />
