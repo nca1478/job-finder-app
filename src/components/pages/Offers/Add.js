@@ -41,7 +41,7 @@ export const AddOfferPage = () => {
   }, [])
 
   const fetchSectors = async () => {
-    await get('/sectors')
+    await get('/sectors?page=1&limit=1000')
       .then(({ data }) => {
         const sectors = parseData(data.rows)
         sortListByLabel(sectors)
@@ -54,7 +54,7 @@ export const AddOfferPage = () => {
   }
 
   const fetchSkills = async () => {
-    await get('/skills')
+    await get('/skills?page=1&limit=1000')
       .then(({ data }) => {
         const skills = parseData(data.rows)
         sortListObjects(skills)

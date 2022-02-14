@@ -17,9 +17,10 @@ export const DashboardPage = () => {
   const [loaded, setLoaded] = useState(false)
   const [pageCount, setPageCount] = useState(0)
   const [currentPage, setCurrentPage] = useState(1)
+  const height = ['52vh', '30vh', '5vh']
   const limit = 4
 
-  const fetchData = useCallback(async () => {
+  const initialFetchOffers = useCallback(async () => {
     get(`/offers?page=1&limit=${limit}`, user.data.token)
       .then((response) => {
         if (response.data === null) {
@@ -57,8 +58,12 @@ export const DashboardPage = () => {
   }
 
   useEffect(() => {
-    fetchData().catch(console.error)
-  }, [fetchData])
+    initialFetchOffers().catch(console.error)
+  }, [initialFetchOffers])
+
+  useEffect(() => {
+    console.log(offers.length)
+  }, [offers])
 
   const handlePublish = (id, published) => {
     const isPublished = published === false ? 'true' : 'false'
@@ -96,7 +101,7 @@ export const DashboardPage = () => {
           console.log(error)
         })
         .finally(() => {
-          fetchData()
+          initialFetchOffers()
         })
     }
   }
@@ -114,7 +119,7 @@ export const DashboardPage = () => {
           {!loaded ? (
             <>
               <SpinnerBorder size="lg" variant="light" />
-              <SpaceBlank height="400px" />
+              <SpaceBlank height="64vh" />
             </>
           ) : offers.length > 0 ? (
             <>
@@ -129,15 +134,16 @@ export const DashboardPage = () => {
 
               <Paginate pageCount={pageCount} onPageChange={handlePageClick} />
 
-              {offers.length === 1 && <SpaceBlank height="210px" />}
-              {offers.length === 2 && <SpaceBlank height="60px" />}
+              {offers.length > 0 && offers.length < 5 && (
+                <SpaceBlank height={height[offers.length]} />
+              )}
             </>
           ) : (
             <>
               <Alert variant="danger" className="w-75">
                 Oh no.... There are no job offers to show. Come back soon...
               </Alert>
-              <SpaceBlank height="270px" />
+              <SpaceBlank height={height[0]} />
             </>
           )}
         </Row>

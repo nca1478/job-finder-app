@@ -36,7 +36,11 @@ export const LoginPage = () => {
             type: types.login,
             payload: { data: dataUser },
           })
-          navigate('/dashboard', { replace: true })
+          if (dataUser.role === 'USER_ROLE') {
+            navigate('/dashboard', { replace: true })
+          } else {
+            navigate('/sectors', { replace: true })
+          }
         }
       })
       .catch((error) => {

@@ -51,15 +51,26 @@ export const MainNavbar = () => {
               </NavLink>
 
               {user.logged ? (
-                <>
-                  <NavLink to="/dashboard" className={styleActive}>
-                    Dashboard
-                  </NavLink>
+                user.data.role === 'USER_ROLE' ? (
+                  <>
+                    <NavLink to="/dashboard" className={styleActive}>
+                      Dashboard
+                    </NavLink>
 
-                  <NavLink to="/offer/add" className={styleActive}>
-                    Add Offers
-                  </NavLink>
-                </>
+                    <NavLink to="/offer/add" className={styleActive}>
+                      Add Offers
+                    </NavLink>
+                  </>
+                ) : (
+                  <>
+                    <NavLink to="/sectors" className={styleActive}>
+                      Sectors
+                    </NavLink>
+                    <NavLink to="/skills" className={styleActive}>
+                      Skills
+                    </NavLink>
+                  </>
+                )
               ) : null}
 
               <NavLink to="/offers" className={styleActive}>

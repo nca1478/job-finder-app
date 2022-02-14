@@ -19,6 +19,8 @@ import { DashboardPage } from '../components/pages/Offers/Dashboard'
 import { AddOfferPage } from '../components/pages/Offers/Add'
 import { EditOfferPage } from '../components/pages/Offers/Edit'
 import { EditUserPage } from '../components/pages/Users/Edit'
+import { SkillsPage } from '../components/pages/Skills/Skills'
+import { SectorsPage } from '../components/pages/Sectors/Sectors'
 
 // Routes
 import { PrivateRoute } from './PrivateRoute'
@@ -68,6 +70,25 @@ export const AppRoutes = () => {
           element={
             <PrivateRoute>
               <EditUserPage />
+            </PrivateRoute>
+          }
+        />
+
+        {/* AdminRoutes */}
+        <Route
+          path="/skills"
+          element={
+            <PrivateRoute>
+              <SkillsPage />
+            </PrivateRoute>
+          }
+        />
+
+        <Route
+          path="/sectors"
+          element={
+            <PrivateRoute>
+              <SectorsPage />
             </PrivateRoute>
           }
         />
