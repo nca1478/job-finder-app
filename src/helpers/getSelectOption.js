@@ -1,6 +1,3 @@
-// Custom Dependencies
-import { currencyOptions } from '../data/selectOptions'
-
 export const getCountrySelect = (value) => {
   return { value: 1, label: value, id: 1 }
 }
@@ -21,5 +18,6 @@ export const getSkillsSelect = (values) => {
   }))
 }
 
-export const getCurrencySelect = (value) =>
-  currencyOptions.find((item) => item.label === value)
+export const getCurrencySelect = (value) => {
+  return { value: 1, label: value, id: 1 }
+}

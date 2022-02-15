@@ -21,3 +21,9 @@ export const sortListByLabel = (listObjects) => {
     return 0
   })
 }
+
+export const extractCurrency = (currency) => {
+  return currency
+    .substring(currency.length - 5, currency.length)
+    .substring(1, 4)
+}

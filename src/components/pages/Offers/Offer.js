@@ -20,6 +20,7 @@ import { SpinnerBorder } from '../../common/Spinners/SpinnerBorder'
 import { ContactModal } from './common/ContactModal'
 import { DescriptionModal } from './common/DescriptionModal'
 import noImage from '../../../assets/img/no-image.jpg'
+import { extractCurrency } from '../../../helpers/utils'
 
 export const OfferPage = () => {
   const navigate = useNavigate()
@@ -88,7 +89,7 @@ export const OfferPage = () => {
         <Row className="justify-content-center mt-5">
           <>
             <SpinnerBorder size="lg" variant="dark" />
-            <SpaceBlank height="400px" />
+            <SpaceBlank height="64vh" />
           </>
         </Row>
       ) : (
@@ -122,6 +123,13 @@ export const OfferPage = () => {
             <Row>
               <ListGroup as="ul" variant="flush" className="lead">
                 <ListGroup.Item>
+                  <span className="fw-bold">Price:</span>{' '}
+                  <span className="fw-bold h3">
+                    {offer.price} {extractCurrency(offer.currency)}
+                  </span>
+                </ListGroup.Item>
+
+                <ListGroup.Item>
                   <span className="fw-bold">Skills:</span>{' '}
                   {offer.skills.map((skill) => {
                     return (
@@ -139,12 +147,6 @@ export const OfferPage = () => {
                       sector.name +
                       `${index < offer.sectors.length - 1 ? ', ' : ' '}`
                   )}
-                </ListGroup.Item>
-                <ListGroup.Item>
-                  <span className="fw-bold">Price:</span> {offer.price}
-                </ListGroup.Item>
-                <ListGroup.Item>
-                  <span className="fw-bold">Currency:</span> {offer.currency}
                 </ListGroup.Item>
 
                 <ListGroup.Item>

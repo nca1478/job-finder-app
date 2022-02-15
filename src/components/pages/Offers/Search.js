@@ -44,7 +44,7 @@ export const SearchPage = () => {
     <>
       <Col className="bg-primary">
         <Container className="p-4 bg-primary">
-          <h2 className="text-center text-white">Job Offers</h2>
+          <h2 className="text-center text-white">Job Offers Found</h2>
           <Row className="justify-content-center g-4 pt-2">
             {!loaded ? (
               <SpinnerBorder />
@@ -53,14 +53,14 @@ export const SearchPage = () => {
                 {offers.map((offer) => {
                   return <OfferItem key={offer.id} {...offer} />
                 })}
-                <SpaceBlank height="60px" />
+                {offers.length < 5 && <SpaceBlank height="3vh" />}
               </>
             ) : (
               <>
                 <Alert variant="danger" className="w-75">
                   No job offers was found...
                 </Alert>
-                <SpaceBlank height="270px" />
+                <SpaceBlank height="43vh" />
               </>
             )}
           </Row>

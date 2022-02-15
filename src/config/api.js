@@ -46,7 +46,7 @@ const file = (method, pathUrl, data, token) =>
   }).then((res) => res.json())
 
 // Third-party API (https://countrystatecity.in/)
-const getTp = async (pathUrl) => {
+const getCountries = async (pathUrl) => {
   const headers = new Headers()
   headers.append('X-CSCAPI-KEY', process.env.REACT_APP_COUNTRY_STATE_CITY_API)
 
@@ -62,4 +62,13 @@ const getTp = async (pathUrl) => {
     .catch((error) => console.log('error', error))
 }
 
-export { get, post, put, del, file, getTp }
+const getCurrencies = async (pathUrl) => {
+  const requestOptions = { method: 'GET' }
+
+  return await fetch(pathUrl, requestOptions)
+    .then((response) => response.json())
+    .then((result) => result)
+    .catch((error) => console.log('error', error))
+}
+
+export { get, post, put, del, file, getCountries, getCurrencies }

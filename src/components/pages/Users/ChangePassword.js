@@ -89,7 +89,7 @@ export const ChangePassword = () => {
                   {loading ? (
                     <>
                       <SpinnerBorder />
-                      <SpaceBlank height="130px" />
+                      <SpaceBlank height="20.8vh" />
                     </>
                   ) : (
                     <>

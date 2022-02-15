@@ -24,3 +24,11 @@ export const parseDataOffer = (data) => {
     skills: data.skills.map((skill) => ({ id: skill.id })),
   }
 }
+
+export const parseDataCurrencies = (data) => {
+  return data.map((item, i) => ({
+    id: i,
+    value: item.id,
+    label: `${item.name} (${item.id})`,
+  }))
+}

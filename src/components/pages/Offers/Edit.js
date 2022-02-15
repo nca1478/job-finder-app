@@ -6,9 +6,15 @@ import { useForm } from 'react-hook-form'
 import { Container, Row, Col, Card, Form, Button } from 'react-bootstrap'
 
 // Custom Dependencies
-import { currencyOptions } from '../../../data/selectOptions'
+// import { currencyOptions } from '../../../data/selectOptions'
 import { AuthContext } from '../../../auth/authContext'
-import { get, put, file, getTp } from '../../../config/api'
+import {
+  get,
+  put,
+  file,
+  getCountries,
+  getCurrencies,
+} from '../../../config/api'
 import { setFormValues } from './helpers/setFormValues'
 import { sortListByLabel, sortListObjects } from '../../../helpers/utils'
 import { InputForm } from './common/InputForm'
@@ -19,6 +25,7 @@ import { SpaceBlank } from '../../common/SpaceBlank/SpaceBlank'
 import {
   parseData,
   parseDataCountries,
+  parseDataCurrencies,
   parseDataOffer,
 } from './helpers/parseData'
 
@@ -28,6 +35,7 @@ export const EditOfferPage = () => {
   const [sectorOptions, setSectorOptions] = useState(null)
   const [skillOptions, setSkillOptions] = useState(null)
   const [countryOptions, setCountryOptions] = useState(null)
+  const [currencyOptions, setCurrencyOptions] = useState(null)
   const [selectedFile, setSelectedFile] = useState(null)
   const [loadedFile, setLoadedFile] = useState(null)
   const [show, setShow] = useState(false)
@@ -49,6 +57,7 @@ export const EditOfferPage = () => {
     fetchSectors()
     fetchSkills()
     fetchCountries()
+    fetchCurrencies()
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [])
 
@@ -94,10 +103,20 @@ export const EditOfferPage = () => {
   }
 
   const fetchCountries = async () => {
-    getTp('https://api.countrystatecity.in/v1/countries').then((data) => {
-      const countries = parseDataCountries(data)
-      sortListByLabel(countries)
-      setCountryOptions(countries)
+    getCountries('https://api.countrystatecity.in/v1/countries').then(
+      (data) => {
+        const countries = parseDataCountries(data)
+        sortListByLabel(countries)
+        setCountryOptions(countries)
+      }
+    )
+  }
+
+  const fetchCurrencies = async () => {
+    getCurrencies('https://api.coinbase.com/v2/currencies').then((data) => {
+      const currencies = parseDataCurrencies(data.data)
+      sortListByLabel(currencies)
+      setCurrencyOptions(currencies)
     })
   }
 
@@ -169,7 +188,7 @@ export const EditOfferPage = () => {
           {!loaded ? (
             <>
               <SpinnerBorder size="lg" variant="light" />
-              <SpaceBlank height="400px" />
+              <SpaceBlank height="64vh" />
             </>
           ) : (
             <Col>

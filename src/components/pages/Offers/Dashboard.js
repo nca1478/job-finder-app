@@ -61,10 +61,6 @@ export const DashboardPage = () => {
     initialFetchOffers().catch(console.error)
   }, [initialFetchOffers])
 
-  useEffect(() => {
-    console.log(offers.length)
-  }, [offers])
-
   const handlePublish = (id, published) => {
     const isPublished = published === false ? 'true' : 'false'
 
@@ -115,6 +111,7 @@ export const DashboardPage = () => {
   return (
     <Col className="bg-primary">
       <Container className="p-4 bg-primary">
+        <h3 className="text-center text-white">Job Offers</h3>
         <Row className="d-flex justify-content-center g-4 pt-2">
           {!loaded ? (
             <>

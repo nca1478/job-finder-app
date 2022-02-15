@@ -5,9 +5,9 @@ import { ToastContainer, toast } from 'react-toastify'
 import { useForm } from 'react-hook-form'
 
 // Custom Dependencies
-import { currencyOptions } from '../../../data/selectOptions'
+// import { currencyOptions } from '../../../data/selectOptions'
 import { AuthContext } from '../../../auth/authContext'
-import { get, getTp, post } from '../../../config/api'
+import { get, getCountries, post, getCurrencies } from '../../../config/api'
 import { SelectForm } from './common/SelectForm'
 import { InputForm } from './common/InputForm'
 import { sortListByLabel, sortListObjects } from '../../../helpers/utils'
@@ -16,6 +16,7 @@ import { TextareaForm } from './common/TextareaForm'
 import {
   parseData,
   parseDataCountries,
+  parseDataCurrencies,
   parseDataOffer,
 } from './helpers/parseData'
 
@@ -24,6 +25,7 @@ export const AddOfferPage = () => {
   const [sectorOptions, setSectorOptions] = useState(null)
   const [skillsOptions, setSkillsOptions] = useState(null)
   const [countryOptions, setCountryOptions] = useState(null)
+  const [currencyOptions, setCurrencyOptions] = useState(null)
   const {
     register,
     handleSubmit,
@@ -37,6 +39,7 @@ export const AddOfferPage = () => {
     fetchSectors()
     fetchSkills()
     fetchCountries()
+    fetchCurrencies()
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [])
 
@@ -67,10 +70,20 @@ export const AddOfferPage = () => {
   }
 
   const fetchCountries = async () => {
-    getTp('https://api.countrystatecity.in/v1/countries').then((data) => {
-      const countries = parseDataCountries(data)
-      sortListByLabel(countries)
-      setCountryOptions(countries)
+    getCountries('https://api.countrystatecity.in/v1/countries').then(
+      (data) => {
+        const countries = parseDataCountries(data)
+        sortListByLabel(countries)
+        setCountryOptions(countries)
+      }
+    )
+  }
+
+  const fetchCurrencies = async () => {
+    getCurrencies('https://api.coinbase.com/v2/currencies').then((data) => {
+      const currencies = parseDataCurrencies(data.data)
+      sortListByLabel(currencies)
+      setCurrencyOptions(currencies)
     })
   }
 

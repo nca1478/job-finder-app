@@ -56,7 +56,7 @@ export const RecoverPassword = () => {
                   {loading ? (
                     <>
                       <SpinnerBorder />
-                      <SpaceBlank height="70px" />
+                      <SpaceBlank height="11.2vh" />
                     </>
                   ) : (
                     <>
@@ -90,7 +90,7 @@ export const RecoverPassword = () => {
                 </Form>
               </Card.Body>
             </Card>
-            <SpaceBlank height="20px" />
+            <SpaceBlank height="3.2vh" />
           </Col>
         </Row>
         <ToastContainer />

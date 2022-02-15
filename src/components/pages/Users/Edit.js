@@ -192,7 +192,7 @@ export const EditUserPage = () => {
           {!loaded ? (
             <>
               <SpinnerBorder size="lg" variant="light" />
-              <SpaceBlank height="400px" />
+              <SpaceBlank height="64vh" />
             </>
           ) : (
             <Col>

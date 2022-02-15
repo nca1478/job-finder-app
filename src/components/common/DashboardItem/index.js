@@ -18,10 +18,12 @@ export const DashboardItem = (props) => {
               <img
                 className="img-thumbnail d-none d-md-block"
                 src={img ? img : noImage}
-                style={{ width: '170px', height: '100px' }}
+                style={{ width: '10.625rem', height: '6.25rem' }}
                 alt=""
               />
-              <p className="card-text h5">{title}</p>
+              <p className="card-text fw-bold text-truncate px-2 w-50">
+                {title}
+              </p>
               <Stack direction="horizontal" gap={1}>
                 <Button
                   variant="dark"
