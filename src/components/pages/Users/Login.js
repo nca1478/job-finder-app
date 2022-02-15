@@ -12,6 +12,7 @@ import { types } from '../../../types/types'
 import { InputForm } from './common/InputForm'
 import { GoogleButton } from './common/GoogleButton'
 import { FacebookButton } from './common/FacebookButton'
+import { redirectPageOffers } from '../../../helpers/utils'
 
 export const LoginPage = () => {
   const {
@@ -36,11 +37,7 @@ export const LoginPage = () => {
             type: types.login,
             payload: { data: dataUser },
           })
-          if (dataUser.role === 'USER_ROLE') {
-            navigate('/dashboard', { replace: true })
-          } else {
-            navigate('/sectors', { replace: true })
-          }
+          redirectPageOffers(dataUser, navigate)
         }
       })
       .catch((error) => {
@@ -64,7 +61,7 @@ export const LoginPage = () => {
             type: types.login,
             payload: { data: dataUser },
           })
-          navigate('/dashboard', { replace: true })
+          redirectPageOffers(dataUser, navigate)
         }
       })
       .catch((error) => {
@@ -91,7 +88,7 @@ export const LoginPage = () => {
             type: types.login,
             payload: { data: dataUser },
           })
-          navigate('/dashboard', { replace: true })
+          redirectPageOffers(dataUser, navigate)
         }
       })
       .catch((error) => {

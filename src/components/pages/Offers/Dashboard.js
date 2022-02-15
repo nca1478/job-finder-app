@@ -17,7 +17,7 @@ export const DashboardPage = () => {
   const [loaded, setLoaded] = useState(false)
   const [pageCount, setPageCount] = useState(0)
   const [currentPage, setCurrentPage] = useState(1)
-  const height = ['52vh', '30vh', '5vh']
+  const height = ['45vh', '30vh', '5vh']
   const limit = 4
 
   const initialFetchOffers = useCallback(async () => {
@@ -58,6 +58,7 @@ export const DashboardPage = () => {
   }
 
   useEffect(() => {
+    window.scrollTo(0, 0)
     initialFetchOffers().catch(console.error)
   }, [initialFetchOffers])
 
@@ -116,7 +117,7 @@ export const DashboardPage = () => {
           {!loaded ? (
             <>
               <SpinnerBorder size="lg" variant="light" />
-              <SpaceBlank height="64vh" />
+              <SpaceBlank height="52vh" />
             </>
           ) : offers.length > 0 ? (
             <>

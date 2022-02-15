@@ -44,10 +44,13 @@ export const SearchPage = () => {
     <>
       <Col className="bg-primary">
         <Container className="p-4 bg-primary">
-          <h2 className="text-center text-white">Job Offers Found</h2>
+          <h3 className="text-center text-white">Job Offers Found</h3>
           <Row className="justify-content-center g-4 pt-2">
             {!loaded ? (
-              <SpinnerBorder />
+              <>
+                <SpinnerBorder size="lg" variant="light" />
+                <SpaceBlank height="52vh" />
+              </>
             ) : offers.length > 0 ? (
               <>
                 {offers.map((offer) => {
@@ -60,7 +63,7 @@ export const SearchPage = () => {
                 <Alert variant="danger" className="w-75">
                   No job offers was found...
                 </Alert>
-                <SpaceBlank height="43vh" />
+                <SpaceBlank height="45vh" />
               </>
             )}
           </Row>

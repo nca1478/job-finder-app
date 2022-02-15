@@ -113,7 +113,7 @@ export const AddOfferPage = () => {
           <Col>
             <Card>
               <Card.Header as="h5" className="text-center">
-                Add New Offer
+                Add Job Offer
               </Card.Header>
               <Card.Body>
                 <Form className="mx-3" onSubmit={handleSubmit(onSubmit)}>

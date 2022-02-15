@@ -15,6 +15,7 @@ export const MainNavbar = () => {
 
   const handleLogout = () => {
     dispatch({ type: types.logout })
+    localStorage.removeItem('joboffer-path')
     navigate('/', { replace: true })
   }
 

@@ -194,7 +194,7 @@ export const EditOfferPage = () => {
             <Col>
               <Card>
                 <Card.Header as="h5" className="text-center">
-                  Edit Offer
+                  Edit Job Offer
                 </Card.Header>
                 <Card.Body>
                   <Form className="mx-3" onSubmit={handleSubmit(onSubmit)}>

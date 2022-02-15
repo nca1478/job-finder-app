@@ -1,6 +1,6 @@
 // Dependencies
 import { useContext, useEffect, useState } from 'react'
-import { useParams, useNavigate } from 'react-router-dom'
+import { useParams, useNavigate, useLocation } from 'react-router-dom'
 import {
   Container,
   Row,
@@ -31,10 +31,12 @@ export const OfferPage = () => {
   const { user } = useContext(AuthContext)
   const [loaded, setLoaded] = useState(false)
   const [userProfile, setUserProfile] = useState({})
+  const location = useLocation()
 
   useEffect(() => {
     window.scrollTo(0, 0)
     fetchOffer(offerId)
+    localStorage.setItem('joboffer-path', location.pathname)
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [])
 

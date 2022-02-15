@@ -14,7 +14,6 @@ export const OffersPage = () => {
   const [offers, setOffers] = useState([])
   const [loaded, setLoaded] = useState(false)
   const [pageCount, setPageCount] = useState(0)
-  const height = ['52vh', '5vh']
   const limit = 8
 
   const fetchData = useCallback(async () => {
@@ -67,11 +66,12 @@ export const OffersPage = () => {
   return (
     <Col className="bg-primary">
       <Container className="p-4 bg-primary">
+        <h3 className="text-center text-white">All Job Offers</h3>
         <Row className="d-flex justify-content-center g-4 pt-2">
           {!loaded ? (
             <>
               <SpinnerBorder size="lg" variant="light" />
-              <SpaceBlank height="64vh" />
+              <SpaceBlank height="52vh" />
             </>
           ) : offers.length > 0 ? (
             <>
@@ -80,17 +80,13 @@ export const OffersPage = () => {
               })}
 
               <Paginate pageCount={pageCount} onPageChange={handlePageClick} />
-
-              {offers.length > 0 && offers.length < 5 && (
-                <SpaceBlank height={height[1]} />
-              )}
             </>
           ) : (
             <>
               <Alert variant="danger" className="w-75">
                 Oh no.... There are no job offers to show. Come back soon...
               </Alert>
-              <SpaceBlank height={height[0]} />
+              <SpaceBlank height="45vh" />
             </>
           )}
         </Row>

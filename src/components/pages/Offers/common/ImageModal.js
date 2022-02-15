@@ -6,7 +6,7 @@ export const ImageModal = ({ show, handleClose, offer }) => {
   return (
     <Modal show={show} onHide={handleClose} centered>
       <Modal.Header closeButton>
-        <Modal.Title>{title}</Modal.Title>
+        <Modal.Title>Image Job Offer</Modal.Title>
       </Modal.Header>
       <Modal.Body>
         <img

@@ -15,12 +15,14 @@ export const DashboardItem = (props) => {
         <Card.Body>
           <Row>
             <Col className="d-flex align-items-center text-center justify-content-between">
-              <img
-                className="img-thumbnail d-none d-md-block"
-                src={img ? img : noImage}
-                style={{ width: '10.625rem', height: '6.25rem' }}
-                alt=""
-              />
+              <Link to={`/offer/${id}/edit`}>
+                <img
+                  className="img-thumbnail d-none d-md-block"
+                  src={img ? img : noImage}
+                  style={{ width: '10.625rem', height: '6.25rem' }}
+                  alt=""
+                />
+              </Link>
               <p className="card-text fw-bold text-truncate px-2 w-50">
                 {title}
               </p>

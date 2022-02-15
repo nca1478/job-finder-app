@@ -18,6 +18,7 @@ export const HomePage = () => {
   const [loaded, setLoaded] = useState(false)
 
   useEffect(() => {
+    localStorage.removeItem('joboffer-path')
     fetchOffers()
   }, [])
 

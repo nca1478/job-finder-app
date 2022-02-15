@@ -10,6 +10,7 @@ import { post } from '../../../config/api'
 import { AuthContext } from '../../../auth/authContext'
 import { types } from '../../../types/types'
 import { InputForm } from './common/InputForm'
+import { redirectPageOffers } from '../../../helpers/utils'
 
 export const RegisterPage = () => {
   const {
@@ -35,7 +36,7 @@ export const RegisterPage = () => {
             type: types.login,
             payload: { data: dataUser },
           })
-          navigate('/dashboard', { replace: true })
+          redirectPageOffers(dataUser, navigate)
         }
       })
       .catch((error) => {

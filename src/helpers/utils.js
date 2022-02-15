@@ -27,3 +27,15 @@ export const extractCurrency = (currency) => {
     .substring(currency.length - 5, currency.length)
     .substring(1, 4)
 }
+
+export const redirectPageOffers = (dataUser, navigate) => {
+  if (dataUser.role === 'USER_ROLE') {
+    navigate(localStorage.getItem('joboffer-path') || '/dashboard', {
+      replace: true,
+    })
+  } else {
+    navigate(localStorage.getItem('joboffer-path') || '/sectors', {
+      replace: true,
+    })
+  }
+}
