@@ -7,9 +7,9 @@ import { ToastContainer, toast } from 'react-toastify'
 import { SpaceBlank } from '../../common/SpaceBlank/SpaceBlank'
 import { SpinnerBorder } from '../../common/Spinners/SpinnerBorder'
 import { get, post, put, del } from '../../../config/api'
-import { SectorModal } from './common/SectorModal'
+import { SectorModal } from './components/SectorModal'
 import { Paginate } from '../../common/Paginate/Paginate'
-import { TableSectors } from './common/TableSectors'
+import { TableSectors } from './components/TableSectors'
 
 export const SectorsPage = () => {
   const [loaded, setLoaded] = useState(false)
@@ -21,7 +21,7 @@ export const SectorsPage = () => {
   const height = ['37vh', '30vh', '23vh', '16vh', '8vh']
   const limit = 5
 
-  const initialFetchSectors = useCallback(async (page) => {
+  const initialFetchSectors = useCallback(async () => {
     await get(`/sectors?page=1&limit=${limit}`)
       .then(({ data }) => {
         setPageCount(Math.ceil(data.count / limit))
