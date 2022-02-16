@@ -39,6 +39,7 @@ export const AppRoutes = () => {
         <Route path="/search" element={<SearchPage />} />
         <Route path="/recover-password" element={<RecoverPassword />} />
         <Route path="/change-password" element={<ChangePassword />} />
+        <Route path="/404" element={<NotFound />} />
 
         {/* PrivateRoutes */}
         <Route

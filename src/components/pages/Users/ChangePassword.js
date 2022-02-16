@@ -1,7 +1,7 @@
 // Dependencies
 import { Col, Row, Form, Container, Card, Button } from 'react-bootstrap'
 import { ToastContainer, toast } from 'react-toastify'
-import { Link, useLocation } from 'react-router-dom'
+import { Link, useLocation, useNavigate } from 'react-router-dom'
 import { useEffect, useState } from 'react'
 import { useForm } from 'react-hook-form'
 import queryString from 'query-string'
@@ -26,13 +26,14 @@ export const ChangePassword = () => {
   const [errorToken, setErrorToken] = useState(null)
   const [loading, setLoading] = useState(false)
   const location = useLocation()
+  const navigate = useNavigate()
 
   useEffect(() => {
     const { token = '' } = queryString.parse(location.search)
 
-    // if (token === '') {
-    // 		history.push('/404');
-    // }
+    if (token === '') {
+      navigate('/404', { replace: true })
+    }
 
     const decodeToken = async () => {
       try {
@@ -48,29 +49,41 @@ export const ChangePassword = () => {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [])
 
+  useEffect(() => {
+    if (errorToken) {
+      toast.error(errorToken.message)
+      console.log(errorToken)
+    }
+  }, [errorToken])
+
   const onSubmit = (data) => {
     const dataUser = {
-      email: infoToken.email,
+      email: infoToken ? infoToken.email : null,
       newPassword: data.password,
     }
 
     setLoading(true)
-    put(`/users/recovery/${token}`, dataUser)
-      .then((response) => {
-        if (response.data === null) {
-          toast.error(response.errors.msg)
-        } else {
-          toast.info(response.data.msg)
-          reset()
-        }
-      })
-      .catch((error) => {
-        toast.error('Error when trying to change password.')
-        console.log(error)
-      })
-      .finally(() => {
-        setLoading(false)
-      })
+    if (dataUser.email && dataUser.newPassword) {
+      put(`/users/recovery/${token}`, dataUser)
+        .then((response) => {
+          if (response.data === null) {
+            toast.error(response.errors.msg)
+          } else {
+            toast.info(response.data.msg)
+            reset()
+          }
+        })
+        .catch((error) => {
+          toast.error('Error when trying to change password.')
+          console.log(error)
+        })
+        .finally(() => {
+          setLoading(false)
+        })
+    } else {
+      toast.error('Error updating password.')
+      setLoading(false)
+    }
   }
 
   return (
