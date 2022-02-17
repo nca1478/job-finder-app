@@ -1,13 +1,15 @@
 // Dependencies
 import { useEffect } from 'react'
 import { useForm } from 'react-hook-form'
-import { Modal, Form, Row, Col, Button } from 'react-bootstrap'
+import { Modal, Form, Row, Col } from 'react-bootstrap'
+import Image from 'react-bootstrap/Image'
 
 // Custom Dependencies
 import { LinkedinButton } from './LinkedinButton'
 import { TwitterButton } from './TwitterButton'
 import { InstagramButton } from './InstagramButton'
 import { FacebookButton } from './FacebookButton'
+import noImage from '../../../../assets/img/no-image2.png'
 
 export const ContactModal = ({ show, handleClose, userProfile }) => {
   const {
@@ -37,11 +39,21 @@ export const ContactModal = ({ show, handleClose, userProfile }) => {
         <Modal.Title>Contact Information</Modal.Title>
       </Modal.Header>
       <Modal.Body>
-        <Form.Group controlId="formBasicName">
-          <Form.Label>Name</Form.Label>
-          <Form.Control {...register('name')} className="mb-3" disabled />
-        </Form.Group>
         <Row>
+          <Col md={3}>
+            <>
+              {/* <Image src={img} roundedCircle /> */}
+              <Image src={noImage} className="w-100 h-100" roundedCircle />
+            </>
+          </Col>
+          <Col md={9}>
+            <Form.Group controlId="formBasicName">
+              <Form.Label>Name</Form.Label>
+              <Form.Control {...register('name')} className="mb-3" disabled />
+            </Form.Group>
+          </Col>
+        </Row>
+        <Row className="mt-1">
           <Col>
             <Form.Group controlId="formBasicProfession">
               <Form.Label>Profession</Form.Label>
@@ -106,11 +118,11 @@ export const ContactModal = ({ show, handleClose, userProfile }) => {
           )}
         </Form.Group>
       </Modal.Body>
-      <Modal.Footer>
+      {/* <Modal.Footer>
         <Button variant="secondary" onClick={handleClose}>
           Close
         </Button>
-      </Modal.Footer>
+      </Modal.Footer> */}
     </Modal>
   )
 }

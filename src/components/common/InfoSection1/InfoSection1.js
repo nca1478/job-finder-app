@@ -1,8 +1,9 @@
 // Dependencies
 import { Col, Container, Row } from 'react-bootstrap'
+import { Link } from 'react-router-dom'
 
 // Custom Dependencies
-import infoImage from '../../../assets/img/info1.svg'
+import infoImage1 from '../../../assets/img/info1.svg'
 
 export const InfoSection1 = () => {
   return (
@@ -11,23 +12,25 @@ export const InfoSection1 = () => {
         <Row className="align-items-center justify-content-center">
           <Col md={6}>
             <img
-              src={infoImage}
-              className="img-fluid w-75 d-sm-none d-md-block"
+              src={infoImage1}
+              className="img-fluid w-100 d-sm-none d-md-block"
               alt=""
             />
           </Col>
-          <Col md={6} sm={12}>
-            <h2>Find Job Offers Quickly</h2>
+          <Col md={6} sm={12} className="text-center">
+            <h2>How it Works Job Finder?</h2>
             <p className="lead">
-              Lorem ipsum dolor sit amet consectetur, adipisicing elit. Quasi
-              repudiandae quam voluptates ullam modi. Cumque.
+              We show you how is the process of searching and publishing a job
+              offer.
             </p>
-            <p>
-              Lorem ipsum dolor, sit amet consectetur adipisicing elit. Iste
-              exercitationem in voluptatibus ducimus eveniet nisi eos
-              aspernatur. Laborum tempora, maiores quidem nesciunt inventore
-              assumenda, alias cum eaque pariatur consequuntur sed.
-            </p>
+            <div className="text-center">
+              <Link to="/howitworks1" className="btn btn-primary m-1">
+                Find a Job Offer
+              </Link>
+              <Link to="/howitworks2" className="btn btn-dark m-1">
+                Publish a Job Offer
+              </Link>
+            </div>
           </Col>
         </Row>
       </Container>

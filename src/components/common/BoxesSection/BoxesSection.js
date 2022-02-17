@@ -19,7 +19,7 @@ export const BoxesSection = () => {
               icon="bi bi-emoji-smile"
               bodyText={textBox[0].body}
               buttonColor="btn-primary"
-              buttonText="View Offers"
+              buttonText="View Job Offers"
               goTo="/offers"
             />
           </Col>
@@ -32,7 +32,7 @@ export const BoxesSection = () => {
               icon="bi bi-speedometer"
               bodyText={textBox[1].body}
               buttonColor="btn-dark"
-              buttonText="View Offers"
+              buttonText="View Job Offers"
               goTo="/offers"
             />
           </Col>
@@ -45,7 +45,7 @@ export const BoxesSection = () => {
               icon="bi bi-shield-check"
               bodyText={textBox[2].body}
               buttonColor="btn-primary"
-              buttonText="View Offers"
+              buttonText="View Job Offers"
               goTo="/offers"
             />
           </Col>

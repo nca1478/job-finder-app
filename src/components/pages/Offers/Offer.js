@@ -19,8 +19,8 @@ import { SpaceBlank } from '../../common/SpaceBlank/SpaceBlank'
 import { SpinnerBorder } from '../../common/Spinners/SpinnerBorder'
 import { ContactModal } from './common/ContactModal'
 import { DescriptionModal } from './common/DescriptionModal'
-import noImage from '../../../assets/img/no-image.jpg'
 import { extractCurrency } from '../../../helpers/utils'
+import noImage from '../../../assets/img/no-image.jpg'
 
 export const OfferPage = () => {
   const navigate = useNavigate()

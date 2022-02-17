@@ -1,4 +1,5 @@
 // Dependencies
+import { useEffect } from 'react'
 import { Container, Row, Col } from 'react-bootstrap'
 
 // Custom Dependencies
@@ -8,6 +9,10 @@ import hiwImage6 from '../../../assets/img/howitworks6.svg'
 import hiwImage7 from '../../../assets/img/howitworks7.svg'
 
 export const HowItWorksPage2 = () => {
+  useEffect(() => {
+    window.scrollTo(0, 0)
+  }, [])
+
   return (
     <>
       <h2 className="text-center py-4">Publish a Job Offer</h2>

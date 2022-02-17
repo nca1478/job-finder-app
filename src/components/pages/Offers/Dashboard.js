@@ -37,7 +37,7 @@ export const DashboardPage = () => {
       .finally(() => {
         setLoaded(true)
       })
-  }, [])
+  }, [user.data.token])
 
   const fetchOffers = async (page) => {
     get(`/offers?page=${page}&limit=${limit}`, user.data.token)
