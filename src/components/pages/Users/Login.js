@@ -99,9 +99,9 @@ export const LoginPage = () => {
 
   return (
     <Col className="bg-primary">
-      <Container className="p-4 bg-primary" style={{ width: '420px' }}>
+      <Container className="p-4 bg-primary">
         <Row className="text-center">
-          <Col>
+          <Col md={{ span: 6, offset: 3 }}>
             <Card className="text-dark py-3">
               <Card.Body className="text-center">
                 <h1 className="mb-3">

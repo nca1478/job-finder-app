@@ -14,7 +14,7 @@ export const DashboardItem = (props) => {
       <Card>
         <Card.Body>
           <Row>
-            <Col className="d-flex align-items-center text-center justify-content-between">
+            <Col className="d-flex align-items-center justify-content-between text-center">
               <Link to={`/offer/${id}/edit`}>
                 <img
                   className="img-thumbnail d-none d-md-block"

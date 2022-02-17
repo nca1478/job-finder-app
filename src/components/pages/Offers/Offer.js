@@ -100,14 +100,14 @@ export const OfferPage = () => {
             <Image
               className="mb-3"
               src={offer.img ? offer.img : noImage}
-              style={{ width: '520px', height: '320px' }}
+              style={{ width: '30.5rem', height: 'auto' }}
               thumbnail
               fluid
             />
           </Col>
 
           <Col md="6" sm="12">
-            <h2 className="mb-2">
+            <h2 className="mb-2 text-center text-sm-start">
               {offer.title}{' '}
               <span className="fw-bold">
                 <Button

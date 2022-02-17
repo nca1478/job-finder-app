@@ -52,9 +52,9 @@ export const HomePage = () => {
             <SpinnerBorder size="lg" variant="light" />
           </Row>
         ) : (
-          <Container className="py-5">
-            <h2 className="text-center text-white mb-4">Last Job Offers</h2>
-            <Row className="d-flex justify-content-center g-4">
+          <Container className="p-4">
+            <h2 className="text-center text-white m-4">Last Job Offers</h2>
+            <Row className="d-flex justify-content-center g-4 pt-2 mb-4">
               {offers.length > 0 ? (
                 offers.map((offer) => {
                   return <OfferItem key={offer.id} {...offer} />

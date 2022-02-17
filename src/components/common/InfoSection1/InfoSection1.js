@@ -10,10 +10,10 @@ export const InfoSection1 = () => {
     <section className="p-5">
       <Container>
         <Row className="align-items-center justify-content-center">
-          <Col md={6}>
+          <Col md={6} sm={12}>
             <img
               src={infoImage1}
-              className="img-fluid w-100 d-sm-none d-md-block"
+              className="img-fluid d-sm-none d-md-block"
               alt=""
             />
           </Col>
