@@ -2,7 +2,15 @@
 import { useContext } from 'react'
 import { useForm } from 'react-hook-form'
 import { Link, NavLink, useNavigate } from 'react-router-dom'
-import { Container, Nav, Navbar, Form, Button } from 'react-bootstrap'
+import {
+  Container,
+  Nav,
+  Navbar,
+  Form,
+  Button,
+  NavDropdown,
+} from 'react-bootstrap'
+import { LinkContainer } from 'react-router-bootstrap'
 
 // Custom Dependencies
 import { AuthContext } from '../../../auth/authContext'
@@ -50,6 +58,16 @@ export const MainNavbar = () => {
               <NavLink to="/" className={styleActive}>
                 Home
               </NavLink>
+
+              <NavDropdown title="How It Works" id="basic-nav-dropdown">
+                <LinkContainer to="/howitworks1">
+                  <NavDropdown.Item>Find a Job Offer</NavDropdown.Item>
+                </LinkContainer>
+
+                <LinkContainer to="/howitworks2">
+                  <NavDropdown.Item>Publish a Job Offer</NavDropdown.Item>
+                </LinkContainer>
+              </NavDropdown>
 
               {user.logged ? (
                 user.data.role === 'USER_ROLE' ? (

@@ -21,6 +21,8 @@ import { EditOfferPage } from '../components/pages/Offers/Edit'
 import { EditUserPage } from '../components/pages/Users/Edit'
 import { SkillsPage } from '../components/pages/Skills/Skills'
 import { SectorsPage } from '../components/pages/Sectors/Sectors'
+import { HowItWorksPage1 } from '../components/pages/HowItWorks/HowItWorks1'
+import { HowItWorksPage2 } from '../components/pages/HowItWorks/HowItWorks2'
 
 // Routes
 import { PrivateRoute } from './PrivateRoute'
@@ -39,6 +41,8 @@ export const AppRoutes = () => {
         <Route path="/search" element={<SearchPage />} />
         <Route path="/recover-password" element={<RecoverPassword />} />
         <Route path="/change-password" element={<ChangePassword />} />
+        <Route path="/howitworks1" element={<HowItWorksPage1 />} />
+        <Route path="/howitworks2" element={<HowItWorksPage2 />} />
         <Route path="/404" element={<NotFound />} />
 
         {/* PrivateRoutes */}
