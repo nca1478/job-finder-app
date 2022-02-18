@@ -1,12 +1,12 @@
 // Dependencies
-import { Col, Container } from 'react-bootstrap'
+import { Container } from 'react-bootstrap'
 
 export const Footer = () => {
   return (
-    <Col className="p-3 bg-dark text-white text-center bottom-0">
+    <div className="p-3 bg-dark text-white text-center">
       <Container>
-        <p className="lead pt-2">Copyright &copy; 2022 Job Finder App</p>
+        <p className="lead pt-3">Copyright &copy; 2022 Job Finder App</p>
       </Container>
-    </Col>
+    </div>
   )
 }

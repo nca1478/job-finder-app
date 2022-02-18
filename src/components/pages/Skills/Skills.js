@@ -18,7 +18,6 @@ export const SkillsPage = () => {
   const [showSkillModal, setShowSkillModal] = useState(false)
   const [pageCount, setPageCount] = useState(0)
   const [currentPage, setCurrentPage] = useState(1)
-  const height = ['37vh', '30vh', '23vh', '16vh', '8vh']
   const limit = 5
 
   const initialFetchSkills = useCallback(async () => {
@@ -194,9 +193,6 @@ export const SkillsPage = () => {
                   />
                 </Card.Body>
               </Card>
-              {skills.length >= 0 && (
-                <SpaceBlank height={height[skills.length]} />
-              )}
             </Col>
           )}
         </Row>

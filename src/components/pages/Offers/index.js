@@ -7,7 +7,6 @@ import { ToastContainer, toast } from 'react-toastify'
 import { get } from '../../../config/api'
 import { OfferItem } from '../../common/OfferItem'
 import { SpinnerBorder } from '../../common/Spinners/SpinnerBorder'
-import { SpaceBlank } from '../../common/SpaceBlank/SpaceBlank'
 import { Paginate } from '../../common/Paginate/Paginate'
 
 export const OffersPage = () => {
@@ -69,10 +68,7 @@ export const OffersPage = () => {
         <h3 className="text-center text-white">All Job Offers</h3>
         <Row className="d-flex justify-content-center g-4 pt-2">
           {!loaded ? (
-            <>
-              <SpinnerBorder size="lg" variant="light" />
-              <SpaceBlank height="52vh" />
-            </>
+            <SpinnerBorder size="lg" variant="light" />
           ) : offers.length > 0 ? (
             <>
               {offers.map((offer) => {
@@ -82,12 +78,9 @@ export const OffersPage = () => {
               <Paginate pageCount={pageCount} onPageChange={handlePageClick} />
             </>
           ) : (
-            <>
-              <Alert variant="danger" className="w-75">
-                Oh no.... There are no job offers to show. Come back soon...
-              </Alert>
-              <SpaceBlank height="45vh" />
-            </>
+            <Alert variant="danger" className="w-75">
+              Oh no.... There are no job offers to show. Come back soon...
+            </Alert>
           )}
         </Row>
       </Container>

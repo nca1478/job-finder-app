@@ -30,77 +30,79 @@ import { PrivateRoute } from './PrivateRoute'
 export const AppRoutes = () => {
   return (
     <BrowserRouter>
-      <MainNavbar />
-      <Routes>
-        {/* PublicRoutes */}
-        <Route path="/" element={<HomePage />} />
-        <Route path="/login" element={<LoginPage />} />
-        <Route path="/register" element={<RegisterPage />} />
-        <Route path="/offers" element={<OffersPage />} />
-        <Route path="/offer/:offerId/details" element={<OfferPage />} />
-        <Route path="/search" element={<SearchPage />} />
-        <Route path="/recover-password" element={<RecoverPassword />} />
-        <Route path="/change-password" element={<ChangePassword />} />
-        <Route path="/howitworks1" element={<HowItWorksPage1 />} />
-        <Route path="/howitworks2" element={<HowItWorksPage2 />} />
-        <Route path="/404" element={<NotFound />} />
+      <div className="d-flex flex-column min-vh-100">
+        <MainNavbar />
+        <Routes>
+          {/* PublicRoutes */}
+          <Route path="/" element={<HomePage />} />
+          <Route path="/login" element={<LoginPage />} />
+          <Route path="/register" element={<RegisterPage />} />
+          <Route path="/offers" element={<OffersPage />} />
+          <Route path="/offer/:offerId/details" element={<OfferPage />} />
+          <Route path="/search" element={<SearchPage />} />
+          <Route path="/recover-password" element={<RecoverPassword />} />
+          <Route path="/change-password" element={<ChangePassword />} />
+          <Route path="/howitworks1" element={<HowItWorksPage1 />} />
+          <Route path="/howitworks2" element={<HowItWorksPage2 />} />
+          <Route path="/404" element={<NotFound />} />
 
-        {/* PrivateRoutes */}
-        <Route
-          path="/dashboard"
-          element={
-            <PrivateRoute>
-              <DashboardPage />
-            </PrivateRoute>
-          }
-        />
-        <Route
-          path="/offer/add"
-          element={
-            <PrivateRoute>
-              <AddOfferPage />
-            </PrivateRoute>
-          }
-        />
-        <Route
-          path="/offer/:offerId/edit"
-          element={
-            <PrivateRoute>
-              <EditOfferPage />
-            </PrivateRoute>
-          }
-        />
-        <Route
-          path="/user/edit"
-          element={
-            <PrivateRoute>
-              <EditUserPage />
-            </PrivateRoute>
-          }
-        />
+          {/* PrivateRoutes */}
+          <Route
+            path="/dashboard"
+            element={
+              <PrivateRoute>
+                <DashboardPage />
+              </PrivateRoute>
+            }
+          />
+          <Route
+            path="/offer/add"
+            element={
+              <PrivateRoute>
+                <AddOfferPage />
+              </PrivateRoute>
+            }
+          />
+          <Route
+            path="/offer/:offerId/edit"
+            element={
+              <PrivateRoute>
+                <EditOfferPage />
+              </PrivateRoute>
+            }
+          />
+          <Route
+            path="/user/edit"
+            element={
+              <PrivateRoute>
+                <EditUserPage />
+              </PrivateRoute>
+            }
+          />
 
-        {/* AdminRoutes */}
-        <Route
-          path="/skills"
-          element={
-            <PrivateRoute>
-              <SkillsPage />
-            </PrivateRoute>
-          }
-        />
+          {/* AdminRoutes */}
+          <Route
+            path="/skills"
+            element={
+              <PrivateRoute>
+                <SkillsPage />
+              </PrivateRoute>
+            }
+          />
 
-        <Route
-          path="/sectors"
-          element={
-            <PrivateRoute>
-              <SectorsPage />
-            </PrivateRoute>
-          }
-        />
+          <Route
+            path="/sectors"
+            element={
+              <PrivateRoute>
+                <SectorsPage />
+              </PrivateRoute>
+            }
+          />
 
-        <Route exact path="*" element={<NotFound />} />
-      </Routes>
-      <Footer />
+          <Route exact path="*" element={<NotFound />} />
+        </Routes>
+        <Footer />
+      </div>
     </BrowserRouter>
   )
 }

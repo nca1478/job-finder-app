@@ -15,11 +15,11 @@ export const HowItWorksPage1 = () => {
 
   return (
     <>
-      <h2 className="text-center py-4">Find a Job Offer</h2>
+      <h2 className="text-center pt-4">Find a Job Offer</h2>
       <hr />
       <section className="py-4">
         <Container>
-          <Row className="align-items-center justify-content-center py-5">
+          <Row className="align-items-center justify-content-center py-4">
             <Col md={6} sm={12} className="d-none d-md-block">
               <img src={hiwImage1} className="img-fluid w-75" alt="" />
             </Col>
@@ -32,7 +32,7 @@ export const HowItWorksPage1 = () => {
 
       <section className="py-4 bg-dark text-white">
         <Container>
-          <Row className="align-items-center justify-content-center py-5">
+          <Row className="align-items-center justify-content-center py-4">
             <Col md={6} sm={12} className="text-center text-md-start">
               <h2>2. Read a Job Offer Information.</h2>
             </Col>
@@ -45,7 +45,7 @@ export const HowItWorksPage1 = () => {
 
       <section className="py-4 bg-primary text-white">
         <Container>
-          <Row className="align-items-center justify-content-center py-5">
+          <Row className="align-items-center justify-content-center py-4">
             <Col md={6} sm={12} className="d-none d-md-block">
               <img src={hiwImage3} className="img-fluid w-75" alt="" />
             </Col>
@@ -58,7 +58,7 @@ export const HowItWorksPage1 = () => {
 
       <section className="py-4">
         <Container>
-          <Row className="align-items-center justify-content-center py-5">
+          <Row className="align-items-center justify-content-center py-4">
             <Col md={6} sm={12} className="text-center text-md-start">
               <h2>4. Locate User Information and Contact It.</h2>
             </Col>

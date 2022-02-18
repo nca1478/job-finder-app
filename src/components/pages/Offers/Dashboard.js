@@ -7,7 +7,6 @@ import { ToastContainer, toast } from 'react-toastify'
 import { get, put, del } from '../../../config/api'
 import { AuthContext } from '../../../auth/authContext'
 import { DashboardItem } from '../../common/DashboardItem'
-import { SpaceBlank } from '../../common/SpaceBlank/SpaceBlank'
 import { SpinnerBorder } from '../../common/Spinners/SpinnerBorder'
 import { Paginate } from '../../common/Paginate/Paginate'
 
@@ -17,8 +16,7 @@ export const DashboardPage = () => {
   const [loaded, setLoaded] = useState(false)
   const [pageCount, setPageCount] = useState(0)
   const [currentPage, setCurrentPage] = useState(1)
-  const height = ['45vh', '30vh', '5vh']
-  const limit = 4
+  const limit = 6
 
   const initialFetchOffers = useCallback(async () => {
     get(`/offers?page=1&limit=${limit}`, user.data.token)
@@ -115,10 +113,7 @@ export const DashboardPage = () => {
         <h3 className="text-center text-white">Job Offers</h3>
         <Row className="d-flex justify-content-center g-4 pt-2">
           {!loaded ? (
-            <>
-              <SpinnerBorder size="lg" variant="light" />
-              <SpaceBlank height="52vh" />
-            </>
+            <SpinnerBorder size="lg" variant="light" />
           ) : offers.length > 0 ? (
             <>
               {offers.map((offer) => (
@@ -131,18 +126,11 @@ export const DashboardPage = () => {
               ))}
 
               <Paginate pageCount={pageCount} onPageChange={handlePageClick} />
-
-              {offers.length > 0 && offers.length < 5 && (
-                <SpaceBlank height={height[offers.length]} />
-              )}
             </>
           ) : (
-            <>
-              <Alert variant="danger" className="w-75">
-                Oh no.... There are no job offers to show. Come back soon...
-              </Alert>
-              <SpaceBlank height={height[0]} />
-            </>
+            <Alert variant="danger" className="w-75">
+              Oh no.... There are no job offers to show. Come back soon...
+            </Alert>
           )}
         </Row>
       </Container>

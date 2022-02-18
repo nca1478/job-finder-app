@@ -42,10 +42,7 @@ export const RecoverPassword = () => {
 
   return (
     <Col className="bg-primary">
-      <Container
-        className="p-4 bg-primary"
-        style={{ minHeight: '90vh', position: 'relative' }}
-      >
+      <Container className="bg-primary p-4">
         <Row className="text-center my-5">
           <Col md={{ span: 6, offset: 3 }}>
             <Card className="text-dark py-3">
@@ -93,7 +90,6 @@ export const RecoverPassword = () => {
                 </Form>
               </Card.Body>
             </Card>
-            <SpaceBlank height="3.2vh" />
           </Col>
         </Row>
         <ToastContainer />

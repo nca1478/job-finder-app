@@ -18,7 +18,6 @@ export const SectorsPage = () => {
   const [showSectorModal, setShowSectorModal] = useState(false)
   const [pageCount, setPageCount] = useState(0)
   const [currentPage, setCurrentPage] = useState(1)
-  const height = ['37vh', '30vh', '23vh', '16vh', '8vh']
   const limit = 5
 
   const initialFetchSectors = useCallback(async () => {
@@ -194,9 +193,6 @@ export const SectorsPage = () => {
                   />
                 </Card.Body>
               </Card>
-              {sectors.length >= 0 && (
-                <SpaceBlank height={height[sectors.length]} />
-              )}
             </Col>
           )}
         </Row>

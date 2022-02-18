@@ -88,9 +88,9 @@ export const ChangePassword = () => {
 
   return (
     <Col className="bg-primary">
-      <Container className="p-4 bg-primary" style={{ width: '420px' }}>
-        <Row className="text-center my-5">
-          <Col>
+      <Container className="bg-primary p-3">
+        <Row className="text-center my-4">
+          <Col md={{ span: 6, offset: 3 }}>
             <Card className="text-dark py-3">
               <Card.Body className="text-center">
                 <h1 className="mb-3">
@@ -102,7 +102,7 @@ export const ChangePassword = () => {
                   {loading ? (
                     <>
                       <SpinnerBorder />
-                      <SpaceBlank height="20.8vh" />
+                      <SpaceBlank height="20.2vh" />
                     </>
                   ) : (
                     <>
