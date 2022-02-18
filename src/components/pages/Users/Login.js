@@ -9,9 +9,9 @@ import { ToastContainer, toast } from 'react-toastify'
 import { post } from '../../../config/api'
 import { AuthContext } from '../../../auth/authContext'
 import { types } from '../../../types/types'
-import { InputForm } from './common/InputForm'
-import { GoogleButton } from './common/GoogleButton'
-import { FacebookButton } from './common/FacebookButton'
+import { InputGroupForm } from './components/InputGroupForm'
+import { GoogleButton } from './components/GoogleButton'
+import { FacebookButton } from './components/FacebookButton'
 import { redirectPageOffers } from '../../../helpers/utils'
 
 export const LoginPage = () => {
@@ -111,7 +111,7 @@ export const LoginPage = () => {
 
                 <Form className="mx-3" onSubmit={handleSubmit(onSubmit)}>
                   {/* Username */}
-                  <InputForm
+                  <InputGroupForm
                     type="text"
                     register={register}
                     errors={errors.email}
@@ -122,7 +122,7 @@ export const LoginPage = () => {
                   />
 
                   {/* Password */}
-                  <InputForm
+                  <InputGroupForm
                     type="password"
                     register={register}
                     errors={errors.password}

@@ -9,7 +9,7 @@ import queryString from 'query-string'
 // Custom Dependencies
 import { decode } from '../../../helpers/jwt'
 import { put } from '../../../config/api'
-import { InputForm } from './common/InputForm'
+import { InputGroupForm } from './components/InputGroupForm'
 import { SpinnerBorder } from '../../common/Spinners/SpinnerBorder'
 import { SpaceBlank } from '../../common/SpaceBlank/SpaceBlank'
 
@@ -46,8 +46,7 @@ export const ChangePassword = () => {
 
     decodeToken()
     setToken(token)
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [])
+  }, [location, navigate])
 
   useEffect(() => {
     if (errorToken) {
@@ -107,7 +106,7 @@ export const ChangePassword = () => {
                   ) : (
                     <>
                       {/* Password */}
-                      <InputForm
+                      <InputGroupForm
                         type="password"
                         register={register}
                         errors={errors.password}
@@ -124,7 +123,7 @@ export const ChangePassword = () => {
                       />
 
                       {/* Confirm Password */}
-                      <InputForm
+                      <InputGroupForm
                         type="password"
                         register={register}
                         errors={errors.confirm}

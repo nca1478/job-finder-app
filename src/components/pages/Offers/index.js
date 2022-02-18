@@ -15,8 +15,8 @@ export const OffersPage = () => {
   const [pageCount, setPageCount] = useState(0)
   const limit = 8
 
-  const fetchData = useCallback(async () => {
-    get(`/offers/published?status=true&page=1&limit=${limit}`)
+  const initialFetchOffers = useCallback(async () => {
+    await get(`/offers/published?status=true&page=1&limit=${limit}`)
       .then((response) => {
         if (response.data === null) {
           toast.error(response.errors.msg)
@@ -36,8 +36,8 @@ export const OffersPage = () => {
 
   useEffect(() => {
     window.scrollTo(0, 0)
-    fetchData().catch(console.error)
-  }, [fetchData])
+    initialFetchOffers().catch(console.error)
+  }, [initialFetchOffers])
 
   const fetchOffers = async (currentPage) => {
     get(`/offers/published?status=true&page=${currentPage}&limit=${limit}`)

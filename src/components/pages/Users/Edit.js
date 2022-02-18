@@ -1,5 +1,5 @@
 // Dependencies
-import { useContext, useEffect, useState } from 'react'
+import { useCallback, useContext, useEffect, useState } from 'react'
 import { useForm } from 'react-hook-form'
 import {
   Container,
@@ -18,7 +18,7 @@ import moment from 'moment'
 // Custom Dependencies
 import { get, put, file, post } from '../../../config/api'
 import { AuthContext } from '../../../auth/authContext'
-import { PasswordModal } from './common/PasswordModal'
+import { PasswordModal } from './components/PasswordModal'
 import { educationOptions } from '../../../data/selectOptions'
 import { SpinnerBorder } from '../../common/Spinners/SpinnerBorder'
 import { SpaceBlank } from '../../common/SpaceBlank/SpaceBlank'
@@ -42,34 +42,36 @@ export const EditUserPage = () => {
   const [loadedPDF, setLoadedPDF] = useState(null)
   const [uploading, setUploading] = useState(false)
 
-  useEffect(() => {
-    fetchUser(user.data.id)
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [])
+  const fetchUser = useCallback(
+    async (id) => {
+      await get(`/users/${id}`, user.data.token)
+        .then((response) => {
+          reset(response.data)
+          setDateBirthday(
+            response.data.birthday
+              ? moment(response.data.birthday).toDate()
+              : new Date()
+          )
+          const item = educationOptions.find(
+            (item) => item.label === response.data.education
+          )
+          setEducationSelect(item)
+          setLoadedPDF(response.data.cvUrl)
+        })
+        .catch((error) => {
+          toast.error('Error try to fetching user.')
+          console.log(error)
+        })
+        .finally(() => {
+          setLoaded(true)
+        })
+    },
+    [reset, user]
+  )
 
-  const fetchUser = async (id) => {
-    await get(`/users/${id}`, user.data.token)
-      .then((response) => {
-        reset(response.data)
-        setDateBirthday(
-          response.data.birthday
-            ? moment(response.data.birthday).toDate()
-            : new Date()
-        )
-        const item = educationOptions.find(
-          (item) => item.label === response.data.education
-        )
-        setEducationSelect(item)
-        setLoadedPDF(response.data.cvUrl)
-      })
-      .catch((error) => {
-        toast.error('Error try to fetching user.')
-        console.log(error)
-      })
-      .finally(() => {
-        setLoaded(true)
-      })
-  }
+  useEffect(() => {
+    fetchUser(user.data.id).catch(console.error)
+  }, [fetchUser, user])
 
   const parseDataUser = async (data, urlPDF) => {
     return {

@@ -16,9 +16,9 @@ export const App = () => {
   const [user, dispatch] = useReducer(authReducer, {}, init)
 
   // Delete localStorage when close browser
-  window.onunload = () => {
-    localStorage.clear()
-  }
+  // window.onunload = () => {
+  //   localStorage.clear()
+  // }
 
   useEffect(() => {
     if (!user) return

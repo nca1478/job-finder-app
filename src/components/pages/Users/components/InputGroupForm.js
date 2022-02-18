@@ -1,7 +1,7 @@
 // Dependencies
 import { Form, InputGroup, FormControl } from 'react-bootstrap'
 
-export const InputForm = (props) => {
+export const InputGroupForm = (props) => {
   return (
     <InputGroup className="mb-3">
       <span className="input-group-text">

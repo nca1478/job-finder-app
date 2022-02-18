@@ -30,8 +30,7 @@ export const ContactModal = ({ show, handleClose, userProfile }) => {
     setValue('profession', profession)
     setValue('education', education)
     setValue('email', email)
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [userProfile])
+  }, [name, profession, education, email, setValue])
 
   return (
     <Modal show={show} onHide={handleClose} centered>
@@ -40,13 +39,15 @@ export const ContactModal = ({ show, handleClose, userProfile }) => {
       </Modal.Header>
       <Modal.Body>
         <Row>
-          <Col md={3}>
-            <>
-              {/* <Image src={img} roundedCircle /> */}
-              <Image src={noImage} className="w-100 h-100" roundedCircle />
-            </>
+          <Col md={3} xs={12} className="text-center text-xs-start">
+            <Image
+              src={noImage}
+              roundedCircle
+              fluid
+              style={{ width: '8rem', height: 'auto' }}
+            />
           </Col>
-          <Col md={9}>
+          <Col md={9} xs={12}>
             <Form.Group controlId="formBasicName">
               <Form.Label>Name</Form.Label>
               <Form.Control {...register('name')} className="mb-3" disabled />
@@ -118,11 +119,6 @@ export const ContactModal = ({ show, handleClose, userProfile }) => {
           )}
         </Form.Group>
       </Modal.Body>
-      {/* <Modal.Footer>
-        <Button variant="secondary" onClick={handleClose}>
-          Close
-        </Button>
-      </Modal.Footer> */}
     </Modal>
   )
 }

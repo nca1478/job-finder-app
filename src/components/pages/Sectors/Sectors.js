@@ -4,9 +4,9 @@ import { Row, Col, Container, Card, Button } from 'react-bootstrap'
 import { ToastContainer, toast } from 'react-toastify'
 
 // Custom Dependencies
+import { get, post, put, del } from '../../../config/api'
 import { SpaceBlank } from '../../common/SpaceBlank/SpaceBlank'
 import { SpinnerBorder } from '../../common/Spinners/SpinnerBorder'
-import { get, post, put, del } from '../../../config/api'
 import { SectorModal } from './components/SectorModal'
 import { Paginate } from '../../common/Paginate/Paginate'
 import { TableSectors } from './components/TableSectors'

@@ -9,7 +9,7 @@ import { ToastContainer, toast } from 'react-toastify'
 import { post } from '../../../config/api'
 import { AuthContext } from '../../../auth/authContext'
 import { types } from '../../../types/types'
-import { InputForm } from './common/InputForm'
+import { InputGroupForm } from './components/InputGroupForm'
 import { redirectPageOffers } from '../../../helpers/utils'
 
 export const RegisterPage = () => {
@@ -59,7 +59,7 @@ export const RegisterPage = () => {
 
                 <Form className="mx-3" onSubmit={handleSubmit(onSubmit)}>
                   {/* Fullname */}
-                  <InputForm
+                  <InputGroupForm
                     type="text"
                     register={register}
                     errors={errors.name}
@@ -70,7 +70,7 @@ export const RegisterPage = () => {
                   />
 
                   {/* Email */}
-                  <InputForm
+                  <InputGroupForm
                     type="email"
                     register={register}
                     errors={errors.email}
@@ -81,7 +81,7 @@ export const RegisterPage = () => {
                   />
 
                   {/* Password */}
-                  <InputForm
+                  <InputGroupForm
                     type="password"
                     register={register}
                     errors={errors.password}
@@ -98,7 +98,7 @@ export const RegisterPage = () => {
                   />
 
                   {/* Confirm Password */}
-                  <InputForm
+                  <InputGroupForm
                     type="password"
                     register={register}
                     errors={errors.confirm}

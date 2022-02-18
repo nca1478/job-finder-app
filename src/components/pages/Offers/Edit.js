@@ -1,13 +1,11 @@
 // Dependencies
-import { useContext, useEffect, useState } from 'react'
+import { useCallback, useContext, useEffect, useState } from 'react'
 import { ToastContainer, toast } from 'react-toastify'
 import { useParams } from 'react-router-dom'
 import { useForm } from 'react-hook-form'
 import { Container, Row, Col, Card, Form, Button } from 'react-bootstrap'
 
 // Custom Dependencies
-// import { currencyOptions } from '../../../data/selectOptions'
-import { AuthContext } from '../../../auth/authContext'
 import {
   get,
   put,
@@ -15,12 +13,13 @@ import {
   getCountries,
   getCurrencies,
 } from '../../../config/api'
+import { AuthContext } from '../../../auth/authContext'
 import { setFormValues } from './helpers/setFormValues'
 import { sortListByLabel, sortListObjects } from '../../../helpers/utils'
-import { InputForm } from './common/InputForm'
+import { InputForm } from './components/InputForm'
 import { SpinnerBorder } from '../../common/Spinners/SpinnerBorder'
-import { SelectFormEdit } from './common/SelectFormEdit'
-import { ImageModal } from './common/ImageModal'
+import { SelectFormEdit } from './components/SelectFormEdit'
+import { ImageModal } from './components/ImageModal'
 import { SpaceBlank } from '../../common/SpaceBlank/SpaceBlank'
 import {
   parseData,
@@ -30,8 +29,6 @@ import {
 } from './helpers/parseData'
 
 export const EditOfferPage = () => {
-  const { offerId } = useParams()
-  const { user } = useContext(AuthContext)
   const [sectorOptions, setSectorOptions] = useState(null)
   const [skillOptions, setSkillOptions] = useState(null)
   const [countryOptions, setCountryOptions] = useState(null)
@@ -41,6 +38,8 @@ export const EditOfferPage = () => {
   const [show, setShow] = useState(false)
   const [loaded, setLoaded] = useState(false)
   const [uploading, setUploading] = useState(false)
+  const { offerId } = useParams()
+  const { user } = useContext(AuthContext)
 
   const {
     register,
@@ -51,32 +50,25 @@ export const EditOfferPage = () => {
     getValues,
   } = useForm()
 
-  useEffect(() => {
-    window.scrollTo(0, 0)
-    fetchOffer(offerId)
-    fetchSectors()
-    fetchSkills()
-    fetchCountries()
-    fetchCurrencies()
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [])
+  const fetchOffer = useCallback(
+    async (offerId) => {
+      await get(`/offers/${offerId}`, user.data.token)
+        .then((response) => {
+          setLoadedFile(response.data.img)
+          reset(setFormValues(response))
+        })
+        .catch((error) => {
+          toast.error('Error try to fetching job offer.')
+          console.log(error)
+        })
+        .finally(() => {
+          setLoaded(true)
+        })
+    },
+    [reset, user.data.token]
+  )
 
-  const fetchOffer = async (offerId) => {
-    await get(`/offers/${offerId}`, user.data.token)
-      .then((response) => {
-        setLoadedFile(response.data.img)
-        reset(setFormValues(response))
-      })
-      .catch((error) => {
-        toast.error('Error try to fetching job offer.')
-        console.log(error)
-      })
-      .finally(() => {
-        setLoaded(true)
-      })
-  }
-
-  const fetchSectors = async () => {
+  const fetchSectors = useCallback(async () => {
     await get('/sectors')
       .then(({ data }) => {
         const sectors = parseData(data.rows)
@@ -87,9 +79,9 @@ export const EditOfferPage = () => {
         toast.error('Error try to fetching sectors.')
         console.log(error)
       })
-  }
+  }, [])
 
-  const fetchSkills = async () => {
+  const fetchSkills = useCallback(async () => {
     await get('/skills')
       .then(({ data }) => {
         const skills = parseData(data.rows)
@@ -100,9 +92,9 @@ export const EditOfferPage = () => {
         toast.error('Error try to fetching skills.')
         console.log(error)
       })
-  }
+  }, [])
 
-  const fetchCountries = async () => {
+  const fetchCountries = useCallback(async () => {
     getCountries('https://api.countrystatecity.in/v1/countries').then(
       (data) => {
         const countries = parseDataCountries(data)
@@ -110,15 +102,31 @@ export const EditOfferPage = () => {
         setCountryOptions(countries)
       }
     )
-  }
+  }, [])
 
-  const fetchCurrencies = async () => {
+  const fetchCurrencies = useCallback(async () => {
     getCurrencies('https://api.coinbase.com/v2/currencies').then((data) => {
       const currencies = parseDataCurrencies(data.data)
       sortListByLabel(currencies)
       setCurrencyOptions(currencies)
     })
-  }
+  }, [])
+
+  useEffect(() => {
+    window.scrollTo(0, 0)
+    fetchOffer(offerId)
+    fetchSectors()
+    fetchSkills()
+    fetchCountries()
+    fetchCurrencies()
+  }, [
+    fetchOffer,
+    offerId,
+    fetchSectors,
+    fetchSkills,
+    fetchCountries,
+    fetchCurrencies,
+  ])
 
   const fileChangedHandler = (e) => {
     e && setSelectedFile(e.target.files[0])

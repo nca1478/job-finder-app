@@ -19,7 +19,7 @@ export const DashboardPage = () => {
   const limit = 6
 
   const initialFetchOffers = useCallback(async () => {
-    get(`/offers?page=1&limit=${limit}`, user.data.token)
+    await get(`/offers?page=1&limit=${limit}`, user.data.token)
       .then((response) => {
         if (response.data === null) {
           toast.error(response.errors.msg)
@@ -38,7 +38,7 @@ export const DashboardPage = () => {
   }, [user.data.token])
 
   const fetchOffers = async (page) => {
-    get(`/offers?page=${page}&limit=${limit}`, user.data.token)
+    await get(`/offers?page=${page}&limit=${limit}`, user.data.token)
       .then((response) => {
         if (response.data === null) {
           toast.error(response.errors.msg)

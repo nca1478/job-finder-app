@@ -36,7 +36,7 @@ export const SkillsPage = () => {
   }, [])
 
   const fetchSkills = async (page) => {
-    get(`/skills?page=${page}&limit=${limit}`)
+    await get(`/skills?page=${page}&limit=${limit}`)
       .then((response) => {
         if (response.data === null) {
           toast.error(response.errors.msg)

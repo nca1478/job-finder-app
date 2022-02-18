@@ -1,6 +1,7 @@
 // Dependencies
-import { useContext, useEffect, useState } from 'react'
+import { useCallback, useContext, useEffect, useState } from 'react'
 import { useParams, useNavigate, useLocation } from 'react-router-dom'
+import { ToastContainer, toast } from 'react-toastify'
 import {
   Container,
   Row,
@@ -10,15 +11,14 @@ import {
   Button,
   Badge,
 } from 'react-bootstrap'
-import { ToastContainer, toast } from 'react-toastify'
 
 // Custom Dependencies
-import { AuthContext } from '../../../auth/authContext'
 import { get } from '../../../config/api'
+import { AuthContext } from '../../../auth/authContext'
 import { SpaceBlank } from '../../common/SpaceBlank/SpaceBlank'
 import { SpinnerBorder } from '../../common/Spinners/SpinnerBorder'
-import { ContactModal } from './common/ContactModal'
-import { DescriptionModal } from './common/DescriptionModal'
+import { ContactModal } from './components/ContactModal'
+import { DescriptionModal } from './components/DescriptionModal'
 import { extractCurrency } from '../../../helpers/utils'
 import noImage from '../../../assets/img/no-image.jpg'
 
@@ -33,14 +33,7 @@ export const OfferPage = () => {
   const [userProfile, setUserProfile] = useState({})
   const location = useLocation()
 
-  useEffect(() => {
-    window.scrollTo(0, 0)
-    fetchOffer(offerId)
-    localStorage.setItem('joboffer-path', location.pathname)
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [])
-
-  const fetchOffer = async (offerId) => {
+  const initialFetchOffers = useCallback(async (offerId) => {
     await get(`/offers/${offerId}`)
       .then((response) => {
         setOffer(response.data)
@@ -52,7 +45,13 @@ export const OfferPage = () => {
       .finally(() => {
         setLoaded(true)
       })
-  }
+  }, [])
+
+  useEffect(() => {
+    window.scrollTo(0, 0)
+    initialFetchOffers(offerId).catch(console.error)
+    localStorage.setItem('joboffer-path', location.pathname)
+  }, [initialFetchOffers, location, offerId])
 
   const fetchUser = async (userId) => {
     await get(`/users/${userId}`, user.data.token)

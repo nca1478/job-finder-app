@@ -1,15 +1,14 @@
 // Dependencies
 import { useEffect } from 'react'
 import { useForm } from 'react-hook-form'
-import { Modal, Form, Button } from 'react-bootstrap'
+import { Modal, Form } from 'react-bootstrap'
 
 export const DescriptionModal = ({ show, handleClose, description }) => {
   const { register, setValue } = useForm()
 
   useEffect(() => {
     setValue('description', description)
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [description])
+  }, [setValue, description])
 
   return (
     <Modal show={show} onHide={handleClose} centered size="lg">
@@ -27,11 +26,6 @@ export const DescriptionModal = ({ show, handleClose, description }) => {
           />
         </Form.Group>
       </Modal.Body>
-      <Modal.Footer>
-        <Button variant="secondary" onClick={handleClose}>
-          Close
-        </Button>
-      </Modal.Footer>
     </Modal>
   )
 }

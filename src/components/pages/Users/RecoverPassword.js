@@ -6,7 +6,7 @@ import { Link } from 'react-router-dom'
 import { useState } from 'react'
 
 // Custom Dependencies
-import { InputForm } from './common/InputForm'
+import { InputGroupForm } from './components/InputGroupForm'
 import { SpaceBlank } from '../../common/SpaceBlank/SpaceBlank'
 import { put } from '../../../config/api'
 import { SpinnerBorder } from '../../common/Spinners/SpinnerBorder'
@@ -61,7 +61,7 @@ export const RecoverPassword = () => {
                   ) : (
                     <>
                       {/* Email */}
-                      <InputForm
+                      <InputGroupForm
                         type="email"
                         register={register}
                         errors={errors.email}

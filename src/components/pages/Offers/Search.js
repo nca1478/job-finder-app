@@ -1,9 +1,9 @@
 // Dependencies
-import queryString from 'query-string'
-import { useEffect, useState } from 'react'
+import { useCallback, useEffect, useState } from 'react'
 import { useLocation } from 'react-router-dom'
 import { ToastContainer, toast } from 'react-toastify'
 import { Row, Col, Container, Alert } from 'react-bootstrap'
+import queryString from 'query-string'
 
 // Custom Dependencies
 import { get } from '../../../config/api'
@@ -12,18 +12,13 @@ import { SpinnerBorder } from '../../common/Spinners/SpinnerBorder'
 import { SpaceBlank } from '../../common/SpaceBlank/SpaceBlank'
 
 export const SearchPage = () => {
+  const location = useLocation()
   const [offers, setOffers] = useState([])
   const [loaded, setLoaded] = useState(false)
-  const location = useLocation()
   const { q = '' } = queryString.parse(location.search)
 
-  useEffect(() => {
-    fetchOffers()
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [q])
-
-  const fetchOffers = () => {
-    get(`/offers/search?q=${q}`)
+  const fetchOffers = useCallback(async () => {
+    await get(`/offers/search?q=${q}`)
       .then((response) => {
         if (response.data === null) {
           toast.error(response.errors.msg)
@@ -38,7 +33,11 @@ export const SearchPage = () => {
       .finally(() => {
         setLoaded(true)
       })
-  }
+  }, [q])
+
+  useEffect(() => {
+    fetchOffers().catch(console.error)
+  }, [fetchOffers])
 
   return (
     <>
@@ -56,15 +55,11 @@ export const SearchPage = () => {
                 {offers.map((offer) => {
                   return <OfferItem key={offer.id} {...offer} />
                 })}
-                {offers.length < 5 && <SpaceBlank height="3vh" />}
               </>
             ) : (
-              <>
-                <Alert variant="danger" className="w-75">
-                  No job offers was found...
-                </Alert>
-                <SpaceBlank height="45vh" />
-              </>
+              <Alert variant="danger" className="w-75">
+                No job offers was found...
+              </Alert>
             )}
           </Row>
         </Container>

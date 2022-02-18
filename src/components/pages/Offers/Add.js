@@ -1,18 +1,17 @@
 // Dependencies
-import { useEffect, useState, useContext } from 'react'
+import { useEffect, useState, useContext, useCallback } from 'react'
 import { Container, Row, Col, Form, Card, Button } from 'react-bootstrap'
 import { ToastContainer, toast } from 'react-toastify'
 import { useForm } from 'react-hook-form'
 
 // Custom Dependencies
-// import { currencyOptions } from '../../../data/selectOptions'
-import { AuthContext } from '../../../auth/authContext'
 import { get, getCountries, post, getCurrencies } from '../../../config/api'
-import { SelectForm } from './common/SelectForm'
-import { InputForm } from './common/InputForm'
 import { sortListByLabel, sortListObjects } from '../../../helpers/utils'
+import { AuthContext } from '../../../auth/authContext'
+import { SelectForm } from './components/SelectForm'
+import { InputForm } from './components/InputForm'
 import { resetForm } from './helpers/resetForm'
-import { TextareaForm } from './common/TextareaForm'
+import { TextareaForm } from './components/TextareaForm'
 import {
   parseData,
   parseDataCountries,
@@ -35,15 +34,7 @@ export const AddOfferPage = () => {
     setValue,
   } = useForm()
 
-  useEffect(() => {
-    fetchSectors()
-    fetchSkills()
-    fetchCountries()
-    fetchCurrencies()
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [])
-
-  const fetchSectors = async () => {
+  const fetchSectors = useCallback(async () => {
     await get('/sectors?page=1&limit=1000')
       .then(({ data }) => {
         const sectors = parseData(data.rows)
@@ -54,9 +45,9 @@ export const AddOfferPage = () => {
         toast.error('Error try to fetching sectors.')
         console.log(error)
       })
-  }
+  }, [])
 
-  const fetchSkills = async () => {
+  const fetchSkills = useCallback(async () => {
     await get('/skills?page=1&limit=1000')
       .then(({ data }) => {
         const skills = parseData(data.rows)
@@ -67,25 +58,34 @@ export const AddOfferPage = () => {
         toast.error('Error try to fetching skills.')
         console.log(error)
       })
-  }
+  }, [])
 
-  const fetchCountries = async () => {
-    getCountries('https://api.countrystatecity.in/v1/countries').then(
+  const fetchCountries = useCallback(async () => {
+    await getCountries('https://api.countrystatecity.in/v1/countries').then(
       (data) => {
         const countries = parseDataCountries(data)
         sortListByLabel(countries)
         setCountryOptions(countries)
       }
     )
-  }
+  }, [])
 
-  const fetchCurrencies = async () => {
-    getCurrencies('https://api.coinbase.com/v2/currencies').then((data) => {
-      const currencies = parseDataCurrencies(data.data)
-      sortListByLabel(currencies)
-      setCurrencyOptions(currencies)
-    })
-  }
+  const fetchCurrencies = useCallback(async () => {
+    await getCurrencies('https://api.coinbase.com/v2/currencies').then(
+      (data) => {
+        const currencies = parseDataCurrencies(data.data)
+        sortListByLabel(currencies)
+        setCurrencyOptions(currencies)
+      }
+    )
+  }, [])
+
+  useEffect(() => {
+    fetchSectors().catch(console.error)
+    fetchSkills().catch(console.error)
+    fetchCountries().catch(console.error)
+    fetchCurrencies().catch(console.error)
+  }, [fetchSectors, fetchSkills, fetchCountries, fetchCurrencies])
 
   const onSubmit = async (data) => {
     const dataOffer = parseDataOffer(data)
