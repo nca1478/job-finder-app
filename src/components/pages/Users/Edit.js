@@ -1,18 +1,8 @@
 // Dependencies
 import { useCallback, useContext, useEffect, useState } from 'react'
 import { useForm } from 'react-hook-form'
-import {
-  Container,
-  Row,
-  Card,
-  Form,
-  Button,
-  Col,
-  InputGroup,
-} from 'react-bootstrap'
+import { Container, Row, Card, Form, Button, Col } from 'react-bootstrap'
 import { ToastContainer, toast } from 'react-toastify'
-import DateTimePicker from 'react-datetime-picker'
-import Select from 'react-select'
 import moment from 'moment'
 
 // Custom Dependencies
@@ -22,6 +12,11 @@ import { PasswordModal } from './components/PasswordModal'
 import { educationOptions } from '../../../data/selectOptions'
 import { SpinnerBorder } from '../../common/Spinners/SpinnerBorder'
 import { SpaceBlank } from '../../common/SpaceBlank/SpaceBlank'
+import { InputForm } from './components/InputForm'
+import { InputGroupPDF } from './components/InputGroupPDF'
+import { SelectForm } from './components/SelectForm'
+import { InputGroupDate } from './components/InputGroupDate'
+import { InputFormSocial } from './components/InputFormSocial'
 
 export const EditUserPage = () => {
   const {
@@ -114,31 +109,28 @@ export const EditUserPage = () => {
   }
 
   const handleSave = async (data) => {
-    const urlPDF = selectedFile ? await verifyFileUpload(user.data.id) : null
+    const urlPDF = selectedFile
+      ? await verifyFileUpload(user.data.id)
+      : loadedPDF
+    const dataUser = await parseDataUser(data, urlPDF.url)
 
-    if (urlPDF.err) {
-      toast.error(urlPDF.err)
-      setUploading(false)
-    } else {
-      const dataUser = await parseDataUser(data, urlPDF.url)
-      await put(`/users/${dataUser.id}/update`, dataUser, user.data.token)
-        .then((response) => {
-          if (response.data === null) {
-            toast.error(response.errors.msg)
-          } else {
-            toast.info(response.data.msg)
-          }
-        })
-        .catch((error) => {
-          toast.error('Please verify the data entered and try again.')
-          console.log(error)
-        })
-        .finally(() => {
-          resetField('password')
-          setShowPassModal(false)
-          setUploading(false)
-        })
-    }
+    await put(`/users/${dataUser.id}/update`, dataUser, user.data.token)
+      .then((response) => {
+        if (response.data === null) {
+          toast.error(response.errors.msg)
+        } else {
+          toast.info(response.data.msg)
+        }
+      })
+      .catch((error) => {
+        toast.error('Please verify the data entered and try again.')
+        console.log(error)
+      })
+      .finally(() => {
+        resetField('password')
+        setShowPassModal(false)
+        setUploading(false)
+      })
   }
 
   const handleSend = async (data) => {
@@ -207,183 +199,127 @@ export const EditUserPage = () => {
                     <Row>
                       {/* Name */}
                       <Col md={12} lg={6}>
-                        <Form.Group className="mb-3" controlId="formBasicName">
-                          <Form.Label className="fw-bold">Name</Form.Label>
-                          <Form.Control
-                            type="text"
-                            placeholder="Enter Name"
-                            {...register('name', { required: true })}
-                          />
-                          {errors.name && (
-                            <Form.Text className="text-danger w-100">
-                              Name is required
-                            </Form.Text>
-                          )}
-                        </Form.Group>
+                        <InputForm
+                          type="text"
+                          name="name"
+                          label="Name"
+                          placeholder="Enter Name"
+                          controlId="formBasicName"
+                          register={register}
+                          errors={errors.name}
+                        />
                       </Col>
 
                       {/* Email */}
                       <Col md={12} lg={6}>
-                        <Form.Group className="mb-3" controlId="formBasicEmail">
-                          <Form.Label className="fw-bold">Email</Form.Label>
-                          <Form.Control
-                            type="email"
-                            placeholder="Enter Email"
-                            {...register('email', { required: true })}
-                          />
-                          {errors.email && (
-                            <Form.Text className="text-danger w-100">
-                              Email is required
-                            </Form.Text>
-                          )}
-                        </Form.Group>
+                        <InputForm
+                          type="email"
+                          name="email"
+                          label="Email"
+                          placeholder="Enter Email"
+                          controlId="formBasicEmail"
+                          register={register}
+                          errors={errors.email}
+                        />
                       </Col>
                     </Row>
 
                     <Row>
                       {/* Profession */}
                       <Col md={6} lg={6}>
-                        <Form.Group
-                          className="mb-3"
+                        <InputForm
+                          type="text"
+                          name="profession"
+                          label="Profession"
+                          placeholder="Enter Profession"
                           controlId="formBasicProfession"
-                        >
-                          <Form.Label className="fw-bold">
-                            Profession
-                          </Form.Label>
-                          <Form.Control
-                            type="text"
-                            placeholder="Enter Profession"
-                            {...register('profession')}
-                          />
-                        </Form.Group>
+                          register={register}
+                          errors={errors.profession}
+                        />
                       </Col>
 
                       {/* Education */}
                       <Col md={6} lg={3}>
-                        <Form.Group
-                          className="mb-3"
+                        <SelectForm
                           controlId="formBasicEducation"
-                        >
-                          <Form.Label className="fw-bold">Education</Form.Label>
-                          <Select
-                            className="mb-2"
-                            value={educationSelect}
-                            options={educationOptions}
-                            onChange={handleEducationChange}
-                          />
-                        </Form.Group>
+                          label="Education"
+                          value={educationSelect}
+                          options={educationOptions}
+                          onChange={handleEducationChange}
+                        />
                       </Col>
 
                       {/* Birthday */}
                       <Col md={12} lg={3}>
-                        <Form.Group
-                          className="mb-3"
-                          controlId="formBasicBirthday"
-                        >
-                          <Form.Label className="fw-bold">Birthday</Form.Label>
-                          <DateTimePicker
-                            onChange={handleBirthdayDateChange}
-                            value={dateBirthday}
-                            className="form-control"
-                          />
-                        </Form.Group>
+                        <InputGroupDate
+                          onChange={handleBirthdayDateChange}
+                          value={dateBirthday}
+                        />
                       </Col>
                     </Row>
 
                     {/* Curriculum Vitae (PDF) */}
                     <Row>
                       <Col>
-                        <InputGroup className="mb-3">
-                          <Form.Label className="fw-bold w-100">
-                            Curriculum Vitae (PDF)
-                          </Form.Label>
-                          <Form.Control
-                            type="file"
-                            accept=".pdf"
-                            {...register('cvUrl')}
-                            onChange={fileChangedHandler}
-                          />
-                          {loadedPDF && (
-                            <a
-                              href={loadedPDF}
-                              className="btn btn-primary"
-                              target="_blank"
-                              rel="noreferrer"
-                            >
-                              Display / Download
-                            </a>
-                          )}
-                        </InputGroup>
+                        <InputGroupPDF
+                          register={register}
+                          fileChangedHandler={fileChangedHandler}
+                          loadedPDF={loadedPDF}
+                        />
                       </Col>
                     </Row>
 
                     <Row>
                       {/* linkedinUser */}
                       <Col md={6} lg={3}>
-                        <Form.Group
-                          className="mb-3"
+                        <InputFormSocial
+                          type="text"
+                          name="linkedinUser"
                           controlId="formBasicLinkedinUser"
-                        >
-                          <Form.Label className="fw-bold">
-                            <i className="bi bi-linkedin"></i> Linkedin
-                          </Form.Label>
-                          <Form.Control
-                            type="text"
-                            placeholder="Enter linkedin user"
-                            {...register('linkedinUser')}
-                          />
-                        </Form.Group>
+                          icon="bi bi-linkedin"
+                          label="Linkedin"
+                          placeholder="Enter linkedin user"
+                          register={register}
+                        />
                       </Col>
 
                       {/* twitterUser */}
                       <Col md={6} lg={3}>
-                        <Form.Group
-                          className="mb-3"
+                        <InputFormSocial
+                          type="text"
+                          name="twitterUser"
                           controlId="formBasicTwitterUser"
-                        >
-                          <Form.Label className="fw-bold">
-                            <i className="bi bi-twitter"></i> Twitter
-                          </Form.Label>
-                          <Form.Control
-                            type="text"
-                            placeholder="Enter twitter user"
-                            {...register('twitterUser')}
-                          />
-                        </Form.Group>
+                          icon="bi bi-twitter"
+                          label="Twitter"
+                          placeholder="Enter twitter user"
+                          register={register}
+                        />
                       </Col>
 
                       {/* instagramUser */}
                       <Col md={6} lg={3}>
-                        <Form.Group
-                          className="mb-3"
+                        <InputFormSocial
+                          type="text"
+                          name="instagramUser"
                           controlId="formBasicInstagramUser"
-                        >
-                          <Form.Label className="fw-bold">
-                            <i className="bi bi-instagram"></i> Instagram
-                          </Form.Label>
-                          <Form.Control
-                            type="text"
-                            placeholder="Enter instagram user"
-                            {...register('instagramUser')}
-                          />
-                        </Form.Group>
+                          icon="bi bi-instagram"
+                          label="Instagram"
+                          placeholder="Enter instagram user"
+                          register={register}
+                        />
                       </Col>
 
                       {/* facebookUser */}
                       <Col md={6} lg={3}>
-                        <Form.Group
-                          className="mb-3"
+                        <InputFormSocial
+                          type="text"
+                          name="facebookUser"
                           controlId="formBasicFacebookUser"
-                        >
-                          <Form.Label className="fw-bold">
-                            <i className="bi bi-facebook"></i> Facebook
-                          </Form.Label>
-                          <Form.Control
-                            type="text"
-                            placeholder="Enter facebook user"
-                            {...register('facebookUser')}
-                          />
-                        </Form.Group>
+                          icon="bi bi-facebook"
+                          label="Facebook"
+                          placeholder="Enter facebook user"
+                          register={register}
+                        />
                       </Col>
                     </Row>
 

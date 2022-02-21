@@ -1,5 +1,5 @@
 // Dependencies
-import { useState, useEffect } from 'react'
+import { useState, useEffect, useCallback } from 'react'
 import { Row, Col, Container, Alert } from 'react-bootstrap'
 import { ToastContainer, toast } from 'react-toastify'
 
@@ -17,13 +17,8 @@ export const HomePage = () => {
   const [offers, setOffers] = useState([])
   const [loaded, setLoaded] = useState(false)
 
-  useEffect(() => {
-    localStorage.removeItem('joboffer-path')
-    fetchOffers()
-  }, [])
-
-  const fetchOffers = () => {
-    get(`/offers/lastOffers?limit=${lastOffers}`)
+  const fetchOffers = useCallback(async () => {
+    await get(`/offers/lastOffers?limit=${lastOffers}`)
       .then((response) => {
         if (response.data === null) {
           toast.error(response.errors.msg)
@@ -38,7 +33,12 @@ export const HomePage = () => {
       .finally(() => {
         setLoaded(true)
       })
-  }
+  }, [])
+
+  useEffect(() => {
+    fetchOffers().catch(console.error)
+    localStorage.removeItem('joboffer-path')
+  }, [fetchOffers])
 
   return (
     <>

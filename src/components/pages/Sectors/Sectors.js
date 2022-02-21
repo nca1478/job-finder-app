@@ -164,7 +164,7 @@ export const SectorsPage = () => {
               <SpaceBlank height="64vh" />
             </>
           ) : (
-            <Col>
+            <Col md={{ span: 10 }}>
               <Card className="text-dark">
                 <Card.Header
                   as="h5"
