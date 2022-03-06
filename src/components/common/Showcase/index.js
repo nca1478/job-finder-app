@@ -16,8 +16,8 @@ export const Showcase = () => {
               <span className="text-warning">for your business</span>
             </h1>
             <p className="lead my-4">
-              Millions of people turn to Jobfinder.com to turn their ideas into
-              reality.
+              Jobfinder allows you to post your jobs and contact interested
+              people around the world
             </p>
 
             <Link to="/offers" className="btn btn-primary btn-lg">

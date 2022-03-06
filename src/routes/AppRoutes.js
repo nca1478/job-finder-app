@@ -1,4 +1,5 @@
 // Dependencies
+import { useEffect, useState } from 'react'
 import { BrowserRouter, Routes, Route } from 'react-router-dom'
 
 // Components
@@ -28,6 +29,22 @@ import { HowItWorksPage2 } from '../components/pages/HowItWorks/HowItWorks2'
 import { PrivateRoute } from './PrivateRoute'
 
 export const AppRoutes = () => {
+  const [loading, setLoading] = useState(true)
+
+  useEffect(() => {
+    setTimeout(() => {
+      setLoading(false)
+    }, 1000)
+  }, [setLoading])
+
+  if (loading) {
+    return (
+      <div className="preloader-container">
+        <div className="preloader"></div>
+      </div>
+    )
+  }
+
   return (
     <BrowserRouter>
       <div className="d-flex flex-column min-vh-100">
