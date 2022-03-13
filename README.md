@@ -7,25 +7,25 @@
 - Landing page with basic information about the site.
 - Sections about how app works.
 - List of job offers published by registered users.
-- Job offers `search box`.
-- `Local, Google and Facebook` login authentication.
+- Job offers search box.
+- Local, Google and Facebook login authentication.
 - Register account and recover password form.
-- `Email Notification`.
+- Email Notification.
 - Job offer registration form.
 - Simple job posting from the user's dashboard.
 - Simple access to the details of the job offer.
 - Easy contact with freelancers, you just have to be registered on the site.
-- Images hosted on `Cloudinary`.
+- Images hosted on Cloudinary.
 
 ## Technical Features
 
-- UI develop with `ReactJS` and `React Bootstrap`.
-- Backend stack: `NodeJS, Express and Sequelize`.
-- Database: `MySQL`.
-- Public and Private Routes with new `React Router v6`.
-- State Manage Component through `useState` hook.
-- State globally App through `useContext` hook.
-- Handling forms through `React Hook Forms`.
+- UI develop with ReactJS and React Bootstrap.
+- Backend stack: NodeJS, Express and Sequelize.
+- Database: Postgres SQL.
+- Public and Private Routes with new React Router v6.
+- State Manage Component through useState hook.
+- State globally App through useContext hook.
+- Handling forms through React Hook Forms.
 
 ## General Information
 
@@ -40,7 +40,7 @@
 - ReactJS.
 - React Bootstrap UI Framework.
 - NodeJS.
-- MySQL Database.
+- Postgres SQL.
 
 ## React Technologies
 
