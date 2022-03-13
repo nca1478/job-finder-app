@@ -1,21 +1,31 @@
-# React Contacts App
+# Jobfinder App
 
-`React Contacts App` is a web application that allows users to save contact information.
+`Jobfinder App` is a web application that allows you to publish your works and contact interested people all over the world.
 
 ## Features
 
-- User contacts database. 
-- `CRUD` features.
-- `Local, Google and Facebook` login auth.
-- Register account form.
-- `Recover password` form.
+- Landing page with basic information about the site.
+- Sections about how app works.
+- List of job offers published by registered users.
+- Job offers `search box`.
+- `Local, Google and Facebook` login authentication.
+- Register account and recover password form.
 - `Email Notification`.
-- Database hosted by `MongoDB Atlas`.
-- Backend stack: `NodeJS, Express and Mongoose`.
-- Public and Private Routes.
+- Job offer registration form.
+- Simple job posting from the user's dashboard.
+- Simple access to the details of the job offer.
+- Easy contact with freelancers, you just have to be registered on the site.
+- Images hosted on `Cloudinary`.
+
+## Technical Features
+
+- UI develop with `ReactJS` and `React Bootstrap`.
+- Backend stack: `NodeJS, Express and Sequelize`.
+- Database: `MySQL`.
+- Public and Private Routes with new `React Router v6`.
 - State Manage Component through `useState` hook.
-- Manage state globally through `useContext` hook.
-- For handling forms, i use `useForm` custom hook.
+- State globally App through `useContext` hook.
+- Handling forms through `React Hook Forms`.
 
 ## General Information
 
@@ -25,31 +35,46 @@
 
 - HTML5.
 - CSS3.
-- Antdesign React UI Framework.
-- Responsive Design.
+- Bootstrap CSS Framework.
+- Responsive Design (All screen devices).
 - ReactJS.
-- MongoDB Atlas.
+- React Bootstrap UI Framework.
+- NodeJS.
+- MySQL Database.
 
 ## React Technologies
 
 - [Create React App](https://create-react-app.dev/)
-- [React Router Dom](https://v5.reactrouter.com/web/guides/quick-start)
-- [Antdesing React UI Framework](https://ant.design/)
+- [React Bootstrap](https://react-bootstrap.github.io/)
+- [React Datetime Picker](https://www.npmjs.com/package/react-datetime-picker)
+- [React Facebook Login](https://www.npmjs.com/package/react-facebook-login)
+- [React Google Login](https://www.npmjs.com/package/react-google-login)
+- [React Hook Form](https://react-hook-form.com/)
+- [React Paginate](https://www.npmjs.com/package/react-paginate)
+- [React Router Bootstrap](https://www.npmjs.com/package/react-router-bootstrap)
+- [React Router v6](https://reactrouter.com/)
+- [React Select](https://react-select.com/home)
+- [React Toastify](https://fkhadra.github.io/react-toastify/introduction)
 
 ## Development tools and other Technologies
 
-- [Vscode](https://code.visualstudio.com/)
-- [Nodejs](https://nodejs.org/en/)
-- [MongoDB Atlas](https://www.mongodb.com/atlas/database)
 - [Animate.css](https://animate.style/)
+- [Bootstrap 5.0](https://getbootstrap.com/)
+- [Bootstrap Icons](https://icons.getbootstrap.com/)
+- [Cloudinary](https://cloudinary.com/)
+- [Json Web Token](https://jwt.io/)
+- [Nodejs](https://nodejs.org/en/)
+- [Momentjs](https://momentjs.com/)
+- [Query String](https://www.npmjs.com/package/query-string)
+- [Vscode](https://code.visualstudio.com/)
 
 ## Demo
 
-- [Calendar App](https://google.com)
+- [Jobfinder App](https://google.com)
 
 ## Backend Repo
 
-- [Calendar Api](https://google.com)
+- [Jobfinder Api](https://google.com)
 
 ## Requirements
 
