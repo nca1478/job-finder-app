@@ -70,11 +70,11 @@
 
 ## Demo
 
-- [Jobfinder App](https://google.com)
+- [Jobfinder App](https://jobfinder-app-njca.netlify.app/)
 
 ## Backend Repo
 
-- [Jobfinder Api](https://google.com)
+- [Jobfinder Api](https://github.com/nca1478/job-finder-api)
 
 ## Requirements
 
