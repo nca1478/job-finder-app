@@ -66,7 +66,7 @@ export const OffersPage = () => {
     <Col className="bg-primary">
       <Container className="p-4 bg-primary">
         <h3 className="text-center text-white">All Job Offers</h3>
-        <Row className="d-flex justify-content-center g-4 pt-2">
+        <Row className="d-flex justify-content-center g-4 pt-2 g-4 pt-2">
           {!loaded ? (
             <SpinnerBorder size="lg" variant="light" />
           ) : offers.length > 0 ? (

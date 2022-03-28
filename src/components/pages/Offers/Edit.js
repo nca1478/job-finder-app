@@ -69,7 +69,7 @@ export const EditOfferPage = () => {
   )
 
   const fetchSectors = useCallback(async () => {
-    await get('/sectors')
+    await get('/sectors?page=1&limit=1000')
       .then(({ data }) => {
         const sectors = parseData(data.rows)
         sortListObjects(sectors)
@@ -82,7 +82,7 @@ export const EditOfferPage = () => {
   }, [])
 
   const fetchSkills = useCallback(async () => {
-    await get('/skills')
+    await get('/skills?page=1&limit=1000')
       .then(({ data }) => {
         const skills = parseData(data.rows)
         sortListObjects(skills)

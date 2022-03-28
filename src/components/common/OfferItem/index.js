@@ -10,7 +10,7 @@ export const OfferItem = (props) => {
   const { id, title, img, price, currency } = props
 
   return (
-    <Col sm={8} md={6} lg={3}>
+    <Col xs={10} sm={10} md={6} lg={3}>
       <Link
         to={`/offer/${id}/details`}
         className="text-decoration-none text-dark"

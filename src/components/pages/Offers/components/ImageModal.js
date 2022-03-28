@@ -9,7 +9,15 @@ export const ImageModal = ({ show, handleClose, offer }) => {
         <Modal.Title>Image Job Offer</Modal.Title>
       </Modal.Header>
       <Modal.Body>
-        <img className="img-thumbnail d-none d-md-block" src={img} alt="" />
+        <div
+          style={{
+            backgroundImage: `url(${img})`,
+            backgroundSize: 'contain',
+            backgroundRepeat: 'no-repeat',
+            backgroundPosition: 'center',
+            height: '300px',
+          }}
+        ></div>
       </Modal.Body>
       <Modal.Footer>
         <Button variant="secondary" onClick={handleClose}>
