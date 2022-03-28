@@ -30,11 +30,11 @@ export const extractCurrency = (currency) => {
 
 export const redirectPageOffers = (dataUser, navigate) => {
   if (dataUser.role === 'USER_ROLE') {
-    navigate(localStorage.getItem('joboffer-path') || '/dashboard', {
+    navigate(sessionStorage.getItem('joboffer-path') || '/dashboard', {
       replace: true,
     })
   } else {
-    navigate(localStorage.getItem('joboffer-path') || '/sectors', {
+    navigate(sessionStorage.getItem('joboffer-path') || '/sectors', {
       replace: true,
     })
   }

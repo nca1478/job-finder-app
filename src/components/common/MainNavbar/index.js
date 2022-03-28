@@ -23,7 +23,7 @@ export const MainNavbar = () => {
 
   const handleLogout = () => {
     dispatch({ type: types.logout })
-    localStorage.removeItem('joboffer-path')
+    sessionStorage.removeItem('joboffer-path')
     navigate('/', { replace: true })
   }
 

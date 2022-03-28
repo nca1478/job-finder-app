@@ -50,7 +50,7 @@ export const OfferPage = () => {
   useEffect(() => {
     window.scrollTo(0, 0)
     initialFetchOffers(offerId).catch(console.error)
-    localStorage.setItem('joboffer-path', location.pathname)
+    sessionStorage.setItem('joboffer-path', location.pathname)
   }, [initialFetchOffers, location, offerId])
 
   const fetchUser = async (userId) => {

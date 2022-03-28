@@ -9,7 +9,7 @@ import './App.css'
 import 'react-toastify/dist/ReactToastify.css'
 
 const init = () => {
-  return JSON.parse(localStorage.getItem('user')) || { logged: false }
+  return JSON.parse(sessionStorage.getItem('user')) || { logged: false }
 }
 
 export const App = () => {
@@ -23,7 +23,7 @@ export const App = () => {
   useEffect(() => {
     if (!user) return
 
-    localStorage.setItem('user', JSON.stringify(user))
+    sessionStorage.setItem('user', JSON.stringify(user))
   }, [user])
 
   return (

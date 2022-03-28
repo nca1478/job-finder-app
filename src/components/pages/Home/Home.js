@@ -37,7 +37,7 @@ export const HomePage = () => {
 
   useEffect(() => {
     fetchOffers().catch(console.error)
-    localStorage.removeItem('joboffer-path')
+    sessionStorage.removeItem('joboffer-path')
   }, [fetchOffers])
 
   return (
