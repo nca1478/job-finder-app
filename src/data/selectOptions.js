@@ -8,9 +8,33 @@ export const educationOptions = [
   { value: '7', label: 'Other' },
 ]
 
-export const currencyOptions = [
-  { value: '1', label: 'US Dollar' },
-  { value: '2', label: 'EUR Euro' },
-  { value: '3', label: 'VEB Bolivar' },
-  { value: '4', label: 'COP Peso Colombiano' },
+export const currenciesList = [
+  {
+    id: 'CLP',
+    name: 'Chilean Peso',
+  },
+  {
+    id: 'COP',
+    name: 'Colombian Peso',
+  },
+  {
+    id: 'EUR',
+    name: 'Euro',
+  },
+  {
+    id: 'MXN',
+    name: 'Mexican Peso',
+  },
+  {
+    id: 'PEN',
+    name: 'Peruvian Sol',
+  },
+  {
+    id: 'USD',
+    name: 'US Dollar',
+  },
+  {
+    id: 'VES',
+    name: 'Venezuelan Bolívar Soberano',
+  },
 ]

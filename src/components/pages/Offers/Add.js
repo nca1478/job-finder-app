@@ -1,6 +1,6 @@
 // Dependencies
 import { useState, useContext } from 'react'
-import { Container, Row, Col, Card, ProgressBar } from 'react-bootstrap'
+import { Container, Row, Col, Card } from 'react-bootstrap'
 import { ToastContainer, toast } from 'react-toastify'
 
 // Custom Dependencies
@@ -16,7 +16,6 @@ export const AddOfferPage = () => {
   const [formValues, setFormValues] = useState({})
   const [page, setPage] = useState(0)
   const FormTitles = ['Basic Info', 'Skills & Price', 'Location Info']
-  const ProgressBarNow = [33.3, 66.6, 100]
 
   const handlePrev = () => {
     setPage((currPage) => currPage - 1)
@@ -57,18 +56,10 @@ export const AddOfferPage = () => {
           <Col md={{ span: 8, offset: 2 }}>
             <Card>
               <Card.Header as="h5" className="text-center">
-                Add Job Offer
+                <span>Add Job Offer - </span> <span>{FormTitles[page]}</span>
               </Card.Header>
               <Card.Body>
                 {/* Form Multistep */}
-                <div className="px-3 pb-3">
-                  <ProgressBar
-                    now={ProgressBarNow[page]}
-                    label={`${FormTitles[page]}`}
-                    variant="dark"
-                  />
-                </div>
-
                 {page === 0 && (
                   <Step1
                     page={page}

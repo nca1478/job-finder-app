@@ -5,8 +5,9 @@ import { Button, Form } from 'react-bootstrap'
 import { useForm } from 'react-hook-form'
 
 // Custom Dependencies
-import { get, getCurrencies } from '../../../../../config/api'
-import { sortListByLabel, sortListObjects } from '../../../../../helpers/utils'
+import { get } from '../../../../../config/api'
+import { currenciesList } from '../../../../../data/selectOptions'
+import { sortListObjects } from '../../../../../helpers/utils'
 import { parseData, parseDataCurrencies } from '../../helpers/parseData'
 import { InputForm } from '../InputForm'
 import { SelectForm } from '../SelectForm'
@@ -36,21 +37,16 @@ export const Step2 = (props) => {
       })
   }, [])
 
-  const fetchCurrencies = useCallback(async () => {
-    await getCurrencies('https://api.coinbase.com/v2/currencies').then(
-      (data) => {
-        const currencies = parseDataCurrencies(data.data)
-        sortListByLabel(currencies)
-        setCurrencyOptions(currencies)
-      }
-    )
+  const getCurrencies = useCallback(() => {
+    const currencies = parseDataCurrencies(currenciesList)
+    setCurrencyOptions(currencies)
   }, [])
 
   useEffect(() => {
     fetchSkills().catch(console.error)
-    fetchCurrencies().catch(console.error)
+    getCurrencies()
     reset(formValues)
-  }, [fetchSkills, fetchCurrencies, formValues, reset])
+  }, [fetchSkills, formValues, getCurrencies, reset])
 
   const onSubmit = (data) => {
     if (data) {
