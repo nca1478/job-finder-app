@@ -7,7 +7,7 @@ export const TextareaForm = (props) => {
       <Form.Label className="fw-bold">{props.label}</Form.Label>
       <Form.Control
         as="textarea"
-        rows={3}
+        rows={5}
         placeholder={props.placeholder}
         {...props.register(props.name, { required: true })}
       />

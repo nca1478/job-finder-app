@@ -38,6 +38,11 @@
   width: 100px;
 }
 
+/* Progress Bar */
+.progress-bar {
+  font-weight: bold;
+}
+
 /* Preloader */
 .preloader-container {
   align-items: center;
