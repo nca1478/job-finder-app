@@ -76,17 +76,17 @@ export const Step3 = (props) => {
           errors={errors.city}
         />
 
-        <div className="d-flex justify-content-center gap-1">
+        <div className="d-flex justify-content-between gap-1">
           <Button
             type="button"
             variant="primary"
-            className="px-5"
+            className="px-4"
             disabled={props.page === 0 && 'false'}
             onClick={props.handlePrev}
           >
             Prev
           </Button>
-          <Button type="submit" variant="primary" className="px-5">
+          <Button type="submit" variant="dark" className="px-4">
             Save
           </Button>
         </div>

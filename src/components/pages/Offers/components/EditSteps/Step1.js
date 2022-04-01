@@ -1,20 +1,27 @@
 // Dependencies
-import { useCallback, useEffect, useState } from 'react'
+import React, { useCallback, useEffect, useState } from 'react'
 import { ToastContainer, toast } from 'react-toastify'
 import { Button, Form } from 'react-bootstrap'
+import { useParams } from 'react-router-dom'
 import { useForm } from 'react-hook-form'
 
 // Custom Dependencies
 import { get } from '../../../../../config/api'
-import { sortListByLabel } from '../../../../../helpers/utils'
-import { parseData } from '../../helpers/parseData'
 import { InputForm } from '../InputForm'
-import { SelectForm } from '../SelectForm'
+import { SelectFormEdit } from '../SelectFormEdit'
+import { parseData } from '../../helpers/parseData'
+import { sortListObjects } from '../../../../../helpers/utils'
 import { TextareaForm } from '../TextareaForm'
 
-export const Step1 = (props) => {
-  const { page, handlePrev, handleNext, formValues, setFormValues } = props
+export const Step1 = ({
+  page,
+  handlePrev,
+  handleNext,
+  formValuesEdit,
+  setFormValuesEdit,
+}) => {
   const [sectorOptions, setSectorOptions] = useState(null)
+  const { offerId } = useParams()
   const {
     register,
     handleSubmit,
@@ -23,18 +30,11 @@ export const Step1 = (props) => {
     control,
   } = useForm()
 
-  const onSubmit = (data) => {
-    if (data) {
-      setFormValues(data)
-      handleNext()
-    }
-  }
-
   const fetchSectors = useCallback(async () => {
     await get('/sectors?page=1&limit=1000')
       .then(({ data }) => {
         const sectors = parseData(data.rows)
-        sortListByLabel(sectors)
+        sortListObjects(sectors)
         setSectorOptions(sectors)
       })
       .catch((error) => {
@@ -44,10 +44,16 @@ export const Step1 = (props) => {
   }, [])
 
   useEffect(() => {
-    fetchSectors().catch(console.error)
-    reset(formValues)
-  }, [fetchSectors, formValues, reset])
+    fetchSectors()
+    reset(formValuesEdit)
+  }, [offerId, fetchSectors, reset, formValuesEdit])
 
+  const onSubmit = (data) => {
+    if (data) {
+      setFormValuesEdit({ ...formValuesEdit, ...data })
+      handleNext()
+    }
+  }
   return (
     <>
       <Form className="mx-3" onSubmit={handleSubmit(onSubmit)}>
@@ -70,7 +76,7 @@ export const Step1 = (props) => {
           errors={errors.description}
         />
 
-        <SelectForm
+        <SelectFormEdit
           name="sectors"
           label="Sectors"
           controlId="formBasicSectors"

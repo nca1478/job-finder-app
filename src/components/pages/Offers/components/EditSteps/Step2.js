@@ -6,16 +6,22 @@ import { useForm } from 'react-hook-form'
 
 // Custom Dependencies
 import { get } from '../../../../../config/api'
-import { currenciesList } from '../../../../../data/selectOptions'
 import { sortListObjects } from '../../../../../helpers/utils'
 import { parseData, parseDataCurrencies } from '../../helpers/parseData'
 import { InputForm } from '../InputForm'
-import { SelectForm } from '../SelectForm'
+import { SelectFormEdit } from '../SelectFormEdit'
+import { currenciesList } from '../../../../../data/selectOptions'
 
-export const Step2 = (props) => {
-  const { page, handlePrev, handleNext, formValues, setFormValues } = props
-  const [skillsOptions, setSkillsOptions] = useState(null)
+export const Step2 = ({
+  page,
+  handlePrev,
+  handleNext,
+  formValuesEdit,
+  setFormValuesEdit,
+}) => {
+  const [skillOptions, setSkillOptions] = useState(null)
   const [currencyOptions, setCurrencyOptions] = useState(null)
+
   const {
     register,
     handleSubmit,
@@ -29,7 +35,7 @@ export const Step2 = (props) => {
       .then(({ data }) => {
         const skills = parseData(data.rows)
         sortListObjects(skills)
-        setSkillsOptions(skills)
+        setSkillOptions(skills)
       })
       .catch((error) => {
         toast.error('Error try to fetching skills.')
@@ -43,14 +49,14 @@ export const Step2 = (props) => {
   }, [])
 
   useEffect(() => {
-    fetchSkills().catch(console.error)
+    fetchSkills()
     getCurrencies()
-    reset(formValues)
-  }, [fetchSkills, formValues, getCurrencies, reset])
+    reset(formValuesEdit)
+  }, [fetchSkills, getCurrencies, reset, formValuesEdit])
 
   const onSubmit = (data) => {
     if (data) {
-      setFormValues({ ...formValues, ...data })
+      setFormValuesEdit({ ...formValuesEdit, ...data })
       handleNext()
     }
   }
@@ -58,12 +64,12 @@ export const Step2 = (props) => {
   return (
     <>
       <Form className="mx-3" onSubmit={handleSubmit(onSubmit)}>
-        <SelectForm
+        <SelectFormEdit
           name="skills"
           label="Skills"
           controlId="formBasicSkills"
           control={control}
-          options={skillsOptions}
+          options={skillOptions}
           errors={errors.skills}
           isMulti={true}
         />
@@ -78,7 +84,7 @@ export const Step2 = (props) => {
           errors={errors.price}
         />
 
-        <SelectForm
+        <SelectFormEdit
           name="currency"
           label="Currency"
           controlId="formBasicCurrency"

@@ -63,7 +63,6 @@ export const AddOfferPage = () => {
                 {page === 0 && (
                   <Step1
                     page={page}
-                    setPage={setPage}
                     handlePrev={handlePrev}
                     handleNext={handleNext}
                     formValues={formValues}
@@ -74,7 +73,6 @@ export const AddOfferPage = () => {
                 {page === 1 && (
                   <Step2
                     page={page}
-                    setPage={setPage}
                     handlePrev={handlePrev}
                     handleNext={handleNext}
                     formValues={formValues}
@@ -85,7 +83,6 @@ export const AddOfferPage = () => {
                 {page === 2 && (
                   <Step3
                     page={page}
-                    setPage={setPage}
                     handlePrev={handlePrev}
                     handleNext={handleNext}
                     formValues={formValues}

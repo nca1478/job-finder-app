@@ -124,7 +124,7 @@ export const OfferPage = () => {
             <Row>
               <ListGroup as="ul" variant="flush" className="lead">
                 <ListGroup.Item>
-                  <span className="fw-bold">Price:</span>{' '}
+                  <span className="fw-bold">Job Price:</span>{' '}
                   <span className="fw-bold h3">
                     {offer.price} {extractCurrency(offer.currency)}
                   </span>

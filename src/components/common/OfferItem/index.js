@@ -23,9 +23,8 @@ export const OfferItem = (props) => {
             </Card.Text>
           </Card.Body>
           <Card.Footer className="text-center">
-            Price:{' '}
             <span className="h5 fw-bold">
-              {price} {extractCurrency(currency)}
+              - {price} {extractCurrency(currency)} -
             </span>
           </Card.Footer>
         </Card>
