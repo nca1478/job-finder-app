@@ -201,7 +201,7 @@ export const EditUserPage = () => {
                   User Profile Info
                 </Card.Header>
                 <Form className="mx-3" onSubmit={handleSubmit(onSubmit)}>
-                  <Card.Body>
+                  <Card.Body className="animate__animated animate__fadeIn">
                     <Tabs
                       id="controlled-tab-example"
                       transition={true}

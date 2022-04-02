@@ -12,7 +12,7 @@ export const DashboardItem = (props) => {
   return (
     <Col lg={9} sm={12}>
       <Card>
-        <Card.Body>
+        <Card.Body className="animate__animated animate__fadeIn">
           <Row>
             <Col className="d-flex align-items-center justify-content-between text-center">
               <Link to={`/offer/${id}/edit`}>

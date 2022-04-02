@@ -15,7 +15,7 @@ export const OfferItem = (props) => {
         to={`/offer/${id}/details`}
         className="text-decoration-none text-dark"
       >
-        <Card>
+        <Card className="animate__animated animate__fadeIn">
           <Card.Img variant="top" src={img ? img : noImage} />
           <Card.Body>
             <Card.Text className="text-center" style={{ height: '5rem' }}>

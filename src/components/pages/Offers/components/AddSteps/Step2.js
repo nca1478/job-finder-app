@@ -56,7 +56,7 @@ export const Step2 = (props) => {
   }
 
   return (
-    <>
+    <div className="animate__animated animate__fadeIn">
       <Form className="mx-3" onSubmit={handleSubmit(onSubmit)}>
         <SelectForm
           name="skills"
@@ -104,6 +104,6 @@ export const Step2 = (props) => {
         </div>
       </Form>
       <ToastContainer />
-    </>
+    </div>
   )
 }

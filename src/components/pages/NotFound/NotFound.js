@@ -12,7 +12,7 @@ export const NotFound = () => {
 
   return (
     <Container className="d-flex flex-column justify-content-center align-items-center text-center m-auto">
-      <Row>
+      <Row className="animate__animated animate__fadeIn">
         <Col>
           <h1 className="text-404">404</h1>
           <h1 className="text-bold">Lost your way?</h1>

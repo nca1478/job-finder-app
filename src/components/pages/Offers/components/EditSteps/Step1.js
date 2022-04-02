@@ -55,7 +55,7 @@ export const Step1 = ({
     }
   }
   return (
-    <>
+    <div className="animate__animated animate__fadeIn">
       <Form className="mx-3" onSubmit={handleSubmit(onSubmit)}>
         <InputForm
           type="text"
@@ -102,6 +102,6 @@ export const Step1 = ({
         </div>
       </Form>
       <ToastContainer />
-    </>
+    </div>
   )
 }

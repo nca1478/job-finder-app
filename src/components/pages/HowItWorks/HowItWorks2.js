@@ -14,7 +14,7 @@ export const HowItWorksPage2 = () => {
   }, [])
 
   return (
-    <>
+    <div className="animate__animated animate__fadeIn">
       <h2 className="text-center pt-4">Publish a Job Offer</h2>
       <hr />
       <section className="py-4">
@@ -68,6 +68,6 @@ export const HowItWorksPage2 = () => {
           </Row>
         </Container>
       </section>
-    </>
+    </div>
   )
 }

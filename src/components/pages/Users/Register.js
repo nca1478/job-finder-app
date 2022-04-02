@@ -51,7 +51,7 @@ export const RegisterPage = () => {
         <Row className="text-center">
           <Col md={{ span: 6, offset: 3 }}>
             <Card className="text-dark py-3">
-              <Card.Body className="text-center">
+              <Card.Body className="text-center animate__animated animate__fadeIn">
                 <h1 className="mb-3">
                   <i className="bi bi-person-circle"></i>
                 </h1>

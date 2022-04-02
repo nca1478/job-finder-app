@@ -47,13 +47,13 @@ export const HomePage = () => {
       <InfoSection1 />
       <FaqSection />
       <Col className="bg-primary">
+        <h2 className="text-center text-white mt-5 mb-4">Last Job Offers</h2>
         {!loaded ? (
-          <Row className="justify-content-center mt-5">
+          <Row className="justify-content-center m-5">
             <SpinnerBorder size="lg" variant="light" />
           </Row>
         ) : (
-          <Container className="p-4">
-            <h2 className="text-center text-white m-4">Last Job Offers</h2>
+          <Container className="px-4 mb-5">
             <Row className="d-flex justify-content-center g-4 pt-2 ">
               {offers.length > 0 ? (
                 offers.map((offer) => {

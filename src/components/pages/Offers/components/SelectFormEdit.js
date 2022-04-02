@@ -14,6 +14,7 @@ export const SelectFormEdit = (props) => {
           <Form.Group className="mb-3" controlId={props.controlId}>
             <Form.Label className="fw-bold">{props.label}</Form.Label>
             <Select
+              className="selectform"
               value={value}
               onChange={
                 props.isMulti

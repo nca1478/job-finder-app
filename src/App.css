@@ -9,7 +9,7 @@
   z-index: 1000;
 }
 
-/* User Login */
+/* User Login styles */
 .facebook-button {
   width: 100%;
   margin-bottom: 10px;
@@ -32,7 +32,7 @@
   transition: all 0.5s;
 }
 
-/* User Profile */
+/* User Profile styles */
 .react-datetime-picker__wrapper {
   border-style: none;
 }
@@ -41,7 +41,7 @@
   width: 100px;
 }
 
-/* Not Found */
+/* Not Found styles*/
 .text-404 {
   font-size: 6rem;
 }

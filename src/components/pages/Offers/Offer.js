@@ -94,7 +94,7 @@ export const OfferPage = () => {
           </>
         </Row>
       ) : (
-        <Row className="py-5">
+        <Row className="py-5 animate__animated animate__fadeIn">
           <Col md="6" sm="12">
             <Image
               className="mb-3"

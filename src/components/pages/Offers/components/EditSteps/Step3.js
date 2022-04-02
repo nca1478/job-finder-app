@@ -64,7 +64,7 @@ export const Step3 = ({
   }
 
   return (
-    <>
+    <div className="animate__animated animate__fadeIn">
       <Form className="mx-3" onSubmit={handleSubmit(onSubmit)}>
         <SelectFormEdit
           name="country"
@@ -147,6 +147,6 @@ export const Step3 = ({
           </Button>
         </div>
       </Form>
-    </>
+    </div>
   )
 }

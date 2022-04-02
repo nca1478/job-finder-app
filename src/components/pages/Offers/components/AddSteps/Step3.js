@@ -44,7 +44,7 @@ export const Step3 = (props) => {
   }, [fetchCountries, formValues, reset])
 
   return (
-    <>
+    <div className="animate__animated animate__fadeIn">
       <Form className="mx-3" onSubmit={handleSubmit(onSubmit)}>
         <SelectForm
           name="country"
@@ -91,6 +91,6 @@ export const Step3 = (props) => {
           </Button>
         </div>
       </Form>
-    </>
+    </div>
   )
 }
