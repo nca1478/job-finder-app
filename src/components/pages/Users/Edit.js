@@ -1,8 +1,17 @@
 // Dependencies
 import { useCallback, useContext, useEffect, useState } from 'react'
-import { useForm } from 'react-hook-form'
-import { Container, Row, Card, Form, Button, Col } from 'react-bootstrap'
+import {
+  Container,
+  Row,
+  Card,
+  Form,
+  Button,
+  Col,
+  Tabs,
+  Tab,
+} from 'react-bootstrap'
 import { ToastContainer, toast } from 'react-toastify'
+import { useForm } from 'react-hook-form'
 import moment from 'moment'
 
 // Custom Dependencies
@@ -17,6 +26,7 @@ import { InputGroupPDF } from './components/InputGroupPDF'
 import { SelectForm } from './components/SelectForm'
 import { InputGroupDate } from './components/InputGroupDate'
 import { InputFormSocial } from './components/InputFormSocial'
+import { parseDataUser } from './helpers/parseDataUser'
 
 export const EditUserPage = () => {
   const {
@@ -36,6 +46,7 @@ export const EditUserPage = () => {
   const [selectedFile, setSelectedFile] = useState(null)
   const [loadedPDF, setLoadedPDF] = useState(null)
   const [uploading, setUploading] = useState(false)
+  const [key, setKey] = useState('personal')
 
   const fetchUser = useCallback(
     async (id) => {
@@ -68,15 +79,6 @@ export const EditUserPage = () => {
     fetchUser(user.data.id).catch(console.error)
   }, [fetchUser, user])
 
-  const parseDataUser = async (data, urlPDF) => {
-    return {
-      ...data,
-      birthday: moment(dateBirthday).format('YYYY-MM-DD'),
-      education: educationSelect === undefined ? null : educationSelect.label,
-      cvUrl: urlPDF,
-    }
-  }
-
   const uploadPDF = async (userId) => {
     const formData = new FormData()
     formData.append('pdf', selectedFile)
@@ -98,21 +100,25 @@ export const EditUserPage = () => {
     })
   }
 
-  const verifyFileUpload = async (userId) => {
-    return await uploadPDF(userId)
+  const verifyFileUpload = async (data) => {
+    return await uploadPDF(data.id)
       .then((url) => {
-        return { url }
+        return url
       })
       .catch((err) => {
-        return { err }
+        toast.error(err)
+        return false
       })
   }
 
   const handleSave = async (data) => {
-    const urlPDF = selectedFile
-      ? await verifyFileUpload(user.data.id)
-      : loadedPDF
-    const dataUser = await parseDataUser(data, urlPDF.url)
+    const urlPDF = selectedFile ? await verifyFileUpload(data) : loadedPDF
+    const dataUser = parseDataUser({
+      ...data,
+      dateBirthday,
+      educationSelect,
+      cvUrl: urlPDF,
+    })
 
     await put(`/users/${dataUser.id}/update`, dataUser, user.data.token)
       .then((response) => {
@@ -182,23 +188,28 @@ export const EditUserPage = () => {
   return (
     <Col className="bg-primary">
       <Container className="p-4 bg-primary">
-        <Row className="d-flex justify-content-center pt-2">
+        <Row className="py-2">
           {!loaded ? (
-            <>
+            <div className="text-center">
               <SpinnerBorder size="lg" variant="light" />
               <SpaceBlank height="64vh" />
-            </>
+            </div>
           ) : (
-            <Col>
+            <Col md={{ span: 6, offset: 3 }}>
               <Card className="text-dark">
                 <Card.Header as="h5" className="text-center">
-                  User Profile
+                  User Profile Info
                 </Card.Header>
-                <Card.Body>
-                  <Form className="mx-3" onSubmit={handleSubmit(onSubmit)}>
-                    <Row>
-                      {/* Name */}
-                      <Col md={12} lg={6}>
+                <Form className="mx-3" onSubmit={handleSubmit(onSubmit)}>
+                  <Card.Body>
+                    <Tabs
+                      id="controlled-tab-example"
+                      transition={true}
+                      activeKey={key}
+                      onSelect={(k) => setKey(k)}
+                      className="mb-3"
+                    >
+                      <Tab eventKey="personal" title="Personal">
                         <InputForm
                           type="text"
                           name="name"
@@ -208,10 +219,7 @@ export const EditUserPage = () => {
                           register={register}
                           errors={errors.name}
                         />
-                      </Col>
 
-                      {/* Email */}
-                      <Col md={12} lg={6}>
                         <InputForm
                           type="email"
                           name="email"
@@ -221,12 +229,14 @@ export const EditUserPage = () => {
                           register={register}
                           errors={errors.email}
                         />
-                      </Col>
-                    </Row>
 
-                    <Row>
-                      {/* Profession */}
-                      <Col md={6} lg={6}>
+                        <InputGroupDate
+                          onChange={handleBirthdayDateChange}
+                          value={dateBirthday}
+                        />
+                      </Tab>
+
+                      <Tab eventKey="job" title="Job">
                         <InputForm
                           type="text"
                           name="profession"
@@ -236,10 +246,7 @@ export const EditUserPage = () => {
                           register={register}
                           errors={errors.profession}
                         />
-                      </Col>
 
-                      {/* Education */}
-                      <Col md={6} lg={3}>
                         <SelectForm
                           controlId="formBasicEducation"
                           label="Education"
@@ -247,31 +254,15 @@ export const EditUserPage = () => {
                           options={educationOptions}
                           onChange={handleEducationChange}
                         />
-                      </Col>
 
-                      {/* Birthday */}
-                      <Col md={12} lg={3}>
-                        <InputGroupDate
-                          onChange={handleBirthdayDateChange}
-                          value={dateBirthday}
-                        />
-                      </Col>
-                    </Row>
-
-                    {/* Curriculum Vitae (PDF) */}
-                    <Row>
-                      <Col>
                         <InputGroupPDF
                           register={register}
                           fileChangedHandler={fileChangedHandler}
                           loadedPDF={loadedPDF}
                         />
-                      </Col>
-                    </Row>
+                      </Tab>
 
-                    <Row>
-                      {/* linkedinUser */}
-                      <Col md={6} lg={3}>
+                      <Tab eventKey="social" title="Social">
                         <InputFormSocial
                           type="text"
                           name="linkedinUser"
@@ -281,10 +272,7 @@ export const EditUserPage = () => {
                           placeholder="Enter linkedin user"
                           register={register}
                         />
-                      </Col>
 
-                      {/* twitterUser */}
-                      <Col md={6} lg={3}>
                         <InputFormSocial
                           type="text"
                           name="twitterUser"
@@ -294,10 +282,7 @@ export const EditUserPage = () => {
                           placeholder="Enter twitter user"
                           register={register}
                         />
-                      </Col>
 
-                      {/* instagramUser */}
-                      <Col md={6} lg={3}>
                         <InputFormSocial
                           type="text"
                           name="instagramUser"
@@ -307,10 +292,7 @@ export const EditUserPage = () => {
                           placeholder="Enter instagram user"
                           register={register}
                         />
-                      </Col>
 
-                      {/* facebookUser */}
-                      <Col md={6} lg={3}>
                         <InputFormSocial
                           type="text"
                           name="facebookUser"
@@ -320,10 +302,9 @@ export const EditUserPage = () => {
                           placeholder="Enter facebook user"
                           register={register}
                         />
-                      </Col>
-                    </Row>
+                      </Tab>
+                    </Tabs>
 
-                    {/* Modals */}
                     <PasswordModal
                       show={showPassModal}
                       handleClose={handleClosePassModal}
@@ -331,7 +312,6 @@ export const EditUserPage = () => {
                       handleSend={() => handleSend(formValues)}
                     />
 
-                    {/* Save Button */}
                     <Button
                       type="submit"
                       variant="primary"
@@ -344,8 +324,8 @@ export const EditUserPage = () => {
                         'Save'
                       )}
                     </Button>
-                  </Form>
-                </Card.Body>
+                  </Card.Body>
+                </Form>
               </Card>
             </Col>
           )}

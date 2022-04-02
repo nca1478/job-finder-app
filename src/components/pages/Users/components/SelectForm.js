@@ -7,7 +7,7 @@ export const SelectForm = (props) => {
     <Form.Group className="mb-3" controlId={props.controlId}>
       <Form.Label className="fw-bold">{props.label}</Form.Label>
       <Select
-        className="mb-2"
+        className="mb-2 selectform"
         value={props.value}
         options={props.options}
         onChange={props.onChange}
