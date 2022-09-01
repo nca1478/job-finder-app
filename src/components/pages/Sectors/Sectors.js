@@ -27,7 +27,7 @@ export const SectorsPage = () => {
         setSectors(data.rows)
       })
       .catch((error) => {
-        toast.error('Error try to fetching sectors.')
+        toast.error('Error al intentar obtener sectores.')
         console.log(error)
       })
       .finally(() => {
@@ -46,7 +46,7 @@ export const SectorsPage = () => {
         }
       })
       .catch((error) => {
-        toast.error('Error try to fetching sectors.')
+        toast.error('Error al intentar obtener sectores.')
         console.log(error)
       })
       .finally(() => {
@@ -64,7 +64,7 @@ export const SectorsPage = () => {
         setSector(response.data)
       })
       .catch((error) => {
-        toast.error('Error try to fetching sector.')
+        toast.error('Error al intentar obtener el sector.')
         console.log(error)
       })
       .finally(() => {
@@ -82,7 +82,7 @@ export const SectorsPage = () => {
         }
       })
       .catch((error) => {
-        toast.error('Error try to adding sector.')
+        toast.error('Error al intentar añadir sector.')
         console.log(error)
       })
       .finally(() => {
@@ -102,7 +102,7 @@ export const SectorsPage = () => {
         }
       })
       .catch((error) => {
-        toast.error('Error try to updating sector.')
+        toast.error('Error al intentar actualizar el sector.')
         console.log(error)
       })
       .finally(() => {
@@ -111,7 +111,7 @@ export const SectorsPage = () => {
   }
 
   const handleDelete = (sectorId) => {
-    const confirm = window.confirm('Are you sure?')
+    const confirm = window.confirm('¿Estás Seguro?')
     if (confirm) {
       del(`/sectors/${sectorId}`)
         .then((response) => {
@@ -122,7 +122,7 @@ export const SectorsPage = () => {
           }
         })
         .catch((error) => {
-          toast.error('Error try to deleting sector.')
+          toast.error('Error al intentar eliminar el sector.')
           console.log(error)
         })
         .finally(() => {
@@ -145,7 +145,7 @@ export const SectorsPage = () => {
 
   const handleCloseSectorModal = () => {
     setShowSectorModal(false)
-    setSector({})
+    setSector(null)
   }
 
   const handlePageClick = async (data) => {
@@ -170,14 +170,14 @@ export const SectorsPage = () => {
                   as="h5"
                   className="px-4 d-flex justify-content-between"
                 >
-                  <span>Sectors</span>
+                  <span>Sectores</span>
                   <Button
                     variant="primary"
                     size="sm"
                     className="text-end"
                     onClick={handleShowSectorModal}
                   >
-                    Add New
+                    Agregar Nuevo
                   </Button>
                 </Card.Header>
                 <Card.Body className="px-4 pt-4 pb-1">

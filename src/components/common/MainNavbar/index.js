@@ -56,16 +56,16 @@ export const MainNavbar = () => {
               navbarScroll
             >
               <NavLink to="/" className={styleActive}>
-                Home
+                Inicio
               </NavLink>
 
-              <NavDropdown title="How It Works" id="basic-nav-dropdown">
+              <NavDropdown title="Como Funciona" id="basic-nav-dropdown">
                 <LinkContainer to="/howitworks1">
-                  <NavDropdown.Item>Find a Job Offer</NavDropdown.Item>
+                  <NavDropdown.Item>Encuentra un Trabajo</NavDropdown.Item>
                 </LinkContainer>
 
                 <LinkContainer to="/howitworks2">
-                  <NavDropdown.Item>Publish a Job Offer</NavDropdown.Item>
+                  <NavDropdown.Item>Publica un Trabajo</NavDropdown.Item>
                 </LinkContainer>
               </NavDropdown>
 
@@ -77,23 +77,23 @@ export const MainNavbar = () => {
                     </NavLink>
 
                     <NavLink to="/offer/add" className={styleActive}>
-                      Add Offers
+                      Agregar Trabajo
                     </NavLink>
                   </>
                 ) : (
                   <>
                     <NavLink to="/sectors" className={styleActive}>
-                      Sectors
+                      Sectores
                     </NavLink>
                     <NavLink to="/skills" className={styleActive}>
-                      Skills
+                      Habilidades
                     </NavLink>
                   </>
                 )
               ) : null}
 
               <NavLink to="/offers" className={styleActive}>
-                Offers
+                Trabajos
               </NavLink>
             </Nav>
 
@@ -103,7 +103,7 @@ export const MainNavbar = () => {
             >
               <Form.Control
                 type="search"
-                placeholder="Search Offers by Title"
+                placeholder="Buscar trabajos"
                 className="me-2"
                 aria-label="Search"
                 {...register('searchText', {
@@ -114,7 +114,7 @@ export const MainNavbar = () => {
               {!user.logged ? (
                 <>
                   <NavLink to="/register" className="btn btn-warning me-2">
-                    Signup
+                    Registro
                   </NavLink>
                   <NavLink to="/login" className="btn btn-primary me-2">
                     Login
@@ -123,14 +123,14 @@ export const MainNavbar = () => {
               ) : (
                 <>
                   <NavLink to="/user/edit" className="btn btn-warning me-2">
-                    Profile
+                    Perfil
                   </NavLink>
                   <Button
                     to="/logout"
                     className="btn btn-primary me-2"
                     onClick={handleLogout}
                   >
-                    Logout
+                    Salir
                   </Button>
                 </>
               )}

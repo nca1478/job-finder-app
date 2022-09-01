@@ -18,7 +18,7 @@ export const InputGroupPDF = (props) => {
           target="_blank"
           rel="noreferrer"
         >
-          Display
+          Mostrar
         </a>
       )}
     </InputGroup>

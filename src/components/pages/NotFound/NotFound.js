@@ -15,14 +15,14 @@ export const NotFound = () => {
       <Row className="animate__animated animate__fadeIn">
         <Col>
           <h1 className="text-404">404</h1>
-          <h1 className="text-bold">Lost your way?</h1>
+          <h1 className="text-bold">¿Te perdiste en el camino?</h1>
           <h5 className="text-muted">
-            Sorry, we can't find that page. You'll find what to explore on the
-            home page.
+            Lo sentimos, no podemos encontrar esa página. Encontrará qué
+            explorar en el página de inicio.
           </h5>
 
           <Button variant="primary" onClick={handleClick} className="mt-3">
-            Go Home
+            Ir a Inicio
           </Button>
         </Col>
       </Row>

@@ -18,17 +18,17 @@ export const InfoSection1 = () => {
             />
           </Col>
           <Col md={6} sm={12} className="text-center">
-            <h2>How it Works Job Finder?</h2>
+            <h2>¿Cómo funciona Jobfinder?</h2>
             <p className="lead">
-              We show you how is the process of searching and publishing a job
-              offer.
+              Te mostramos cómo es el proceso de búsqueda y publicación de una
+              oferta de trabajo.
             </p>
             <div className="text-center">
               <Link to="/howitworks1" className="btn btn-primary m-1">
-                Find a Job Offer
+                Encuentra un trabajo
               </Link>
               <Link to="/howitworks2" className="btn btn-dark m-1">
-                Publish a Job Offer
+                Publica un trabajo
               </Link>
             </div>
           </Col>

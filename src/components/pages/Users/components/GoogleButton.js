@@ -14,7 +14,7 @@ export const GoogleButton = ({ responseGoogle }) => {
           onClick={renderProps.onClick}
           disabled={renderProps.disabled}
         >
-          <i className="bi bi-google"></i> Login with Google
+          <i className="bi bi-google"></i> Login con Google
         </Button>
       )}
       buttonText="Login"

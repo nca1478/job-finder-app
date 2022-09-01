@@ -40,7 +40,7 @@ export const RegisterPage = () => {
         }
       })
       .catch((error) => {
-        toast.error('Please verify the data entered and try again.')
+        toast.error('Verifica los datos ingresados ​​y vuelve a intentarlo.')
         console.log(error)
       })
   }
@@ -55,7 +55,7 @@ export const RegisterPage = () => {
                 <h1 className="mb-3">
                   <i className="bi bi-person-circle"></i>
                 </h1>
-                <h3 className="card-title mb-3">Create an Account</h3>
+                <h3 className="card-title mb-3">Crear una Cuenta</h3>
 
                 <Form className="mx-3" onSubmit={handleSubmit(onSubmit)}>
                   {/* Fullname */}
@@ -64,9 +64,11 @@ export const RegisterPage = () => {
                     register={register}
                     errors={errors.name}
                     icon="bi bi-person-circle"
-                    label="Fullname"
+                    label="Nombre Completo"
                     name="name"
-                    validationRules={{ required: 'Fullname is required' }}
+                    validationRules={{
+                      required: 'Nombre Completo es requerido',
+                    }}
                   />
 
                   {/* Email */}
@@ -77,7 +79,7 @@ export const RegisterPage = () => {
                     icon="bi bi-envelope"
                     label="Email"
                     name="email"
-                    validationRules={{ required: 'Email is required' }}
+                    validationRules={{ required: 'Email es requerido' }}
                   />
 
                   {/* Password */}
@@ -89,10 +91,11 @@ export const RegisterPage = () => {
                     label="Password"
                     name="password"
                     validationRules={{
-                      required: 'Password is required',
+                      required: 'Contraseña es requerida',
                       minLength: {
                         value: 8,
-                        message: 'Password must have at least 8 characters',
+                        message:
+                          'La contraseña debe tener al menos 8 caracteres',
                       },
                     }}
                   />
@@ -103,27 +106,28 @@ export const RegisterPage = () => {
                     register={register}
                     errors={errors.confirm}
                     icon="bi bi-key"
-                    label="Confirm Password"
+                    label="Confirmar Contraseña"
                     name="confirm"
                     validationRules={{
-                      required: 'Password is required',
+                      required: 'Contraseña es requerida',
                       minLength: {
                         value: 8,
-                        message: 'Password must have at least 8 characters',
+                        message:
+                          'La contraseña debe tener al menos 8 caracteres',
                       },
                       validate: (value) =>
                         value === getValues('password') ||
-                        'The passwords do not match',
+                        'Las contraseñas no coinciden',
                     }}
                   />
 
                   {/* Register Button */}
                   <Button type="submit" variant="dark" className="w-100 mb-3">
-                    Register
+                    Registrar
                   </Button>
 
                   <span className="card-title">
-                    Do you already have an account?{' '}
+                    ¿Ya tienes una cuenta?{' '}
                     <Link to="/login" style={{ textDecoration: 'none' }}>
                       Login
                     </Link>

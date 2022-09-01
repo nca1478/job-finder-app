@@ -8,7 +8,7 @@ export const Footer = () => {
         <p className="lead pt-3">
           Copyright &copy; 2022
           <br />
-          Developed by:{' '}
+          Desarrollado por:{' '}
           <a
             href="https://nelsoncadenas.netlify.app/index.html"
             rel="noreferrer"

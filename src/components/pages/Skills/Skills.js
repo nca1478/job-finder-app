@@ -27,7 +27,7 @@ export const SkillsPage = () => {
         setSkills(data.rows)
       })
       .catch((error) => {
-        toast.error('Error try to fetching skills.')
+        toast.error('Error al intentar obtener habilidades.')
         console.log(error)
       })
       .finally(() => {
@@ -46,7 +46,7 @@ export const SkillsPage = () => {
         }
       })
       .catch((error) => {
-        toast.error('Error try to fetching skills.')
+        toast.error('Error al intentar obtener habilidades.')
         console.log(error)
       })
       .finally(() => {
@@ -64,7 +64,7 @@ export const SkillsPage = () => {
         setSkill(response.data)
       })
       .catch((error) => {
-        toast.error('Error try to fetching skill.')
+        toast.error('Error al intentar obtener la habilidad.')
         console.log(error)
       })
       .finally(() => {
@@ -82,7 +82,7 @@ export const SkillsPage = () => {
         }
       })
       .catch((error) => {
-        toast.error('Error try to adding skill.')
+        toast.error('Error al intentar agregar habilidad.')
         console.log(error)
       })
       .finally(() => {
@@ -102,7 +102,7 @@ export const SkillsPage = () => {
         }
       })
       .catch((error) => {
-        toast.error('Error try to updating skill.')
+        toast.error('Error al intentar actualizar la habilidad.')
         console.log(error)
       })
       .finally(() => {
@@ -111,7 +111,7 @@ export const SkillsPage = () => {
   }
 
   const handleDelete = (skillId) => {
-    const confirm = window.confirm('Are you sure?')
+    const confirm = window.confirm('¿Estás Seguro?')
     if (confirm) {
       del(`/skills/${skillId}`)
         .then((response) => {
@@ -122,7 +122,7 @@ export const SkillsPage = () => {
           }
         })
         .catch((error) => {
-          toast.error('Error try to deleting skill.')
+          toast.error('Error al intentar eliminar la habilidad.')
           console.log(error)
         })
         .finally(() => {
@@ -145,7 +145,7 @@ export const SkillsPage = () => {
 
   const handleCloseSkillModal = () => {
     setShowSkillModal(false)
-    setSkill({})
+    setSkill(null)
   }
 
   const handlePageClick = async (data) => {
@@ -170,14 +170,14 @@ export const SkillsPage = () => {
                   as="h5"
                   className="px-4 d-flex justify-content-between"
                 >
-                  <span>Skills</span>
+                  <span>Habilidades</span>
                   <Button
                     variant="primary"
                     size="sm"
                     className="text-end"
                     onClick={handleShowSkillModal}
                   >
-                    Add New
+                    Agregar Nueva
                   </Button>
                 </Card.Header>
                 <Card.Body className="px-4 pt-4 pb-1">

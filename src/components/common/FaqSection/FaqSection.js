@@ -5,38 +5,41 @@ export const FaqSection = () => {
   return (
     <section id="questions" className="p-5 bg-dark">
       <Container>
-        <h2 className="text-center text-white mb-4">
-          Frecuently Asked Questions
-        </h2>
+        <h2 className="text-center text-white mb-4">Preguntas Frecuentes</h2>
         <Accordion>
           <Accordion.Item eventKey="0">
-            <Accordion.Header>Where exactly are you located?</Accordion.Header>
+            <Accordion.Header>¿Donde estan localizados?</Accordion.Header>
             <Accordion.Body>
-              You can find us on our website www.jobfinder.com.
+              Puedes encontrarnos en nuestro sitio web www.jobfinder.com.
             </Accordion.Body>
           </Accordion.Item>
           <Accordion.Item eventKey="1">
-            <Accordion.Header>How much does the service cost?</Accordion.Header>
-            <Accordion.Body>The service is completely free.</Accordion.Body>
+            <Accordion.Header>¿Cuánto cuesta el servicio?</Accordion.Header>
+            <Accordion.Body>
+              El servicio es completamente gratuito.
+            </Accordion.Body>
           </Accordion.Item>
           <Accordion.Item eventKey="2">
-            <Accordion.Header>What do I need to know?</Accordion.Header>
+            <Accordion.Header>¿Qué necesito saber?</Accordion.Header>
             <Accordion.Body>
-              You just need to master the job you post and know what job offer
-              you are looking for.
+              Solo necesita dominar el trabajo que publica y saber como ofertar
+              el trabajo.
             </Accordion.Body>
           </Accordion.Item>
           <Accordion.Item eventKey="3">
-            <Accordion.Header>What do I sign up?</Accordion.Header>
+            <Accordion.Header>¿Cómo me registro?</Accordion.Header>
             <Accordion.Body>
-              Entering the jobfinder app, locate the signup/login button. With
-              this you can have access to see the info of freelancers for you
-              can contact it and you can publish job offers too.
+              Al ingresar a la aplicación Jobfinder, localice el botón de
+              registro/inicio de sesión. Con esto puedes tener acceso para ver
+              la información de los freelancers para que puedas contactarlo y
+              también puedes publicar ofertas de trabajo.
             </Accordion.Body>
           </Accordion.Item>
           <Accordion.Item eventKey="4">
-            <Accordion.Header>Do you help me find a job?</Accordion.Header>
-            <Accordion.Body>Of course, but be patient...</Accordion.Body>
+            <Accordion.Header>
+              ¿Me ayudará a encontrar trabajo?
+            </Accordion.Header>
+            <Accordion.Body>Por supuesto, pero ten paciencia...</Accordion.Body>
           </Accordion.Item>
         </Accordion>
       </Container>

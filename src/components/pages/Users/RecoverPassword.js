@@ -32,7 +32,7 @@ export const RecoverPassword = () => {
         }
       })
       .catch((error) => {
-        toast.error('Error when trying to send email.')
+        toast.error('Error al intentar enviar email.')
         console.log(error)
       })
       .finally(() => {
@@ -50,7 +50,7 @@ export const RecoverPassword = () => {
                 <h1 className="mb-3">
                   <i className="bi bi-card-text"></i>
                 </h1>
-                <h3 className="card-title mb-3">Recover Password</h3>
+                <h3 className="card-title mb-3">Recuperar Contraseña</h3>
 
                 <Form className="mx-3" onSubmit={handleSubmit(onSubmit)}>
                   {loading ? (
@@ -68,7 +68,7 @@ export const RecoverPassword = () => {
                         icon="bi bi-person-circle"
                         label="Email"
                         name="email"
-                        validationRules={{ required: 'Email is required' }}
+                        validationRules={{ required: 'Email es requerido' }}
                       />
 
                       <Button
@@ -76,15 +76,15 @@ export const RecoverPassword = () => {
                         variant="dark"
                         className="w-100 my-2"
                       >
-                        Send Email
+                        Enviar Email
                       </Button>
                     </>
                   )}
 
                   <span className="card-title">
-                    Do you need an account?{' '}
+                    ¿Necesitas una cuenta?{' '}
                     <Link to="/register" style={{ textDecoration: 'none' }}>
-                      Register
+                      Registrar
                     </Link>
                   </span>
                 </Form>
