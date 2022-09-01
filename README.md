@@ -1,48 +1,48 @@
 # Jobfinder App
 
-`Jobfinder App` is a web application that allows you to publish your works and contact interested people all over the world.
+`Jobfinder App` es una aplicación web que te permite publicar tus trabajos y contactar a personas interesadas en todo el mundo.
 
-## Features
+## Características
 
-- Landing page with basic information about the site.
-- Sections about how app works.
-- List of job offers published by registered users.
-- Job offers search box.
-- Local, Google and Facebook login authentication.
-- Register account and recover password form.
-- Email Notification.
-- Job offer registration form.
-- Simple job posting from the user's dashboard.
-- Simple access to the details of the job offer.
-- Easy contact with freelancers, you just have to be registered on the site.
-- Images hosted on Cloudinary.
+- Página Principal con información básica acerca del sitio.
+- Secciones acerca como trabaja la app.
+- Lista de Ofertas de Trabajo publicadas.
+- Caja de búsqueda de ofertas de trabajo.
+- Autenticación Local, Google y Facebook.
+- Formulario de Registro y Recuperación de contraseña.
+- Notificaciones por Correo.
+- Formularios de registros de ofertas de trabajo.
+- Posteo sencillo del trabajo desde el Dashboard del usuario.
+- Acceso sencillo a los detalles de la oferta de trabajo.
+- Contacto sencillo con freelancers, solo debe está registrado en el sitio web.
+- Imagenes alojadas en Cloudinary.
 
-## Technical Features
+## Características Técnicas
 
-- UI develop with ReactJS and React Bootstrap.
-- Backend stack: NodeJS, Express and Sequelize.
-- Database: Postgres SQL.
-- Public and Private Routes with new React Router v6.
-- State Manage Component through useState hook.
-- State globally App through useContext hook.
-- Handling forms through React Hook Forms.
+- UI desarrollada en ReactJS y React Bootstrap.
+- Stack Backend: NodeJS, Express and Sequelize.
+- Base de Datos: Postgres SQL.
+- Rutas públicas y privadas con React Router v6.
+- Manejo de estados con el hook useState.
+- Manejo de estado global con el hook useContext.
+- Manejo de formularios a través de React Hook Forms.
 
-## General Information
+## Información General
 
-- The purpose of this project is to practice the web technologies shown below.
+- El propósito de este proyecto es practicar las tecnologías web que se muestran a continuación.
 
 ## Tech Stack
 
 - HTML5.
 - CSS3.
 - Bootstrap CSS Framework.
-- Responsive Design (All screen devices).
+- Responsive Design.
 - ReactJS.
 - React Bootstrap UI Framework.
 - NodeJS.
 - Postgres SQL.
 
-## React Technologies
+## Tecnologías React
 
 - [Create React App](https://create-react-app.dev/)
 - [React Bootstrap](https://react-bootstrap.github.io/)
@@ -56,7 +56,7 @@
 - [React Select](https://react-select.com/home)
 - [React Toastify](https://fkhadra.github.io/react-toastify/introduction)
 
-## Development tools and other Technologies
+## Herramientas de Desarrollo y Otras Tecnologías
 
 - [Animate.css](https://animate.style/)
 - [Bootstrap 5.0](https://getbootstrap.com/)
@@ -72,23 +72,23 @@
 
 - [Jobfinder App](https://jobfinder-app-njca.netlify.app/)
 
-## Backend Repo
+## Repo Backend
 
 - [Jobfinder Api](https://github.com/nca1478/job-finder-api)
 
-## Requirements
+## Requerimientos
 
-- Nodejs v14 or better.
-- React 17.0.2 or better.
+- Nodejs v14 o superior.
+- React 17.0.2 o superior.
 
-## Installation
+## Instalación
 
 > npm install
 
-## Run the app
+## Ejecutar la Aplicación
 
 > npm start
 
-## Enter file
+## Archivo de Entrada
 
 > /src/index.js

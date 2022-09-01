@@ -12,7 +12,7 @@ export const TextareaForm = (props) => {
         {...props.register(props.name, { required: true })}
       />
       {props.errors && (
-        <Form.Text className="text-danger w-100">Required</Form.Text>
+        <Form.Text className="text-danger w-100">Requerido</Form.Text>
       )}
     </Form.Group>
   )

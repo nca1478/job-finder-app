@@ -30,28 +30,30 @@ export const SkillModal = ({ show, onSubmit, handleClose, skill }) => {
   return (
     <Modal show={show} onHide={handleClose} centered>
       <Modal.Header closeButton>
-        <Modal.Title>{skill ? 'Edit Skill' : 'Add Skill'}</Modal.Title>
+        <Modal.Title>
+          {skill ? 'Editar Habilidad' : 'Agregar Habilidad'}
+        </Modal.Title>
       </Modal.Header>
       <Form className="mx-3" onSubmit={handleSubmit(onSubmit)}>
         <Modal.Body>
           <Form.Group className="mb-3" controlId="formBasicName">
-            <Form.Label className="fw-bold">Name</Form.Label>
+            <Form.Label className="fw-bold">Nombre</Form.Label>
             <Form.Control
               type="text"
-              placeholder="Name"
+              placeholder="Nombre"
               {...register('name', { required: true })}
             />
             {errors.name && (
-              <Form.Text className="text-danger w-100">Required</Form.Text>
+              <Form.Text className="text-danger w-100">Requerido</Form.Text>
             )}
           </Form.Group>
         </Modal.Body>
         <Modal.Footer>
           <Button type="submit" variant="dark">
-            Save
+            Guardar
           </Button>
           <Button variant="secondary" onClick={handleClose}>
-            Close
+            Cerrar
           </Button>
         </Modal.Footer>
       </Form>

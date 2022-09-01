@@ -27,7 +27,7 @@ export const SearchPage = () => {
         }
       })
       .catch((error) => {
-        toast.error('Error try to fetching job offers.')
+        toast.error('Error al intentar obtener ofertas de trabajo.')
         console.log(error)
       })
       .finally(() => {
@@ -43,7 +43,9 @@ export const SearchPage = () => {
     <>
       <Col className="bg-primary">
         <Container className="p-4 bg-primary">
-          <h3 className="text-center text-white">Job Offers Found</h3>
+          <h3 className="text-center text-white">
+            Ofertas de Trabajo Encontradas
+          </h3>
           <Row className="justify-content-center g-4 pt-2">
             {!loaded ? (
               <>
@@ -58,7 +60,7 @@ export const SearchPage = () => {
               </>
             ) : (
               <Alert variant="danger" className="w-75">
-                No job offers was found...
+                No se encontraron ofertas de trabajo...
               </Alert>
             )}
           </Row>

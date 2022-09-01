@@ -25,7 +25,7 @@ export const SelectFormEdit = (props) => {
               isMulti={props.isMulti}
             />
             {props.errors && (
-              <Form.Text className="text-danger w-100">Required</Form.Text>
+              <Form.Text className="text-danger w-100">Requerido</Form.Text>
             )}
           </Form.Group>
         )

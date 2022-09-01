@@ -38,7 +38,7 @@ export const Step1 = ({
         setSectorOptions(sectors)
       })
       .catch((error) => {
-        toast.error('Error try to fetching sectors.')
+        toast.error('Error al intentar obtener sectores.')
         console.log(error)
       })
   }, [])
@@ -60,8 +60,8 @@ export const Step1 = ({
         <InputForm
           type="text"
           name="title"
-          label="Title"
-          placeholder="Enter Title"
+          label="Título"
+          placeholder="Ingresar Título"
           controlId="formBasicTitle"
           register={register}
           errors={errors.title}
@@ -69,8 +69,8 @@ export const Step1 = ({
 
         <TextareaForm
           name="description"
-          label="Description"
-          placeholder="Enter Description"
+          label="Descripción"
+          placeholder="Ingresa Descripción"
           controlId="formBasicDescription"
           register={register}
           errors={errors.description}
@@ -78,7 +78,7 @@ export const Step1 = ({
 
         <SelectFormEdit
           name="sectors"
-          label="Sectors"
+          label="Sectores"
           controlId="formBasicSectors"
           control={control}
           options={sectorOptions}
@@ -94,10 +94,10 @@ export const Step1 = ({
             disabled={page === 0}
             onClick={handlePrev}
           >
-            Prev
+            Anterior
           </Button>
           <Button type="submit" variant="primary" className="px-4">
-            Next
+            Siguiente
           </Button>
         </div>
       </Form>

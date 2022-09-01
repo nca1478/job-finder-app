@@ -13,7 +13,7 @@ export const DescriptionModal = ({ show, handleClose, description }) => {
   return (
     <Modal show={show} onHide={handleClose} centered size="lg">
       <Modal.Header closeButton>
-        <Modal.Title>Job Offer Details</Modal.Title>
+        <Modal.Title>Detalles Oferta de Trabajo</Modal.Title>
       </Modal.Header>
       <Modal.Body>
         <Form.Group controlId="formBasicCvtext">

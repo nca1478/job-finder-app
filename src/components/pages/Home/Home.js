@@ -27,7 +27,7 @@ export const HomePage = () => {
         }
       })
       .catch((error) => {
-        toast.error('Error try to fetching job offers.')
+        toast.error('Error al intentar obtener ofertas de trabajo.')
         console.log(error)
       })
       .finally(() => {
@@ -47,7 +47,7 @@ export const HomePage = () => {
       <InfoSection1 />
       <FaqSection />
       <Col className="bg-primary">
-        <h2 className="text-center text-white mt-5 mb-4">Last Job Offers</h2>
+        <h2 className="text-center text-white mt-5 mb-4">Últimos Trabajos</h2>
         {!loaded ? (
           <Row className="justify-content-center m-5">
             <SpinnerBorder size="lg" variant="light" />
@@ -61,7 +61,8 @@ export const HomePage = () => {
                 })
               ) : (
                 <Alert variant="danger" className="w-75">
-                  Oh no.... There are no job offers to show. Come back soon...
+                  Oh no.... No hay ofertas de trabajo para mostrar. Vuelve
+                  pronto...
                 </Alert>
               )}
             </Row>

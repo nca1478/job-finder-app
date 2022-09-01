@@ -8,8 +8,8 @@ export const TableSkills = (props) => {
       <thead>
         <tr>
           <th className="text-center">Id</th>
-          <th>Name</th>
-          <th className="text-center">Action</th>
+          <th>Nombre</th>
+          <th className="text-center">Acción</th>
         </tr>
       </thead>
       <tbody>

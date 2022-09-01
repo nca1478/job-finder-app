@@ -25,7 +25,7 @@ export const EditOfferPage = () => {
   const [formValuesEdit, setFormValuesEdit] = useState({})
 
   const { offerId } = useParams()
-  const FormTitles = ['Basic Info', 'Skills & Price', 'Location Info']
+  const FormTitles = ['Info Básica', 'Habilidades y Precio', 'Localización']
 
   const fetchOffer = useCallback(
     async (offerId) => {
@@ -35,7 +35,7 @@ export const EditOfferPage = () => {
           setFormValuesEdit(setFormValues(response))
         })
         .catch((error) => {
-          toast.error('Error try to fetching job offer.')
+          toast.error('Error al intentar obtener la oferta de trabajo.')
           console.log(error)
         })
         .finally(() => {
@@ -65,7 +65,7 @@ export const EditOfferPage = () => {
           }
         })
         .catch((error) => {
-          toast.error('Error uploading image.')
+          toast.error('Error subiendo imagen.')
           console.log(error)
         })
     })
@@ -95,7 +95,7 @@ export const EditOfferPage = () => {
         }
       })
       .catch((error) => {
-        toast.error('Error updating offers.')
+        toast.error('Error al actualizar oferta de trabajo.')
         console.log(error)
       })
       .finally(() => {
@@ -127,7 +127,8 @@ export const EditOfferPage = () => {
             <Col md={{ span: 8, offset: 2 }}>
               <Card>
                 <Card.Header as="h5" className="text-center">
-                  <span>Edit Job Offer - </span> <span>{FormTitles[page]}</span>
+                  <span>Editar Oferta de Trabajo - </span>{' '}
+                  <span>{FormTitles[page]}</span>
                 </Card.Header>
                 <Card.Body>
                   {page === 0 && (

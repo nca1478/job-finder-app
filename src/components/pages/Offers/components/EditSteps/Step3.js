@@ -68,7 +68,7 @@ export const Step3 = ({
       <Form className="mx-3" onSubmit={handleSubmit(onSubmit)}>
         <SelectFormEdit
           name="country"
-          label="Country"
+          label="País"
           controlId="formBasicCountry"
           control={control}
           options={countryOptions}
@@ -79,8 +79,8 @@ export const Step3 = ({
         <InputForm
           type="text"
           name="state"
-          label="State"
-          placeholder="Enter State"
+          label="Estado"
+          placeholder="Ingresa Estado"
           controlId="formBasicState"
           register={register}
           errors={errors.state}
@@ -89,8 +89,8 @@ export const Step3 = ({
         <InputForm
           type="text"
           name="city"
-          label="City"
-          placeholder="Enter City"
+          label="Ciudad"
+          placeholder="Ingresa Ciudad"
           controlId="formBasicCity"
           register={register}
           errors={errors.city}
@@ -99,7 +99,7 @@ export const Step3 = ({
         <Row>
           <Col>
             <Form.Group controlId="formFile" className="mb-3">
-              <Form.Label className="fw-bold">Job Image</Form.Label>
+              <Form.Label className="fw-bold">Imagen del Trabajo</Form.Label>
               <div className="input-group">
                 <Form.Control
                   type="file"
@@ -110,7 +110,7 @@ export const Step3 = ({
                 />
                 {loadedFile && (
                   <Button variant="primary" onClick={handleShow}>
-                    Show
+                    Mostrar
                   </Button>
                 )}
               </div>
@@ -135,7 +135,7 @@ export const Step3 = ({
             disabled={page === 0 && 'false'}
             onClick={handlePrev}
           >
-            Prev
+            Anterior
           </Button>
           <Button
             type="submit"
@@ -143,7 +143,11 @@ export const Step3 = ({
             className="px-4"
             disabled={uploading}
           >
-            {uploading ? <SpinnerBorder size="sm" variant="light" /> : 'Save'}
+            {uploading ? (
+              <SpinnerBorder size="sm" variant="light" />
+            ) : (
+              'Guardar'
+            )}
           </Button>
         </div>
       </Form>

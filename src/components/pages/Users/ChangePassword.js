@@ -73,14 +73,14 @@ export const ChangePassword = () => {
           }
         })
         .catch((error) => {
-          toast.error('Error when trying to change password.')
+          toast.error('Error al intentar cambiar la contraseña.')
           console.log(error)
         })
         .finally(() => {
           setLoading(false)
         })
     } else {
-      toast.error('Error updating password.')
+      toast.error('Error al actualizar la contraseña.')
       setLoading(false)
     }
   }
@@ -95,7 +95,7 @@ export const ChangePassword = () => {
                 <h1 className="mb-3">
                   <i className="bi bi-check-square"></i>
                 </h1>
-                <h3 className="card-title mb-3">Change Password</h3>
+                <h3 className="card-title mb-3">Cambiar Contraseña</h3>
 
                 <Form className="mx-3" onSubmit={handleSubmit(onSubmit)}>
                   {loading ? (
@@ -111,13 +111,14 @@ export const ChangePassword = () => {
                         register={register}
                         errors={errors.password}
                         icon="bi bi-key"
-                        label="Password"
+                        label="Contraseña"
                         name="password"
                         validationRules={{
-                          required: 'Password is required',
+                          required: 'La contraseña es requerida',
                           minLength: {
                             value: 8,
-                            message: 'Password must have at least 8 characters',
+                            message:
+                              'La contraseña debe tener al menos 8 caracteres',
                           },
                         }}
                       />
@@ -128,17 +129,18 @@ export const ChangePassword = () => {
                         register={register}
                         errors={errors.confirm}
                         icon="bi bi-key"
-                        label="Confirm Password"
+                        label="Confirmar Contraseña Confirm Password"
                         name="confirm"
                         validationRules={{
-                          required: 'Password is required',
+                          required: 'La contraseña es requerida',
                           minLength: {
                             value: 8,
-                            message: 'Password must have at least 8 characters',
+                            message:
+                              'La contraseña debe tener al menos 8 caracteres',
                           },
                           validate: (value) =>
                             value === getValues('password') ||
-                            'The passwords do not match',
+                            'Las contraseñas no coinciden',
                         }}
                       />
 
@@ -147,13 +149,13 @@ export const ChangePassword = () => {
                         variant="dark"
                         className="w-100 my-2"
                       >
-                        Save
+                        Guardar
                       </Button>
                     </>
                   )}
 
                   <span className="card-title">
-                    Do you already have an account??{' '}
+                    ¿Ya tienes una cuenta?{' '}
                     <Link to="/login" style={{ textDecoration: 'none' }}>
                       Login
                     </Link>

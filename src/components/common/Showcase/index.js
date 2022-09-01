@@ -12,16 +12,16 @@ export const Showcase = () => {
         <Row className="d-sm-flex align-items-center justify-content-between">
           <Col>
             <h1>
-              Find the perfect freelance services{' '}
-              <span className="text-warning">for your business</span>
+              Encuentra los mejores servicios freelance{' '}
+              <span className="text-warning">para tu empresa</span>
             </h1>
             <p className="lead my-4">
-              Jobfinder allows you to post your jobs and contact interested
-              people around the world
+              Jobfinder te permitirá publicar tus trabajos y contactar a los
+              interesados desde cualquier parte del mundo
             </p>
 
             <Link to="/offers" className="btn btn-primary btn-lg">
-              View our Job Offers
+              Consulta nuestros trabajos
             </Link>
           </Col>
           <img

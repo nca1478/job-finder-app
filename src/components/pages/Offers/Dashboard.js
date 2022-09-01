@@ -29,7 +29,7 @@ export const DashboardPage = () => {
         }
       })
       .catch((error) => {
-        toast.error('Error try to fetching job offers.')
+        toast.error('Error al intentar obtener ofertas de trabajo.')
         console.log(error)
       })
       .finally(() => {
@@ -47,7 +47,7 @@ export const DashboardPage = () => {
         }
       })
       .catch((error) => {
-        toast.error('Error try to fetching job offers.')
+        toast.error('Error al intentar obtener ofertas de trabajo.')
         console.log(error)
       })
       .finally(() => {
@@ -72,7 +72,7 @@ export const DashboardPage = () => {
         }
       })
       .catch((error) => {
-        toast.error('Error try to publishing job offer.')
+        toast.error('Error al intentar publicar oferta de trabajo.')
         console.log(error)
       })
       .finally(() => {
@@ -81,7 +81,7 @@ export const DashboardPage = () => {
   }
 
   const handleDelete = (offerId) => {
-    const confirm = window.confirm('Are you sure?')
+    const confirm = window.confirm('¿Estás Seguro?')
     if (confirm) {
       del(`/offers/${offerId}`, user.data.token)
         .then((response) => {
@@ -92,7 +92,7 @@ export const DashboardPage = () => {
           }
         })
         .catch((error) => {
-          toast.error('Error try to deleting job offer.')
+          toast.error('Error al intentar eliminar la oferta de trabajo.')
           console.log(error)
         })
         .finally(() => {
@@ -110,7 +110,7 @@ export const DashboardPage = () => {
   return (
     <Col className="bg-primary">
       <Container className="p-4 bg-primary">
-        <h3 className="text-center text-white">Job Offers</h3>
+        <h3 className="text-center text-white">Ofertas de Trabajo</h3>
         <Row className="d-flex justify-content-center g-4 pt-2">
           {!loaded ? (
             <SpinnerBorder size="lg" variant="light" />
@@ -129,7 +129,7 @@ export const DashboardPage = () => {
             </>
           ) : (
             <Alert variant="danger" className="w-75">
-              Oh no.... There are no job offers to show. Come back soon...
+              Oh no.... No hay ofertas de trabajo para mostrar. Vuelve pronto...
             </Alert>
           )}
         </Row>

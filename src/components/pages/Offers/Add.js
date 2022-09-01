@@ -15,7 +15,7 @@ export const AddOfferPage = () => {
   const { user } = useContext(AuthContext)
   const [formValues, setFormValues] = useState({})
   const [page, setPage] = useState(0)
-  const FormTitles = ['Basic Info', 'Skills & Price', 'Location Info']
+  const FormTitles = ['Info Básica', 'Habilidad y Precio', 'Localización']
 
   const handlePrev = () => {
     setPage((currPage) => currPage - 1)
@@ -39,7 +39,7 @@ export const AddOfferPage = () => {
         }
       })
       .catch((error) => {
-        toast.error('Error try to adding job offers.')
+        toast.error('Error al intentar añadir ofertas de trabajo.')
         console.log(error)
       })
       .finally(() => {
@@ -56,7 +56,7 @@ export const AddOfferPage = () => {
           <Col md={{ span: 8, offset: 2 }}>
             <Card>
               <Card.Header as="h5" className="text-center">
-                <span>Add Job Offer - </span> <span>{FormTitles[page]}</span>
+                <span>Agregar Trabajo - </span> <span>{FormTitles[page]}</span>
               </Card.Header>
               <Card.Body>
                 {/* Form Multistep */}

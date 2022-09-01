@@ -65,7 +65,7 @@ export const EditUserPage = () => {
           setLoadedPDF(response.data.cvUrl)
         })
         .catch((error) => {
-          toast.error('Error try to fetching user.')
+          toast.error('Error al intentar recuperar el usuario.')
           console.log(error)
         })
         .finally(() => {
@@ -94,7 +94,7 @@ export const EditUserPage = () => {
           }
         })
         .catch((error) => {
-          toast.error('Error uploading pdf.')
+          toast.error('Error al subir el archivo pdf.')
           console.log(error)
         })
     })
@@ -129,7 +129,7 @@ export const EditUserPage = () => {
         }
       })
       .catch((error) => {
-        toast.error('Please verify the data entered and try again.')
+        toast.error('Verifica los datos ingresados ​​y vuelve a intentarlo.')
         console.log(error)
       })
       .finally(() => {
@@ -153,7 +153,7 @@ export const EditUserPage = () => {
         }
       })
       .catch((error) => {
-        toast.error('Please verify the data entered and try again.')
+        toast.error('Verifica los datos ingresados ​​y vuelve a intentarlo.')
         console.log(error)
       })
       .finally(() => {
@@ -198,7 +198,7 @@ export const EditUserPage = () => {
             <Col md={{ span: 6, offset: 3 }}>
               <Card className="text-dark">
                 <Card.Header as="h5" className="text-center">
-                  User Profile Info
+                  Perfil del Usuario
                 </Card.Header>
                 <Form className="mx-3" onSubmit={handleSubmit(onSubmit)}>
                   <Card.Body className="animate__animated animate__fadeIn">
@@ -213,8 +213,8 @@ export const EditUserPage = () => {
                         <InputForm
                           type="text"
                           name="name"
-                          label="Name"
-                          placeholder="Enter Name"
+                          label="Nombre"
+                          placeholder="Ingresa Nombre"
                           controlId="formBasicName"
                           register={register}
                           errors={errors.name}
@@ -224,7 +224,7 @@ export const EditUserPage = () => {
                           type="email"
                           name="email"
                           label="Email"
-                          placeholder="Enter Email"
+                          placeholder="Ingresa Email"
                           controlId="formBasicEmail"
                           register={register}
                           errors={errors.email}
@@ -236,12 +236,12 @@ export const EditUserPage = () => {
                         />
                       </Tab>
 
-                      <Tab eventKey="job" title="Job">
+                      <Tab eventKey="job" title="Trabajo">
                         <InputForm
                           type="text"
                           name="profession"
-                          label="Profession"
-                          placeholder="Enter Profession"
+                          label="Profesión"
+                          placeholder="Ingresa Profesión"
                           controlId="formBasicProfession"
                           register={register}
                           errors={errors.profession}
@@ -249,7 +249,7 @@ export const EditUserPage = () => {
 
                         <SelectForm
                           controlId="formBasicEducation"
-                          label="Education"
+                          label="Educación"
                           value={educationSelect}
                           options={educationOptions}
                           onChange={handleEducationChange}
@@ -269,7 +269,7 @@ export const EditUserPage = () => {
                           controlId="formBasicLinkedinUser"
                           icon="bi bi-linkedin"
                           label="Linkedin"
-                          placeholder="Enter linkedin user"
+                          placeholder="Ingresa el usuario de linkedin"
                           register={register}
                         />
 
@@ -279,7 +279,7 @@ export const EditUserPage = () => {
                           controlId="formBasicTwitterUser"
                           icon="bi bi-twitter"
                           label="Twitter"
-                          placeholder="Enter twitter user"
+                          placeholder="Ingresa el usuario de twitter"
                           register={register}
                         />
 
@@ -289,7 +289,7 @@ export const EditUserPage = () => {
                           controlId="formBasicInstagramUser"
                           icon="bi bi-instagram"
                           label="Instagram"
-                          placeholder="Enter instagram user"
+                          placeholder="Ingresa el usuario de instagram"
                           register={register}
                         />
 
@@ -299,7 +299,7 @@ export const EditUserPage = () => {
                           controlId="formBasicFacebookUser"
                           icon="bi bi-facebook"
                           label="Facebook"
-                          placeholder="Enter facebook user"
+                          placeholder="Ingresa el usuario de facebook"
                           register={register}
                         />
                       </Tab>
@@ -321,7 +321,7 @@ export const EditUserPage = () => {
                       {uploading ? (
                         <SpinnerBorder size="sm" variant="light" />
                       ) : (
-                        'Save'
+                        'Guardar'
                       )}
                     </Button>
                   </Card.Body>

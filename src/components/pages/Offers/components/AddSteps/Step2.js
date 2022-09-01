@@ -32,7 +32,7 @@ export const Step2 = (props) => {
         setSkillsOptions(skills)
       })
       .catch((error) => {
-        toast.error('Error try to fetching skills.')
+        toast.error('Error al intentar obtener habilidades.')
         console.log(error)
       })
   }, [])
@@ -60,7 +60,7 @@ export const Step2 = (props) => {
       <Form className="mx-3" onSubmit={handleSubmit(onSubmit)}>
         <SelectForm
           name="skills"
-          label="Skills"
+          label="Habilidades"
           controlId="formBasicSkills"
           control={control}
           options={skillsOptions}
@@ -71,8 +71,8 @@ export const Step2 = (props) => {
         <InputForm
           type="number"
           name="price"
-          label="Price"
-          placeholder="Enter Price"
+          label="Precio"
+          placeholder="Ingresa Precio"
           controlId="formBasicPrice"
           register={register}
           errors={errors.price}
@@ -80,7 +80,7 @@ export const Step2 = (props) => {
 
         <SelectForm
           name="currency"
-          label="Currency"
+          label="Moneda"
           controlId="formBasicCurrency"
           control={control}
           options={currencyOptions}
@@ -96,10 +96,10 @@ export const Step2 = (props) => {
             disabled={page === 0 && 'false'}
             onClick={handlePrev}
           >
-            Prev
+            Anterior
           </Button>
           <Button type="submit" variant="primary" className="px-4">
-            Next
+            Siguiente
           </Button>
         </div>
       </Form>

@@ -9,17 +9,17 @@ export const BoxesSection = () => {
   return (
     <section className="p-5 bg-primary">
       <Container>
-        <h2 className="text-center text-white mb-4">Why Job Finder?</h2>
+        <h2 className="text-center text-white mb-4">¿Porqué Jobfinder?</h2>
         <Row className="text-center g-4">
           <Col md={4} sm={12}>
             <Box
               bgColor="bg-dark"
               textColor="text-light"
-              title="Easy"
+              title="Fácil"
               icon="bi bi-emoji-smile"
               bodyText={textBox[0].body}
               buttonColor="btn-primary"
-              buttonText="View Job Offers"
+              buttonText="Ver Trabajos"
               goTo="/offers"
             />
           </Col>
@@ -28,11 +28,11 @@ export const BoxesSection = () => {
             <Box
               bgColor="bg-secondary"
               textColor="text-light"
-              title="Fast"
+              title="Rápido"
               icon="bi bi-speedometer"
               bodyText={textBox[1].body}
               buttonColor="btn-dark"
-              buttonText="View Job Offers"
+              buttonText="Ver Trabajos"
               goTo="/offers"
             />
           </Col>
@@ -41,11 +41,11 @@ export const BoxesSection = () => {
             <Box
               bgColor="bg-dark"
               textColor="text-light"
-              title="Secure"
+              title="Seguro"
               icon="bi bi-shield-check"
               bodyText={textBox[2].body}
               buttonColor="btn-primary"
-              buttonText="View Job Offers"
+              buttonText="Ver Trabajos"
               goTo="/offers"
             />
           </Col>

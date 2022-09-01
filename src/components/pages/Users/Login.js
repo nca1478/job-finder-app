@@ -41,7 +41,7 @@ export const LoginPage = () => {
         }
       })
       .catch((error) => {
-        toast.error('Error when trying to login.')
+        toast.error('Error al intentar iniciar sesión.')
         console.log(error)
       })
   }
@@ -65,7 +65,7 @@ export const LoginPage = () => {
         }
       })
       .catch((error) => {
-        toast.error('Error when trying to google login.')
+        toast.error('Error al intentar iniciar sesión en Google.')
         console.log(error)
       })
   }
@@ -92,7 +92,7 @@ export const LoginPage = () => {
         }
       })
       .catch((error) => {
-        toast.error('Error when trying to facebook login.')
+        toast.error('Error al intentar iniciar sesión en facebook.')
         console.log(error)
       })
   }
@@ -118,7 +118,7 @@ export const LoginPage = () => {
                     icon="bi bi-person-circle"
                     label="Email"
                     name="email"
-                    validationRules={{ required: 'Email is required' }}
+                    validationRules={{ required: 'Email es requerido' }}
                   />
 
                   {/* Password */}
@@ -127,9 +127,9 @@ export const LoginPage = () => {
                     register={register}
                     errors={errors.password}
                     icon="bi bi-key"
-                    label="Password"
+                    label="Contraseña"
                     name="password"
-                    validationRules={{ required: 'Password is required' }}
+                    validationRules={{ required: 'Contraseña es requerida' }}
                   />
 
                   {/* Login Buttons */}
@@ -137,26 +137,26 @@ export const LoginPage = () => {
                     Login
                   </Button>
 
-                  <h5 className="card-title my-3">Or</h5>
+                  <h5 className="card-title my-3">O</h5>
 
                   {/* Social Media Authentication Buttons */}
                   <GoogleButton responseGoogle={responseGoogle} />
                   <FacebookButton responseFacebook={responseFacebook} />
 
                   <span className="card-title">
-                    Do you need an account?{' '}
+                    ¿Necesitas una cuenta?{' '}
                     <Link to="/register" style={{ textDecoration: 'none' }}>
-                      Register
+                      Registrar
                     </Link>
                   </span>
                   <br />
                   <span className="card-title">
-                    Forgot your password?{' '}
+                    ¿Olvidaste tu contraseña?{' '}
                     <Link
                       to="/recover-password"
                       style={{ textDecoration: 'none' }}
                     >
-                      Recover
+                      Recuperar
                     </Link>
                   </span>
                 </Form>

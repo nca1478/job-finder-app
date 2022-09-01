@@ -115,7 +115,7 @@ export const OfferPage = () => {
                   onClick={handleShowDescription}
                 >
                   <span className="fw-bold">
-                    <i className="bi bi-eye"></i> Details
+                    <i className="bi bi-eye"></i> Detalles
                   </span>
                 </Button>
               </span>
@@ -124,14 +124,14 @@ export const OfferPage = () => {
             <Row>
               <ListGroup as="ul" variant="flush" className="lead">
                 <ListGroup.Item>
-                  <span className="fw-bold">Job Price:</span>{' '}
+                  <span className="fw-bold">Precio:</span>{' '}
                   <span className="fw-bold h3">
                     {offer.price} {extractCurrency(offer.currency)}
                   </span>
                 </ListGroup.Item>
 
                 <ListGroup.Item>
-                  <span className="fw-bold">Skills:</span>{' '}
+                  <span className="fw-bold">Habilidades:</span>{' '}
                   {offer.skills.map((skill) => {
                     return (
                       <Badge key={skill.id} pill bg="dark" className="mx-1">
@@ -142,7 +142,7 @@ export const OfferPage = () => {
                 </ListGroup.Item>
 
                 <ListGroup.Item>
-                  <span className="fw-bold">Sectors:</span>{' '}
+                  <span className="fw-bold">Sectores:</span>{' '}
                   {offer.sectors.map(
                     (sector, index) =>
                       sector.name +
@@ -151,13 +151,13 @@ export const OfferPage = () => {
                 </ListGroup.Item>
 
                 <ListGroup.Item>
-                  <span className="fw-bold">Country:</span> {offer.country}
+                  <span className="fw-bold">País:</span> {offer.country}
                 </ListGroup.Item>
                 <ListGroup.Item>
-                  <span className="fw-bold">State:</span> {offer.state}
+                  <span className="fw-bold">Estado:</span> {offer.state}
                 </ListGroup.Item>
                 <ListGroup.Item>
-                  <span className="fw-bold">City:</span> {offer.city}
+                  <span className="fw-bold">Ciudad:</span> {offer.city}
                 </ListGroup.Item>
 
                 {/* Modals */}
@@ -179,7 +179,7 @@ export const OfferPage = () => {
                     className="w-100"
                     onClick={handleShowContactInfo}
                   >
-                    <i className="bi bi-eye"></i> User Information
+                    <i className="bi bi-eye"></i> Información de Contacto
                   </Button>
                 </ListGroup.Item>
               </ListGroup>

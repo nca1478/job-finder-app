@@ -35,7 +35,7 @@ export const ContactModal = ({ show, handleClose, userProfile }) => {
   return (
     <Modal show={show} onHide={handleClose} centered>
       <Modal.Header closeButton>
-        <Modal.Title>Contact Information</Modal.Title>
+        <Modal.Title>Información de Contacto</Modal.Title>
       </Modal.Header>
       <Modal.Body>
         <Row>
@@ -49,7 +49,7 @@ export const ContactModal = ({ show, handleClose, userProfile }) => {
           </Col>
           <Col md={9} xs={12}>
             <Form.Group controlId="formBasicName">
-              <Form.Label>Name</Form.Label>
+              <Form.Label>Nombre</Form.Label>
               <Form.Control {...register('name')} className="mb-3" disabled />
             </Form.Group>
           </Col>
@@ -57,7 +57,7 @@ export const ContactModal = ({ show, handleClose, userProfile }) => {
         <Row className="mt-1">
           <Col>
             <Form.Group controlId="formBasicProfession">
-              <Form.Label>Profession</Form.Label>
+              <Form.Label>Profesión</Form.Label>
               <Form.Control
                 {...register('profession')}
                 className="mb-3"
@@ -67,7 +67,7 @@ export const ContactModal = ({ show, handleClose, userProfile }) => {
           </Col>
           <Col>
             <Form.Group controlId="formBasicEducation">
-              <Form.Label>Education</Form.Label>
+              <Form.Label>Educación</Form.Label>
               <Form.Control
                 {...register('education')}
                 className="mb-3"
@@ -82,7 +82,7 @@ export const ContactModal = ({ show, handleClose, userProfile }) => {
         </Form.Group>
 
         <Form.Group controlId="formBasicSocialNetworks">
-          <Form.Label className="d-block">Social Networks</Form.Label>
+          <Form.Label className="d-block">Redes Sociales</Form.Label>
           {linkedinUser || twitterUser || instagramUser || facebookUser ? (
             <div className="d-flex justify-content-start">
               <LinkedinButton user={linkedinUser} />
@@ -92,7 +92,7 @@ export const ContactModal = ({ show, handleClose, userProfile }) => {
             </div>
           ) : (
             <Form.Control
-              value="No has registered social networks"
+              value="No tiene redes sociales registradas"
               className="mb-3"
               disabled
             />
@@ -108,7 +108,7 @@ export const ContactModal = ({ show, handleClose, userProfile }) => {
               target="_blank"
               rel="noreferrer"
             >
-              Display / Download
+              Mostrar / Descargar
             </a>
           ) : (
             <Form.Control

@@ -48,7 +48,7 @@ export const Step3 = (props) => {
       <Form className="mx-3" onSubmit={handleSubmit(onSubmit)}>
         <SelectForm
           name="country"
-          label="Country"
+          label="País"
           controlId="formBasicCountry"
           control={control}
           options={countryOptions}
@@ -59,8 +59,8 @@ export const Step3 = (props) => {
         <InputForm
           type="text"
           name="state"
-          label="State"
-          placeholder="Enter State"
+          label="Estado"
+          placeholder="Ingresa Estado"
           controlId="formBasicState"
           register={register}
           errors={errors.state}
@@ -69,8 +69,8 @@ export const Step3 = (props) => {
         <InputForm
           type="text"
           name="city"
-          label="City"
-          placeholder="Enter City"
+          label="Ciudad"
+          placeholder="Ingresa Ciudad"
           controlId="formBasicCity"
           register={register}
           errors={errors.city}

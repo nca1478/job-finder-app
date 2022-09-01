@@ -1,21 +1,21 @@
 export const educationOptions = [
-  { value: '1', label: 'School Studies' },
-  { value: '2', label: 'Vocational Training' },
-  { value: '3', label: 'College Degree' },
-  { value: '4', label: 'Doctoral Program' },
-  { value: '5', label: 'Master Program' },
-  { value: '6', label: 'Without Studies' },
-  { value: '7', label: 'Other' },
+  { value: '1', label: 'Estudios Escolares' },
+  { value: '2', label: 'Entrenamiento Vocacional' },
+  { value: '3', label: 'Título Universitario' },
+  { value: '4', label: 'Doctorado' },
+  { value: '5', label: 'Maestría' },
+  { value: '6', label: 'Sin Estudios' },
+  { value: '7', label: 'Otros' },
 ]
 
 export const currenciesList = [
   {
     id: 'CLP',
-    name: 'Chilean Peso',
+    name: 'Peso Chileno',
   },
   {
     id: 'COP',
-    name: 'Colombian Peso',
+    name: 'Peso Colombiano',
   },
   {
     id: 'EUR',
@@ -23,18 +23,18 @@ export const currenciesList = [
   },
   {
     id: 'MXN',
-    name: 'Mexican Peso',
+    name: 'Peso Mexicano',
   },
   {
     id: 'PEN',
-    name: 'Peruvian Sol',
+    name: 'Sol Peruano',
   },
   {
     id: 'USD',
-    name: 'US Dollar',
+    name: 'Dolar Americano',
   },
   {
     id: 'VES',
-    name: 'Venezuelan Bolívar Soberano',
+    name: 'Bolívar Venezolano',
   },
 ]

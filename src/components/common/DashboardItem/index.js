@@ -32,20 +32,20 @@ export const DashboardItem = (props) => {
                   size="sm"
                   onClick={() => handlePublish(id, published)}
                 >
-                  {published === false ? 'Publish' : 'Unpublish'}
+                  {published === false ? 'Publicar' : 'Despublicar'}
                 </Button>
                 <Link
                   to={`/offer/${id}/edit`}
                   className="btn btn-primary btn-sm"
                 >
-                  Edit
+                  Editar
                 </Link>
                 <Button
                   variant="danger"
                   size="sm"
                   onClick={() => handleDelete(id)}
                 >
-                  Delete
+                  Borrar
                 </Button>
               </Stack>
             </Col>
