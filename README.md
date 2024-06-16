@@ -1,6 +1,6 @@
 # Jobfinder App
 
-`Jobfinder App` es una aplicación web que te permite publicar tus trabajos y contactar a personas interesadas en todo el mundo.
+`Jobfinder App` es una aplicación web que te permite publicar tus trabajos y contactar a personas interesadas en todo el mundo..
 
 ## Características
 
