@@ -1,7 +1,7 @@
 // Dependencies
-import { useContext } from 'react'
-import { useForm } from 'react-hook-form'
-import { Link, NavLink, useNavigate } from 'react-router-dom'
+import { useContext } from "react";
+import { useForm } from "react-hook-form";
+import { Link, NavLink, useNavigate } from "react-router-dom";
 import {
   Container,
   Nav,
@@ -9,35 +9,35 @@ import {
   Form,
   Button,
   NavDropdown,
-} from 'react-bootstrap'
-import { LinkContainer } from 'react-router-bootstrap'
+} from "react-bootstrap";
+import { LinkContainer } from "react-router-bootstrap";
 
 // Custom Dependencies
-import { AuthContext } from '../../../auth/authContext'
-import { types } from '../../../types/types'
+import { AuthContext } from "../../../auth/authContext";
+import { types } from "../../../types/types";
 
 export const MainNavbar = () => {
-  const { user, dispatch } = useContext(AuthContext)
-  const { register, handleSubmit, setValue } = useForm()
-  const navigate = useNavigate()
+  const { user, dispatch } = useContext(AuthContext);
+  const { register, handleSubmit, setValue } = useForm();
+  const navigate = useNavigate();
 
   const handleLogout = () => {
-    dispatch({ type: types.logout })
-    sessionStorage.removeItem('joboffer-path')
-    navigate('/', { replace: true })
-  }
+    dispatch({ type: types.logout });
+    sessionStorage.removeItem("joboffer-path");
+    navigate("/", { replace: true });
+  };
 
   const handleOnBlur = () => {
-    setValue('searchText', null)
-  }
+    setValue("searchText", null);
+  };
 
   const onSubmit = (data) => {
-    navigate(`/search?q=${data.searchText}`)
-  }
+    navigate(`/search?q=${data.searchText}`);
+  };
 
   const styleActive = ({ isActive }) => {
-    return 'nav-item nav-link ' + (isActive ? 'active' : '')
-  }
+    return "nav-item nav-link " + (isActive ? "active" : "");
+  };
 
   return (
     <>
@@ -52,7 +52,7 @@ export const MainNavbar = () => {
           <Navbar.Collapse id="navbarScroll">
             <Nav
               className="me-auto my-2 my-lg-0"
-              style={{ maxHeight: '100px' }}
+              style={{ maxHeight: "100px" }}
               navbarScroll
             >
               <NavLink to="/" className={styleActive}>
@@ -70,7 +70,7 @@ export const MainNavbar = () => {
               </NavDropdown>
 
               {user.logged ? (
-                user.data.role === 'USER_ROLE' ? (
+                user.data.role === "USER_ROLE" ? (
                   <>
                     <NavLink to="/dashboard" className={styleActive}>
                       Dashboard
@@ -106,7 +106,7 @@ export const MainNavbar = () => {
                 placeholder="Buscar trabajos"
                 className="me-2"
                 aria-label="Search"
-                {...register('searchText', {
+                {...register("searchText", {
                   onBlur: handleOnBlur,
                 })}
               />
@@ -139,5 +139,5 @@ export const MainNavbar = () => {
         </Container>
       </Navbar>
     </>
-  )
-}
+  );
+};

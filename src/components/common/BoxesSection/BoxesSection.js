@@ -1,9 +1,9 @@
 // Dependencies
-import { Container, Row, Col } from 'react-bootstrap'
+import { Container, Row, Col } from "react-bootstrap";
 
 // Custom Dependencies
-import { Box } from '../Box/Box'
-import textBox from './text.json'
+import { Box } from "../Box/Box";
+import textBox from "./text.json";
 
 export const BoxesSection = () => {
   return (
@@ -52,5 +52,5 @@ export const BoxesSection = () => {
         </Row>
       </Container>
     </section>
-  )
-}
+  );
+};
