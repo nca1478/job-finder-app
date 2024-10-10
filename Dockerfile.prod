@@ -1,5 +1,4 @@
-ARG NODE_VERSION=12.13.0
-FROM node:${NODE_VERSION}-alpine as build
+FROM node:14.15-alpine3.13 AS build
 WORKDIR /app
 COPY package*.json ./
 RUN npm install --frozen-lockfile
